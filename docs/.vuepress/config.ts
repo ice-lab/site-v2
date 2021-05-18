@@ -6,8 +6,8 @@ import type { DefaultThemeOptions } from '@vuepress/theme-default';
 import { navbar, sidebar } from './configs';
 
 export default defineUserConfig<DefaultThemeOptions>({
-  head: [['link', { rel: 'icon', href: '/favicon.png' }]],
   base: '/site/',
+  head: [['link', { rel: 'icon', href: '/site/favicon.png' }]],
   locales: {
     '/': {
       lang: 'zh-CN',
