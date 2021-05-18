@@ -6,6 +6,7 @@ import type { DefaultThemeOptions } from '@vuepress/theme-default';
 import { navbar, sidebar } from './configs';
 
 export default defineUserConfig<DefaultThemeOptions>({
+  base: '/site/',
   locales: {
     '/': {
       lang: 'zh-CN',
