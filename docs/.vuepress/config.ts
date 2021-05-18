@@ -7,7 +7,7 @@ import { navbar, sidebar } from './configs';
 
 export default defineUserConfig<DefaultThemeOptions>({
   head: [['link', { rel: 'icon', href: '/favicon.png' }]],
-
+  base: '/site/',
   locales: {
     '/': {
       lang: 'zh-CN',
