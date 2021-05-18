@@ -1,8 +1,10 @@
 ---
 title: 关于飞冰
 order: 1
-cover: https://gw.alicdn.com/tfs/TB1vBRYaVOWBuNjy0FiXXXFxVXa-2558-1306.jpg
 ---
+
+<img style="height: 200px; width: 100%;
+    object-fit: cover;" src="https://gw.alicdn.com/tfs/TB1vBRYaVOWBuNjy0FiXXXFxVXa-2558-1306.jpg" />
 
 ## 特性
 

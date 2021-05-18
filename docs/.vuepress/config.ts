@@ -6,10 +6,12 @@ import type { DefaultThemeOptions } from '@vuepress/theme-default';
 import { navbar, sidebar } from './configs';
 
 export default defineUserConfig<DefaultThemeOptions>({
+  head: [['link', { rel: 'icon', href: '/favicon.png' }]],
+
   locales: {
     '/': {
       lang: 'zh-CN',
-      title: '飞冰',
+      // title: '飞冰',
       description: 'Vue-powered Static Site Generator',
     },
     // 显示多语言
@@ -22,8 +24,10 @@ export default defineUserConfig<DefaultThemeOptions>({
 
   themeConfig: {
     logo: 'https://img.alicdn.com/tfs/TB1AI2vteOSBuNjy0FdXXbDnVXa-680-192.png',
-
     repo: 'alibaba/ice',
+    docsDir: 'docs/',
+    docsBranch: 'master',
+    docsRepo: 'ice-lab/site',
 
     // theme-level locales config
     locales: {
@@ -33,8 +37,10 @@ export default defineUserConfig<DefaultThemeOptions>({
         selectLanguageName: '简体中文',
         selectLanguageText: 'Languages',
         selectLanguageAriaLabel: 'Languages',
-        // sidebar
         sidebar: sidebar.zh,
+        editLinkText: '编辑此文档',
+        contributorsText: '贡献者',
+        lastUpdatedText: '最后更新时间',
       },
 
       // 多语言配置
@@ -73,6 +79,17 @@ export default defineUserConfig<DefaultThemeOptions>({
       '@vuepress/plugin-register-components',
       {
         componentsDir: path.resolve(__dirname, './components'),
+      },
+    ],
+    [
+      '@vuepress/plugin-search',
+      {
+        locales: {
+          '/': {
+            placeholder: '搜索',
+            maxSuggestions: 10,
+          },
+        },
       },
     ],
   ],

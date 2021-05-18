@@ -1,1 +1,5 @@
+---
+pageClass: home-page
+---
+
 <Home />
