@@ -1,3 +1,13 @@
+body {
+  --search-accent-color: #5485f7;
+  --search-item-text-color: #5485f7;
+}
+
+// diff 删除
+.token.inserted {
+  color: #7ec699 !important;
+}
+
 .materials-page,
 .home-page {
   h1 {
