@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "vuepress dev docs",
-    "build": "vuepress build docs"
+    "build": "npm run generate-materials-docs && vuepress build docs",
+    "generate-materials-docs": "node scripts/generate-materials-docs.js"
   },
   "author": "",
   "license": "ISC",

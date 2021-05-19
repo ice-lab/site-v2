@@ -95,7 +95,38 @@ export const zh: SidebarConfig = {
         {
           isGroup: true,
           text: '基础组件',
-          children: getDocsFromDir('/fusion/components'),
+          children: [
+            {
+              isGroup: true,
+              text: '通用',
+              children: getDocsFromDir('/fusion/components/general'),
+            },
+            {
+              isGroup: true,
+              text: '导航',
+              children: getDocsFromDir('/fusion/components/nav'),
+            },
+            {
+              isGroup: true,
+              text: '表单',
+              children: getDocsFromDir('/fusion/components/form'),
+            },
+            {
+              isGroup: true,
+              text: '展示',
+              children: getDocsFromDir('/fusion/components/display'),
+            },
+            {
+              isGroup: true,
+              text: '反馈',
+              children: getDocsFromDir('/fusion/components/feedback'),
+            },
+            {
+              isGroup: true,
+              text: '方法',
+              children: getDocsFromDir('/fusion/components/util'),
+            },
+          ],
         },
         {
           isGroup: true,
