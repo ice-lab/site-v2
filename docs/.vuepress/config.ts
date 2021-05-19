@@ -11,8 +11,8 @@ export default defineUserConfig<DefaultThemeOptions>({
   locales: {
     '/': {
       lang: 'zh-CN',
-      // title: '飞冰',
-      description: 'Vue-powered Static Site Generator',
+      title: '飞冰',
+      description: '飞冰（ICE），基于 React 的渐进式研发框架。',
     },
     // 显示多语言
     // '/en/': {
@@ -40,7 +40,13 @@ export default defineUserConfig<DefaultThemeOptions>({
         sidebar: sidebar.zh,
         editLinkText: '编辑此文档',
         contributorsText: '贡献者',
-        lastUpdatedText: '最后更新时间',
+        lastUpdatedText: '上次更新',
+        tip: '提示',
+        warning: '注意',
+        danger: '警告',
+        notFound: ['这里什么都没有', '我们怎么到这来了？', '这是一个 404 页面', '看起来我们进入了错误的链接'],
+        backToHome: '返回首页',
+        openInNewWindow: '在新窗口打开',
       },
 
       // 多语言配置
@@ -53,23 +59,6 @@ export default defineUserConfig<DefaultThemeOptions>({
 
       //   // // sidebar
       //   // sidebar: sidebar.zh,
-
-      //   // // page meta
-      //   // editLinkText: '在 GitHub 上编辑此页',
-      //   // lastUpdatedText: '上次更新',
-      //   // contributorsText: '贡献者',
-
-      //   // // custom containers
-      //   // tip: '提示',
-      //   // warning: '注意',
-      //   // danger: '警告',
-
-      //   // // 404 page
-      //   // notFound: ['这里什么都没有', '我们怎么到这来了？', '这是一个 404 页面', '看起来我们进入了错误的链接'],
-      //   // backToHome: '返回首页',
-
-      //   // // other
-      //   // openInNewWindow: '在新窗口打开',
       // },
     },
   },
@@ -90,6 +79,12 @@ export default defineUserConfig<DefaultThemeOptions>({
             maxSuggestions: 10,
           },
         },
+      },
+    ],
+    [
+      '@vuepress/plugin-google-analytics',
+      {
+        id: 'G-QZ0FEKY38G',
       },
     ],
   ],

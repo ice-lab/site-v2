@@ -1,13 +1,9 @@
 ---
-title: 使用 fusion 组件
-order: 14
+title: fusion
+order: 4
 ---
 
-项目开发中如果使用 `@alifd/next` 作为基础 UI 组件，可以通过 `build-plugin-fusion` 插件实现组件按需加载和样式主题等相关能力。
-
-## 使用插件
-
-安装依赖：
+## Install
 
 ```bash
 $ npm install build-plugin-fusion --save-dev
@@ -18,26 +14,29 @@ $ npm install build-plugin-fusion --save-dev
 ```json
 {
   "plugins": [
-    ["build-plugin-fusion", {
-      // ...options
-    }]
+    [
+      "build-plugin-fusion",
+      {
+        // ...options
+      }
+    ]
   ]
 }
 ```
 
-插件配置项：
+## Options
 
-* `themePackage` Fusion 组件主题包配置，如果设置为数组则启动多主题能力
-* `themeConfig` 主题配置，通过设置 sass 变量对现有主题进行覆盖
-* `uniteBaseComponent` 如果项目里依赖了多个不同名称的基础包，可以通过 uniteBaseComponent 来统一基础包，减少重复的代码
-* `importOptions` 同 `babel-plugin-import` 参数，默认为 `{ style: true, libraryDirectory: 'es'}` 根据用户设置项将进行合并
-* `externalNext` 配合 `externals` 配置，将 Next 组件作为外部依赖引入
-* `usePx2Vw` 配合 postcss 插件，将 css 样式单位 px 转化为 vw ，默认为 false 不开启， true 为开启
-* `px2vwOptions` 传递参数给postcss插件，默认为`{ viewportWidth: 750 }` 根据用户设置项将进行合并
-* `componentOptions` 值为对象，修改业务组件的引入路径，推荐用在 PC 跨 H5 的项目中，给业务组件指定 H5 的渲染组件
-* `enableColorNames` 默认为 `false`，如果开启默认将提取 `transparent`、`red`、`blue` 等色值名称
-* `nextPrefix` 仅修改 `@alifd/next` 里的 css-prefix，一般用于 0.x&1.x 共存的场景
-* `cssVariable`  默认为 `false`，如果开启后将默认使用 css variables 的样式方案替换 sass 方案
+- `themePackage` Fusion 组件主题包配置，如果设置为数组则启动多主题能力
+- `themeConfig` 主题配置，通过设置 sass 变量对现有主题进行覆盖
+- `uniteBaseComponent` 如果项目里依赖了多个不同名称的基础包，可以通过 uniteBaseComponent 来统一基础包，减少重复的代码
+- `importOptions` 同 `babel-plugin-import` 参数，默认为 `{ style: true, libraryDirectory: 'es'}` 根据用户设置项将进行合并
+- `externalNext` 配合 `externals` 配置，将 Next 组件作为外部依赖引入
+- `usePx2Vw` 配合 postcss 插件，将 css 样式单位 px 转化为 vw ，默认为 false 不开启， true 为开启
+- `px2vwOptions` 传递参数给 postcss 插件，默认为`{ viewportWidth: 750 }` 根据用户设置项将进行合并
+- `componentOptions` 值为对象，修改业务组件的引入路径，推荐用在 PC 跨 H5 的项目中，给业务组件指定 H5 的渲染组件
+- `enableColorNames` 默认为 `false`，如果开启默认将提取 `transparent`、`red`、`blue` 等色值名称
+- `nextPrefix` 仅修改 `@alifd/next` 里的 css-prefix，一般用于 0.x&1.x 共存的场景
+- `cssVariable` 默认为 `false`，如果开启后将默认使用 css variables 的样式方案替换 sass 方案
 
 ## 通过主题包定制组件样式
 
@@ -60,7 +59,7 @@ ICE 脚手架中默认使用了 `@alifd/theme-design-pro` 这个主题包，如�
 ```jsx
 import { Icon } from '@alifd/next';
 
-<Icon type="xxxx" />
+<Icon type="xxxx" />;
 ```
 
 ## 业务代码支持主题切换
@@ -69,7 +68,7 @@ import { Icon } from '@alifd/next';
 
 ```scss
 // 引入主题变量
-@import "~@alifd/next/lib/core/index.scss";
+@import '~@alifd/next/lib/core/index.scss';
 
 // 使用主题变量
 .title {
@@ -87,9 +86,12 @@ import { Icon } from '@alifd/next';
     "@alifd/next": "Next"
   },
   "plugins": [
-    ["build-plugin-fusion", {
-      "externalNext": true
-    }]
+    [
+      "build-plugin-fusion",
+      {
+        "externalNext": true
+      }
+    ]
   ]
 }
 ```
@@ -101,12 +103,15 @@ fusion 组件的默认 class 前缀是 `next-`，在微前端等场景下可能�
 ```json
 {
   "plugins": [
-    ["build-plugin-fusion", {
-      "themePackage": "@alifd/theme-design-pro",
-      "themeConfig": {
-        "css-prefix": "next-icestark-"
+    [
+      "build-plugin-fusion",
+      {
+        "themePackage": "@alifd/theme-design-pro",
+        "themeConfig": {
+          "css-prefix": "next-icestark-"
+        }
       }
-    }]
+    ]
   ]
 }
 ```
@@ -141,20 +146,26 @@ build-plugin-fusion 结合 fusion 自身可以配置主题包的能力，支持�
 ```json
 {
   "plugins": [
-    ["build-plugin-fusion", {
-      "themePackage": [{
-        "name": "@alifd/theme-design-pro",
-        "default": true,
-        "themeConfig": {
-          "custom-color": "#000"
-        }
-      }, {
-        "name": "@alifd/theme-ice-purple",
-        "themeConfig": {
-          "custom-color": "#fff"
-        }
-      }]
-    }]
+    [
+      "build-plugin-fusion",
+      {
+        "themePackage": [
+          {
+            "name": "@alifd/theme-design-pro",
+            "default": true,
+            "themeConfig": {
+              "custom-color": "#000"
+            }
+          },
+          {
+            "name": "@alifd/theme-ice-purple",
+            "themeConfig": {
+              "custom-color": "#fff"
+            }
+          }
+        ]
+      }
+    ]
   ]
 }
 ```
@@ -205,31 +216,36 @@ window.__changeTheme__('@alifd/theme-ice-purple');
 ```js
 module.exports = {
   plugins: [
-    ['build-plugin-fusion', {
-      usePx2Vw: true,                                       // 开启r?px => vw 的单位转换
-      importOptions: {
-        libraryDirectory: 'lib',
-        customName: (name) => {                             // 自定义「基础组件」的 H5 的引入路径，注意对 @alifd/next 的版本要求
-          if(['config-provider'].indexOf(name) !== -1) {
-            return `@alifd/next/lib/${name}`;
-          }
-          return `@alifd/next/lib/${name}/mobile`;          // mobile 是在 1.21.7-alpha 版本开始支持的
+    [
+      'build-plugin-fusion',
+      {
+        usePx2Vw: true, // 开启r?px => vw 的单位转换
+        importOptions: {
+          libraryDirectory: 'lib',
+          customName: (name) => {
+            // 自定义「基础组件」的 H5 的引入路径，注意对 @alifd/next 的版本要求
+            if (['config-provider'].indexOf(name) !== -1) {
+              return `@alifd/next/lib/${name}`;
+            }
+            return `@alifd/next/lib/${name}/mobile`; // mobile 是在 1.21.7-alpha 版本开始支持的
+          },
+          customStyleName: (name) => {
+            // 引入没有Mobile版本的PC组件的样式
+            return `@alifd/next/lib/${name}/style.js`;
+          },
         },
-        customStyleName: (name) => {
-          // 引入没有Mobile版本的PC组件的样式
-          return `@alifd/next/lib/${name}/style.js`;
-        }
+        componentOptions: {
+          // 自定义「业务组件」的H5的引入路径
+          bizComponent: ['@alifd/anchor', '@alifd/pro-components'], // 业务组件列表
+          customPath: '/es/mobile', // 默认值为''
+          componentMap: {
+            '@alifd/pro-components2': '@alifd/pro-components2-mobile',
+          },
+        },
       },
-      componentOptions: {                                            // 自定义「业务组件」的H5的引入路径
-        bizComponent: ['@alifd/anchor', '@alifd/pro-components'],    // 业务组件列表
-        customPath: '/es/mobile',                                    // 默认值为''
-        componentMap: {
-          '@alifd/pro-components2': '@alifd/pro-components2-mobile'
-        }
-      },
-    }]
+    ],
   ],
-}
+};
 ```
 
 ### componentOptions 详解
@@ -246,9 +262,10 @@ customPath: '/es/mobile'
 import Anchor from '@alifd/anchor';
 ReactDOM.render(<Anchor>xxxx</Anchor>);
       ↓ ↓ ↓ ↓ ↓ ↓
-var _anchor = require('@alifd/anchor/es/mobile');   // 差别在这里 多了一层 es 和 mobile 
+var _anchor = require('@alifd/anchor/es/mobile');   // 差别在这里 多了一层 es 和 mobile
 ReactDOM.render(<_anchor>xxxx</_anchor>);
 ```
+
 #### customPath 自定义的路径
 
 结合 `bizComponent` 一起生效，用法参考 `bizComponent` 文档。
@@ -256,6 +273,7 @@ ReactDOM.render(<_anchor>xxxx</_anchor>);
 #### componentMap 组件路径映射
 
 类型为对象，表示路径映射的 mapping ，若与 `bizComponent` 冲突，则以 `componentMap` 为优先
+
 ```js
 componentMap: {
   '@alifd/pro-components': '@alifd/pro-components/lib/mobile',

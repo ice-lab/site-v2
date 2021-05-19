@@ -14,28 +14,32 @@ export const zh: NavbarConfig = [
     link: '/api/',
   },
   {
-    text: '物料',
+    text: '插件',
     children: [
       {
-        text: 'Fusion',
-        link: '/materials/fusion.md',
+        text: '官方插件',
+        link: '/plugin/list/antd.md',
       },
       {
-        text: 'Antd',
-        link: '/materials/antd.md',
-      },
-      {
-        text: '自定义物料',
-        link: '/material/',
+        text: '插件开发',
+        link: '/plugin/develop/start.md',
       },
     ],
   },
   {
-    text: '参考资源',
+    text: '物料',
     children: [
       {
-        text: '前端基础',
-        children: ['/resource/front-env.md', '/resource/npms.md', '/resource/front-basic.md'],
+        text: 'Fusion',
+        link: '/fusion/',
+      },
+      {
+        text: 'Antd',
+        link: '/antd/',
+      },
+      {
+        text: '自定义物料',
+        link: '/material/',
       },
     ],
   },
@@ -54,6 +58,10 @@ export const zh: NavbarConfig = [
             link: 'https://micro-frontends.ice.work/',
           },
         ],
+      },
+      {
+        text: '前端基础',
+        children: ['/resource/front-env.md', '/resource/npms.md', '/resource/front-basic.md'],
       },
       {
         text: '社区交流',

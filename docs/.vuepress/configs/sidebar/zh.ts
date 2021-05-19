@@ -1,4 +1,5 @@
 import type { SidebarConfig } from '@vuepress/theme-default';
+import getDocsFromDir from '../../utils/getDocsFromDir';
 
 export const zh: SidebarConfig = {
   '/guide/': [
@@ -6,58 +7,16 @@ export const zh: SidebarConfig = {
       isGroup: true,
       text: '',
       children: [
+        '/guide/README.md',
         {
           isGroup: true,
           text: '基础指南',
-          children: [
-            '/guide/basic/start.md',
-            '/guide/basic/upgrade.md',
-            '/guide/basic/structure.md',
-            '/guide/basic/app.md',
-            '/guide/basic/router.md',
-            '/guide/basic/menu.md',
-            '/guide/basic/store.md',
-            '/guide/basic/build.md',
-            '/guide/basic/config.md',
-            '/guide/basic/page.md',
-            '/guide/basic/style.md',
-            '/guide/basic/component.md',
-            '/guide/basic/logger.md',
-          ],
+          children: getDocsFromDir('/guide/basic'),
         },
         {
           isGroup: true,
           text: '进阶知识',
-          children: [
-            '/guide/advanced/mpa.md',
-            '/guide/advanced/ssr.md',
-            '/guide/advanced/icestark.md',
-            '/guide/advanced/faas.md',
-            '/guide/advanced/code-splitting.md',
-            '/guide/advanced/error-boundaries.md',
-            '/guide/advanced/auth.md',
-            '/guide/advanced/convention-routing.md',
-            '/guide/advanced/mock.md',
-            '/guide/advanced/proxy.md',
-            '/guide/advanced/assets-local.md',
-            '/guide/advanced/fusion.md',
-            '/guide/advanced/antd.md',
-            '/guide/advanced/test.md',
-            '/guide/advanced/publish.md',
-            '/guide/advanced/quality.md',
-            '/guide/advanced/backend.md',
-            '/guide/advanced/statistical.md',
-          ],
-        },
-        {
-          isGroup: true,
-          text: '插件开发',
-          children: [
-            '/guide/develop/plugin-dev.md',
-            '/guide/develop/plugin-build.md',
-            '/guide/develop/plugin-runtime.md',
-            '/guide/develop/plugin-list.md',
-          ],
+          children: getDocsFromDir('/guide/advanced'),
         },
       ],
     },
@@ -80,12 +39,7 @@ export const zh: SidebarConfig = {
     {
       isGroup: true,
       text: '',
-      children: [
-        '/resource/front-env.md',
-        '/resource/front-basic.md',
-        '/resource/npms.md',
-        '/resource/biz-components.md',
-      ],
+      children: getDocsFromDir('/resource'),
     },
   ],
   '/material/': [
@@ -93,30 +47,86 @@ export const zh: SidebarConfig = {
       isGroup: true,
       text: '',
       children: [
+        '/material/README.md',
         {
           isGroup: true,
           text: '基础指南',
-          children: [
-            '/material/basic/start.md',
-            '/material/basic/init.md',
-            '/material/basic/component.md',
-            '/material/basic/block.md',
-            '/material/basic/scaffold.md',
-            '/material/basic/generate.md',
-            '/material/basic/sync.md',
-            '/material/basic/usage.md',
-          ],
+          children: getDocsFromDir('/material/basic'),
         },
         {
           isGroup: true,
-          text: '进阶知识',
-          children: [
-            '/material/reference/private.md',
-            '/material/reference/protocol.md',
-            '/material/reference/custom.md',
-            '/material/reference/upgrade.md',
-          ],
+          text: '参考',
+          children: getDocsFromDir('/material/reference'),
         },
+      ],
+    },
+  ],
+
+  '/plugin/': [
+    {
+      isGroup: true,
+      text: '',
+      children: [
+        {
+          isGroup: true,
+          text: '插件开发',
+          children: getDocsFromDir('/plugin/develop'),
+        },
+        {
+          isGroup: true,
+          text: '官方插件',
+          children: getDocsFromDir('/plugin/list'),
+        },
+      ],
+    },
+  ],
+
+  '/fusion/': [
+    {
+      isGroup: true,
+      text: '',
+      children: [
+        '/fusion/README.md',
+        {
+          isGroup: true,
+          text: '项目模板',
+          children: getDocsFromDir('/fusion/scaffolds'),
+        },
+        {
+          isGroup: true,
+          text: '基础组件',
+          children: getDocsFromDir('/fusion/components'),
+        },
+        {
+          isGroup: true,
+          text: '业务组件',
+          children: getDocsFromDir('/fusion/components-biz'),
+        },
+      ],
+    },
+  ],
+
+  '/antd/': [
+    {
+      isGroup: true,
+      text: '',
+      children: [
+        '/antd/README.md',
+        {
+          isGroup: true,
+          text: '项目模板',
+          children: getDocsFromDir('/antd/scaffolds'),
+        },
+        // {
+        //   isGroup: true,
+        //   text: '基础组件',
+        //   children: getDocsFromDir('/antd/components'),
+        // },
+        // {
+        //   isGroup: true,
+        //   text: '业务组件',
+        //   children: getDocsFromDir('/antd/components-biz'),
+        // },
       ],
     },
   ],

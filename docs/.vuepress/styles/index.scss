@@ -3,6 +3,10 @@ body {
   --search-item-text-color: #5485f7;
 }
 
+.navbar .site-name {
+  display: none;
+}
+
 // diff 删除
 .token.inserted {
   color: #7ec699 !important;

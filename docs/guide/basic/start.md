@@ -28,8 +28,11 @@ $ yarn create ice <projectName>
 
 ```bash
 # 当前目录初始项目
+$ mkdir ice-example && cd ice-example/
 $ npm init ice # 根据提示选择模板
 $ npm init ice --template <template> # 指定模板
+$ npm init ice <projectName> --template @alifd/fusion-design-pro-js # 基于 fusion 组件的模板
+$ npm init ice <projectName> --template @icedesign/ice-antd-scaffold # 基于 antd 组件的模板
 
 # 指定目录初始项目
 $ npm init ice <projectName> # 根据提示选择模板
