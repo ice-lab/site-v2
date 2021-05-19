@@ -1,5 +1,5 @@
 ---
-  title: NumberPicker 数字选择器
+  title: NumberPicker 数字输入框
   order: 8
 ---
     
