@@ -1,1 +1,0 @@
-(self.webpackChunksite=self.webpackChunksite||[]).push([[4029],{4029:(e,n,u)=>{"use strict";u.r(n),u.d(n,{default:()=>a});var s=u(6252),t=u(3577);const l=(0,s.Wm)("div",null,"用 Vue 组件自定义渲染",-1),r=(0,u(835).aZ)({setup(){},props:["name"]});r.render=function(e,n,u,r,a,c){return(0,s.wg)(),(0,s.j4)(s.HY,null,[(0,s.Wm)("h1",null,"官方物料："+(0,t.zw)(e.name),1),l],64)};const a=r}}]);
