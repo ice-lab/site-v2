@@ -1,5 +1,5 @@
 ---
-title: 关于 Fusion 物料
+title: 关于 fusion 物料
 ---
 
 包含多少个区块
