@@ -1,5 +1,5 @@
 ---
-title: Balloon 气球提示
+title: Balloon 气泡提示
 order: 1
 ---
 
