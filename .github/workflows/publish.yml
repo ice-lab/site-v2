@@ -18,9 +18,16 @@ jobs:
         with:
           persist-credentials: false
 
+      # 获取 yarn 缓存
+      - name: Cache yarn
+        uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
       # 生成静态文件
       - name: Build
-        run: yarn install && npm run build
+        run: yarn && npm run build
 
       # 部署到 GitHub Pages
       - name: Deploy
