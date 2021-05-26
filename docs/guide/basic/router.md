@@ -88,16 +88,16 @@ runApp(appConfig);
 对于路由组件（即页面级组件），可通过 `props` 获取到如下属性：
 
 - `location`：当前路由的 location 对象，包含 `pathname`、`search`、`hash`、`state` 属性
-- `history`：详见 [history api](/api#history)
+- `history`：详见 [history api](/api/about.md#history)
 - `searchParams`：当前 URL 的查询参数对象（需要开启 [parseSearchParams](/guide/basic/app.md#启动项配置)）
 - `match`：当前路由和 URL match 后的对象，包含 `path`、`url`、`params`、`isExact` 属性
 
-对于非路由组件，组件内如想获取上述属性需要借助 [withRouter](/api#withRouter) API。
+对于非路由组件，组件内如想获取上述属性需要借助 [withRouter](/api/about.md#withRouter) API。
 
 ## 路由跳转
 
-- React 组件内部：使用 [Link 组件](/api#Link) 或 [useHistory](/api#useHistory) API
-- 非 React 组件内部：使用 [history API](/api#history)
+- React 组件内部：使用 [Link 组件](/api/about.md#Link) 或 [useHistory](/api/about.md#useHistory) API
+- 非 React 组件内部：使用 [history API](/api/about.md#history)
 
 ## 按需加载
 

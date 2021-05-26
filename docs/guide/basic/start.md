@@ -33,8 +33,6 @@ $ npm init ice <projectName> # 根据提示选择模板
 $ npm init ice <projectName> --template <template> # 指定模板
 ```
 
-> 可从 [官方模板](/scaffold) 选择模板 `<template>`
-
 ### 选择模板
 
 可以根据实际情况选择 TypeScript 和 JavaScript 模板，其中各包含一个轻量的 Lite 和功能完善的 Pro 模板：

@@ -6,7 +6,7 @@ module.exports = {
       items: [
         {
           label: 'Tutorial',
-          to: '/docs/intro',
+          to: '/docs/guide/about',
         },
       ],
     },
@@ -32,7 +32,7 @@ module.exports = {
       items: [
         {
           label: 'Blog',
-          to: '/blog',
+          to: '/docs/guide/about',
         },
         {
           label: 'GitHub',
