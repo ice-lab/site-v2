@@ -1,5 +1,5 @@
 ---
-title: 关于飞冰
+title: 关于 icejs
 order: 1
 ---
 
@@ -9,39 +9,30 @@ order: 1
   objectFit: "cover"
 }} src="https://gw.alicdn.com/tfs/TB1vBRYaVOWBuNjy0FiXXXFxVXa-2558-1306.jpg" />
 
-## 特性
+icejs 的定位是基于 React 的渐进式研发框架，具备以下主要特性：
 
-- **React 研发框架**：通过 icejs 研发框架集成目录规范、路由、状态管理、样式、权限管理、微前端等最佳实践
-- **可视化多端研发套件**：通过 VS Code 插件集合 AppWorks 简化前端工程复杂度，提供可视化、配置化、代码提示等能力
-- **丰富的物料**：基于物料拼装提高项目开发效率，官方提供丰富的 antd&fusion 物料，同时支持开发构建私有的物料体系
-- **领域解决方案**：提供微前端、Serverless、React Hooks、表单等面向领域的解决方案
+- 开箱即用的工程能力：TypeScript/Webpack5/样式方案/Mock/...
+- 贴合业务的最佳实践：目录规范、代码规范、路由方案、状态管理、数据请求等
+- 多种应用模式：支持 SPA、MPA，同时完备支持服务端渲染（SSR）
+- 强大的插件能力：官方所有能力都通过插件实现，业务可以通过插件扩展各种能力
+- 丰富的领域方案：微前端解决方案 icestark、Serverless 一体化方案、React Hooks 解决方案 ahooks、表单方案 Formily 等
 
-## 核心能力
+在框架基础上，也可以搭配 VS Code 插件 [AppWorks](https://vsmarketplacebadge.apphb.com/version-short/iceworks-team.iceworks.svg?logo=visual-studio-code) 享受到更多功能：
 
-#### ice.js
+- 通过大量的官方模板（fusion/antd）可视化创建项目
+- 可视化的调试、管理依赖、拼装区块等
+- 业务可以根据规范定制自己的物料体系（含项目模板）
+- ……
 
-> 基于 React 的渐进式研发框架
-
-- 提供 React 项目开发的最佳实践，包含工程配置、路由、状态管理、数据请求、调试日志等解决方案
-- 开箱即用的工程能力，包含 TypeScript、Less/Sass/CSS Modules 等，无需关心繁琐的 webpack 基础配置
-- 结合阿里业务沉淀的大量开发规范，包括目录规范、代码风格、单元测试等方面
-- 集成微前端、Serverless、Hooks 等领域解决方案
-
-#### AppWorks
-
-> 基于 VS Code 插件的可视化开发助手
-
-- 在 VS Code 中支持可视化创建项目、启动调试等能力
-- 增强代码提示、代码重构等能力
-- 官方提供基于 fusion、antd 组件体系的上层物料，同时支持可视化拼装物料能力
-
-## 相关链接
+## 相关生态
 
 | GitHub                                           | npm                                                                                                        | 文档                                                                               | 描述                         |
 | ------------------------------------------------ | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------- |
-| [icejs](https://github.com/alibaba/ice)          | ![](https://img.shields.io/npm/v/ice.js.svg)                                                               | [docs](/guide/basic/start.md)                                                      | 基于 React 的渐进式研发框架  |
+| [icejs](https://github.com/alibaba/ice)          | ![](https://img.shields.io/npm/v/ice.js.svg)                                                               | [docs](/guide/about.md)                                                            | 基于 React 的渐进式研发框架  |
 | [icestark](https://github.com/ice-lab/icestark)  | ![](https://img.shields.io/npm/v/@ice/stark.svg)                                                           | [docs](https://micro-frontends.ice.work/)                                          | 面向大型应用的微前端解决方案 |
 | [AppWorks](https://github.com/appworks-lab/pack) | ![](https://vsmarketplacebadge.apphb.com/version-short/iceworks-team.iceworks.svg?logo=visual-studio-code) | [docs](https://marketplace.visualstudio.com/items?itemName=iceworks-team.iceworks) | 可视化多端研发套件           |
+| [ahooks](https://github.com/alibaba/hooks)       | ![](https://img.shields.io/npm/v/ahooks.svg)                                                               | [docs](https://ahooks.js.org/)                                                     | React Hooks 集合             |
+| [formily](https://github.com/alibaba/formily)    | ![](https://img.shields.io/npm/v/@formily/react.svg)                                                       | [docs](https://v2.formilyjs.org/)                                                  | 复杂场景的表单解决方案       |
 
 ## 常见问题
 
