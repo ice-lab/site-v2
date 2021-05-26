@@ -1,5 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
+import useThemeContext from '@theme/hooks/useThemeContext';
 import styles from './HomepageFeatures.module.css';
 
 const FeatureList = [
@@ -50,6 +51,8 @@ function Feature({Svg, title, description}) {
 }
 
 export default function HomepageFeatures() {
+  const {isDarkTheme} = useThemeContext();
+
   return (
     <section className={styles.features}>
       <div className="container">
@@ -57,6 +60,7 @@ export default function HomepageFeatures() {
           {FeatureList.map((props, idx) => (
             <Feature key={idx} {...props} />
           ))}
+          <div>当前主题：{ isDarkTheme ? 'dark' : 'light'}</div>
         </div>
       </div>
     </section>

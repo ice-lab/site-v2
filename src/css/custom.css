@@ -25,3 +25,11 @@
   margin: 0 calc(-1 * var(--ifm-pre-padding));
   padding: 0 var(--ifm-pre-padding);
 }
+
+.navbar__title {
+  font-size: 26px;
+}
+
+.navbar__logo {
+  height: 70px;
+}
