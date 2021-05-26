@@ -45,23 +45,15 @@ module.exports = {
       // }]
     },
     {
-      label: '了解更多',
+      label: '更多资源',
       position: 'right',
       items: [
         {
-          label: 'AppWorks',
-          href: 'https://marketplace.visualstudio.com/items?itemName=iceworks-team.iceworks',
-        },
-        {
-          label: '微前端',
-          href: 'https://micro-frontends.ice.work/',
-        },
-        {
-          label: '钉钉交流群',
-          href: 'https://img.alicdn.com/tfs/TB134cdVq6qK1RjSZFmXXX0PFXa-1125-1485.jpg',
-        },
-        {
           label: '前端基础',
+          to: '/docs/resource/front-basic',
+        },
+        {
+          label: '前端环境',
           to: '/docs/resource/front-env',
         },
       ],

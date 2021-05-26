@@ -2,44 +2,64 @@ module.exports = {
   style: 'dark',
   links: [
     {
-      title: 'Docs',
+      title: '社区',
       items: [
         {
-          label: 'Tutorial',
-          to: '/docs/guide/about',
+          label: '社区钉钉群',
+          href: 'https://iceworks.oss-cn-hangzhou.aliyuncs.com/assets/images/ice-group.png',
+        },
+        {
+          label: '阿里内部钉钉群',
+          href: 'https://iceworks.oss-cn-hangzhou.aliyuncs.com/assets/images/ice-group-inside.JPG',
+        },
+        {
+          label: 'GitHub Issue',
+          href: 'https://github.com/alibaba/ice/issues'
+        }
+      ],
+    },
+    {
+      title: 'React 生态',
+      items: [
+        {
+          label: '微前端 icestark',
+          href: 'http://micro-frontends.ice.work',
+        },
+        {
+          label: 'React Hooks',
+          href: 'https://ahooks.js.org/',
+        },
+        {
+          label: 'Formily',
+          href: 'https://v2.formilyjs.org/',
         },
       ],
     },
     {
-      title: 'Community',
+      title: '更多',
       items: [
         {
-          label: 'Stack Overflow',
-          href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+          label: '淘系前端',
+          href: 'https://fed.taobao.org/',
         },
         {
-          label: 'Discord',
-          href: 'https://discordapp.com/invite/docusaurus',
+          label: 'Rax',
+          href: 'https://rax.js.org',
         },
         {
-          label: 'Twitter',
-          href: 'https://twitter.com/docusaurus',
-        },
-      ],
-    },
-    {
-      title: 'More',
-      items: [
-        {
-          label: 'Blog',
-          to: '/docs/guide/about',
+          label: 'AppWorks',
+          href: 'https://appworks.ice.work',
         },
         {
-          label: 'GitHub',
-          href: 'https://github.com/facebook/docusaurus',
+          label: 'Kraken',
+          href: 'https://openkraken.com/',
         },
+        {
+          label: 'Midway',
+          href: 'https://midwayjs.org/',
+        }
       ],
     },
   ],
-  copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+  copyright: `Copyright © ${new Date().getFullYear()} 飞冰（ICE）. Built with Docusaurus.`,
 }

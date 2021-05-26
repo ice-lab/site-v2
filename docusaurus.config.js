@@ -24,7 +24,7 @@ module.exports = {
           sidebarPath: require.resolve('./config/sidebars.js'),
           // Please change this to your repo.
           editUrl:
-            'https://github.com/facebook/docusaurus/edit/master/website/',
+            'https://github.com/ice-lab/site/edit/master/website/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
