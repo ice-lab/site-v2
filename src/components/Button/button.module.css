@@ -7,8 +7,10 @@
   font-weight: 600;
   outline: none;
   min-width: 155px;
+  max-height: 52px;
   cursor: pointer;
   text-align: center;
+  color: var(--ifm-color-title);
 }
 
 .primary {
@@ -20,7 +22,8 @@
 }
 
 .button:hover {
-  color: #000;
+  color: transparent;
+  background-color: #fff;
   text-decoration: none;
 }
 

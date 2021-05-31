@@ -75,7 +75,7 @@ function Users() {
       {data.map((item, index) => (
         <div key={index} className={styles.logo}>
           <img src={item.image}></img>
-          <p>{item.name}</p>
+          <span>{item.name}</span>
         </div>
       ))}
     </AreaWrapper>

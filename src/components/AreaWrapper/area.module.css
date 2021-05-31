@@ -26,9 +26,9 @@
 }
 
 .content h2 {
-  color: #111;
   font-size: 32px;
   font-weight: 600;
+  color: var(--ifm-color-title)
 }
 
 .content p {

@@ -26,14 +26,14 @@
 }
 
 .card {
-  background: #fff;
+  background: transparent;
   border-radius: 7px;
-  border: 1px solid rgba(208, 208, 208, 0.44);
+  border: 1px solid var(--ifm-color-border-color);
   height: 300px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  color: #000;
+  color: var(--ifm-color-title);
   overflow: hidden;
 }
 

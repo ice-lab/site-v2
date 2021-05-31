@@ -8,6 +8,9 @@
 /* You can override the default Infima variables here. */
 :root {
   --ifm-color-primary: #5485f7;
+  --ifm-color-title: #111;
+  --ifm-color-background: #fff;
+  --ifm-color-border-color: rgba(208, 208, 208, 0.44);
   /* --ifm-color-primary-dark: rgb(33, 175, 144);
   --ifm-color-primary-darker: rgb(31, 165, 136);
   --ifm-color-primary-darkest: rgb(26, 136, 112);
@@ -17,6 +20,12 @@
   --ifm-code-font-size: 95%;
   --ifm-container-width-xl: 1600px;
   /* --ifm-container-width: 1140 */
+}
+
+:root[data-theme='dark'] {
+  --ifm-color-title: #fff;
+  --ifm-color-background: #2A2D31;
+  --ifm-color-border-color: rgba(149, 149, 149, 0.27);
 }
 
 .docusaurus-highlight-code-line {

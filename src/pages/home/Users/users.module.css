@@ -24,10 +24,9 @@
   margin: 0 26px 58px 26px;
 }
 
-.card p {
+.card span {
   font-size: 14px;
   color: rgba(0, 0, 0, .45);
-  margin: 0;
 }
 
 .card img {

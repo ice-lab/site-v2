@@ -24,7 +24,7 @@
 }
 
 .title {
-  color: #111;
+  color: var(--ifm-color-title);
   font-size: 45px;
   font-weight: 600;
   text-align: left;
