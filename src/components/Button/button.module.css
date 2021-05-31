@@ -1,0 +1,30 @@
+.button {
+  border-radius: 28.8px;
+  border: 0.9px solid #E2E2E2;
+  padding: 13px 25px;
+  font-size: 16px;
+  color: #000;
+  font-weight: 600;
+  outline: none;
+  min-width: 155px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.primary {
+  color: #fff;
+  border-width: 0;
+  background: linear-gradient(90deg, #1395FE 4.83%, #1E72FF 94.74%);
+  box-shadow: 0px 5px 6px rgba(0, 87, 255, 0.26);
+  border-radius: 28.8px;
+}
+
+.button:hover {
+  color: #000;
+  text-decoration: none;
+}
+
+.primary:hover {
+  color:#fff;
+  text-decoration: none;
+}
