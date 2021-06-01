@@ -12,9 +12,9 @@ function Splash() {
           <p className={styles.subtitle}>轻量，高效，易上手的前端解决方案，一次开发，多端运行，更加节省您的使用效率。</p>
           <div style={{ minHeight: 40 }}></div>
           <div className={styles.buttons}>
-            <Button>快速开始</Button>
+            <Button url={'/docs/guide/about'}>快速开始</Button>
             <div style={{ minWidth: 20, minHeight: 20 }}></div>
-            <Button primary={false}>下载 VS Code 插件</Button>
+            <Button primary={false} url={'vscode:extension/iceworks-team.iceworks'}>下载 VS Code 插件</Button>
           </div>
         </div>
         <div className={styles['img-container']}>

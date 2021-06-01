@@ -9,7 +9,6 @@
 :root {
   --ifm-color-primary: #5485f7;
   --ifm-color-title: #111;
-  --ifm-color-white: #fff;
   --ifm-color-background: #fff;
   --ifm-color-border-color: rgba(208, 208, 208, 0.44);
   --ifm-color-area: #FAFAFA;
@@ -21,15 +20,16 @@
   --ifm-color-primary-lightest: rgb(146, 224, 208); */
   --ifm-code-font-size: 95%;
   --ifm-container-width-xl: 1600px;
+  --ifm-footer-title-color: #fff;
   /* --ifm-container-width: 1140 */
 }
 
 :root[data-theme='dark'] {
   --ifm-color-title: #fff;
-  --ifm-color-white: #000;
   --ifm-color-background: #2A2D31;
   --ifm-color-border-color: rgba(149, 149, 149, 0.27);
   --ifm-color-area: #242527;
+  --ifm-footer-title-color: #fff;
 }
 
 .docusaurus-highlight-code-line {
@@ -40,9 +40,10 @@
 }
 
 .navbar__title {
-  font-size: 26px;
+  font-size: 22px;
+  margin-left: 4px
 }
 
 .navbar__logo {
-  height: 70px;
+  height: 50px;
 }

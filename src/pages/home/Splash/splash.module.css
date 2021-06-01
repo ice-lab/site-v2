@@ -15,7 +15,6 @@
   margin: 0 auto;
   padding: 24px;
   max-width: 1050px;
-  margin-bottom: 50px;
 
   background-color: var(--ifm-background-color);
   color: var(--ifm-color-content-secondary);
@@ -50,7 +49,7 @@
 .img-container {
   display: flex;
   flex: 1;
-  margin: 45px
+  margin: 45px;
 }
 
 .img {

@@ -29,6 +29,7 @@
   color: #fff;
   transition: all .3s ease;
   box-shadow: 0px 5px 6px rgba(0, 87, 255, 0.260635);
+  text-decoration: none;
 }
 
 .card:after {
@@ -48,6 +49,7 @@
 .card:hover:after {
   opacity: 1;
   color: #fff;
+  text-decoration: none;
 }
 
 .content {
@@ -75,7 +77,7 @@
   background: linear-gradient(90deg, #1395FE 4.83%, #1E72FF 94.74%);
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  margin: 0
+  margin: 0;
 }
 
 .card:hover p {

@@ -14,6 +14,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  transition: all .3s ease;
 }
 
 .primary {
@@ -22,15 +23,18 @@
   background: linear-gradient(90deg, #1395FE 4.83%, #1E72FF 94.74%);
   box-shadow: 0px 5px 6px rgba(0, 87, 255, 0.26);
   border-radius: 28.8px;
+  transition: all .3s ease;
 }
 
 .button:hover {
   color: #000;
   background-color: #fff;
   text-decoration: none;
+  opacity: .9;
 }
 
 .primary:hover {
   color: #fff;
   text-decoration: none;
+  opacity: .8;
 }
