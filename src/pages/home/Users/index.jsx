@@ -1,82 +1,79 @@
 import React from 'react';
-import styles from './users.module.css'
-import AreaWrapper from '../../../components/AreaWrapper'
+import styles from './users.module.css';
+import AreaWrapper from '../../../components/AreaWrapper';
+import { style } from '../../../../config/footer';
 
 const data = [
   {
     name: '淘宝',
-    image: '/logo/taobao.png'
+    image: 'https://img.alicdn.com/tfs/TB1zdJliDtYBeNjy1XdXXXXyVXa-184-76.png',
   },
   {
-    name: '天猫',
-    image: '/logo/tianmao.png'
+    name: '菜鸟',
+    image: 'https://img.alicdn.com/tfs/TB1LgSMibuWBuNjSszgXXb8jVXa-206-72.png',
   },
   {
-    name: '支付宝',
-    image: '/logo/zhifu.png'
+    name: '新华智云',
+    image: 'https://img.alicdn.com/tfs/TB1jFDwiamWBuNjy1XaXXXCbXXa-284-56.png',
   },
   {
-    name: '牵牛',
-    image: '/logo/qianniu.png'
-  },
-  {
-    name: '头条',
-    image: '/logo/toutiao.png'
-  },
-  {
-    name: '1688',
-    image: '/logo/1688.png'
-  },
-  {
-    name: '闲鱼',
-    image: '/logo/xianyu.png'
-  },
-  {
-    name: '门店',
-    image: '/logo/mendian.png'
+    name: '口碑',
+    image: 'https://img.alicdn.com/tfs/TB147fnikSWBuNjSszdXXbeSpXa-180-68.png',
   },
   {
     name: '钉钉',
-    image: '/logo/dingding.png'
+    image: 'https://img.alicdn.com/tfs/TB1fdJliDtYBeNjy1XdXXXXyVXa-208-78.png',
   },
   {
-    name: 'Laz',
-    image: '/logo/laz.png'
+    name: '阿里健康',
+    image: 'https://img.alicdn.com/tfs/TB19a2XikyWBuNjy0FpXXassXXa-244-68.png',
   },
   {
-    name: '优酷',
-    image: '/logo/youku.png'
+    name: 'AliExpress',
+    image: 'https://img.alicdn.com/tfs/TB1m7veieuSBuNjSsziXXbq8pXa-262-62.png',
   },
   {
-    name: 'UC',
-    image: '/logo/uc.png'
+    name: '阿里妈妈',
+    image: 'https://img.alicdn.com/tfs/TB10Mjkib1YBuNjSszhXXcUsFXa-208-76.png',
+  },
+  {
+    name: '淘宝网',
+    image: 'https://img.alicdn.com/tfs/TB1zdJliDtYBeNjy1XdXXXXyVXa-184-76.png',
+  },
+  {
+    name: 'V 任务',
+    image: 'https://img.alicdn.com/tfs/TB1h9yEigaTBuNjSszfXXXgfpXa-298-70.png',
+  },
+  {
+    name: '闲鱼',
+    image: 'https://img.alicdn.com/tfs/TB1DPSIibGYBuNjy0FoXXciBFXa-128-60.png',
   },
   {
     name: '阿里云',
-    image: '/logo/cloud.png'
+    image: 'https://img.alicdn.com/tfs/TB1y9TNioR1BeNjy0FmXXb0wVXa-254-74.png',
   },
   {
-    name: '阿里',
-    image: '/logo/ali.png'
+    name: '优酷',
+    image: 'https://img.alicdn.com/tfs/TB1SpDwiamWBuNjy1XaXXXCbXXa-242-46.png',
   },
   {
-    name: '饿了么',
-    image: '/logo/ele.png'
+    name: '阿里通信',
+    image: 'https://img.alicdn.com/tfs/TB1EkveieuSBuNjSsziXXbq8pXa-240-78.png',
   },
-]
+];
 
 function Users() {
   return (
     <AreaWrapper
       title={'谁在使用'}
-      decs={'我们在人工智能的领域也在持续探索，不断降低开发门槛与成本'}
-      contentStyle={styles.container}
+      decs={'飞冰广泛服务于阿里巴巴众多面向运营、商家以及消费者端的业务'}
+      containerStyle={styles.container}
+      contentStyle={styles.content}
       isBlock
     >
       {data.map((item, index) => (
         <div key={index} className={styles.logo}>
-          <img src={item.image}></img>
-          <span>{item.name}</span>
+          <img alt={item.name} src={item.image}></img>
         </div>
       ))}
     </AreaWrapper>

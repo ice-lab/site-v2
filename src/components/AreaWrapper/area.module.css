@@ -13,32 +13,32 @@
   overflow: hidden;
   min-height: calc(100vh - var(--ifm-navbar-height));
   margin: 0 auto;
-  max-width: 1050px;
+  max-width: 1200px;
   padding: 54px 24px;
 
   color: var(--ifm-color-content-secondary);
 }
 
 .block {
-  background-color: var(--ifm-color-area)
+  background-color: var(--ifm-color-area);
 }
 
-.content {
+.titleContent {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.content h2 {
+.titleContent h2 {
   font-size: 30px;
   font-weight: 600;
   text-align: center;
   margin-bottom: 31;
-  color: var(--ifm-color-title)
+  color: var(--ifm-color-title);
 }
 
-.content p {
+.titleContent p {
   font-size: 15px;
   margin: 0;
   line-height: 34px;

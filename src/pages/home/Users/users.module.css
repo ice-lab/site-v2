@@ -5,6 +5,10 @@
  * and scoped locally.
  */
 .container {
+  min-height: auto;
+}
+
+.content {
   margin-top: 60px;
   margin-bottom: 40px;
   display: flex;
@@ -18,20 +22,17 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  width: 69px;
-  height: 112px;
-  margin: 0 26px 58px 26px;
+  margin: 40px 26px 0 26px;
 }
 
 .logo span {
   font-size: 14px;
-  opacity: .45;
-  color: var(--ifm-color-title)
+  opacity: 0.45;
+  color: var(--ifm-color-title);
 }
 
 .logo img {
-  width: 69px;
-  height: 69px;
+  height: 40px;
   border-radius: 12.8px;
   overflow: hidden;
 }

@@ -10,11 +10,11 @@
   overflow: hidden;
   align-items: center;
   min-height: calc(100vh - var(--ifm-navbar-height));
-  grid-template-areas: "b a";
+  grid-template-areas: 'b a';
   grid-template-columns: 1fr 1fr;
   margin: 0 auto;
-  padding: 24px;
-  max-width: 1050px;
+  padding: 24px 0;
+  max-width: 1200px;
 
   background-color: var(--ifm-background-color);
   color: var(--ifm-color-content-secondary);
@@ -29,7 +29,7 @@
 
 .title {
   color: var(--ifm-color-title);
-  font-size: 45px;
+  font-size: 40px;
   font-weight: 600;
   text-align: left;
 }
@@ -37,7 +37,7 @@
 .subtitle {
   font-size: 16px;
   line-height: 34px;
-  color: #878787
+  color: #878787;
 }
 
 .buttons {
@@ -61,7 +61,7 @@
 
 @media (max-width: 900px) {
   .splash {
-    grid-template-areas: "a""b";
+    grid-template-areas: 'a' 'b';
     grid-template-columns: 1fr;
   }
 
@@ -95,7 +95,7 @@
 @media (max-width: 510px) {
   .buttons {
     flex-direction: column;
-    margin-bottom: 40px
+    margin-bottom: 40px;
   }
 
   .buttons a {
