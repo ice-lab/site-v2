@@ -13,7 +13,7 @@
   grid-template-areas: 'b a';
   grid-template-columns: 1fr 1fr;
   margin: 0 auto;
-  padding: 24px 0;
+  padding: 24px;
   max-width: 1200px;
 
   background-color: var(--ifm-background-color);
@@ -48,7 +48,7 @@
 
 .githubStars {
   display: flex;
-  margin-bottom: var(--ifm-heading-margin-bottom);
+  margin-bottom: 40px;
 }
 
 .img-container {
@@ -76,7 +76,6 @@
 
   .title-container {
     margin-top: 100px;
-    padding: 0 10px;
   }
 
   .subtitle {
