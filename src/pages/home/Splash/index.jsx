@@ -2,6 +2,7 @@ import React from 'react';
 import Button from '../../../components/Button';
 import styles from './splash.module.css';
 import splash from '../../../../static/img/splash.png';
+import { style } from '../../../../config/footer';
 
 function Splash() {
   return (
@@ -12,12 +13,7 @@ function Splash() {
           <p className={styles.subtitle}>
             开箱即用的工程能力和最佳实践，面向领域的微前端、Hooks、表单等解决开发，让前端开发更加简单规范。
           </p>
-          <div
-            style={{
-              marginBottom: 'var(--ifm-heading-margin-bottom)',
-              display: 'flex',
-            }}
-          >
+          <div className={styles.githubStars}>
             <iframe
               src="https://ghbtns.com/github-btn.html?user=alibaba&repo=ice&type=star&count=true&size=large"
               frameBorder="0"
