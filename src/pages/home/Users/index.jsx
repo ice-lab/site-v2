@@ -59,8 +59,10 @@ function Users() {
     <AreaWrapper
       title={'谁在使用'}
       decs={'飞冰广泛服务于阿里巴巴众多面向运营、商家以及消费者端的业务'}
-      containerStyle={styles.container}
       contentStyle={styles.content}
+      style={{
+        minHeight: 'auto',
+      }}
       isBlock
     >
       {data.map((item, index) => (
