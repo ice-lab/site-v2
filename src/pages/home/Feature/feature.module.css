@@ -75,7 +75,7 @@
 .card p {
   font-size: 16px;
   background: linear-gradient(90deg, #1395FE 4.83%, #1E72FF 94.74%);
-  background-clip: text;
+  -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   margin: 0;
 }
@@ -83,7 +83,7 @@
 .card:hover p {
   font-size: 16px;
   background: #fff;
-  background-clip: text;
+  -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   margin: 0
 }
