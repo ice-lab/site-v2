@@ -5,63 +5,63 @@ import AreaWrapper from '../../../components/AreaWrapper'
 const data = [
   {
     name: '淘宝',
-    image: require.resolve('../../../../static/logo/taobao.png')
+    image: '/logo/taobao.png'
   },
   {
     name: '天猫',
-    image: require.resolve('../../../../static/logo/tianmao.png')
+    image: '/logo/tianmao.png'
   },
   {
     name: '支付宝',
-    image: require.resolve('../../../../static/logo/zhifu.png')
+    image: '/logo/zhifu.png'
   },
   {
     name: '牵牛',
-    image: require.resolve('../../../../static/logo/qianniu.png')
+    image: '/logo/qianniu.png'
   },
   {
     name: '头条',
-    image: require.resolve('../../../../static/logo/toutiao.png')
+    image: '/logo/toutiao.png'
   },
   {
     name: '1688',
-    image: require.resolve('../../../../static/logo/1688.png')
+    image: '/logo/1688.png'
   },
   {
     name: '闲鱼',
-    image: require.resolve('../../../../static/logo/xianyu.png')
+    image: '/logo/xianyu.png'
   },
   {
     name: '门店',
-    image: require.resolve('../../../../static/logo/mendian.png')
+    image: '/logo/mendian.png'
   },
   {
     name: '钉钉',
-    image: require.resolve('../../../../static/logo/dingding.png')
+    image: '/logo/dingding.png'
   },
   {
     name: 'Laz',
-    image: require.resolve('../../../../static/logo/laz.png')
+    image: '/logo/laz.png'
   },
   {
     name: '优酷',
-    image: require.resolve('../../../../static/logo/youku.png')
+    image: '/logo/youku.png'
   },
   {
     name: 'UC',
-    image: require.resolve('../../../../static/logo/uc.png')
+    image: '/logo/uc.png'
   },
   {
     name: '阿里云',
-    image: require.resolve('../../../../static/logo/cloud.png')
+    image: '/logo/cloud.png'
   },
   {
     name: '阿里',
-    image: require.resolve('../../../../static/logo/ali.png')
+    image: '/logo/ali.png'
   },
   {
     name: '饿了么',
-    image: require.resolve('../../../../static/logo/ele.png')
+    image: '/logo/ele.png'
   },
 ]
 
