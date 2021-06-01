@@ -37,14 +37,6 @@ const data = [
     image: 'https://img.alicdn.com/tfs/TB10Mjkib1YBuNjSszhXXcUsFXa-208-76.png',
   },
   {
-    name: '淘宝网',
-    image: 'https://img.alicdn.com/tfs/TB1zdJliDtYBeNjy1XdXXXXyVXa-184-76.png',
-  },
-  {
-    name: 'V 任务',
-    image: 'https://img.alicdn.com/tfs/TB1h9yEigaTBuNjSszfXXXgfpXa-298-70.png',
-  },
-  {
     name: '闲鱼',
     image: 'https://img.alicdn.com/tfs/TB1DPSIibGYBuNjy0FoXXciBFXa-128-60.png',
   },

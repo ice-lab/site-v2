@@ -15,6 +15,7 @@ function Splash() {
           <div
             style={{
               marginBottom: 'var(--ifm-heading-margin-bottom)',
+              display: 'flex',
             }}
           >
             <iframe

@@ -71,6 +71,7 @@
 
   .title-container {
     margin-top: 100px;
+    align-items: center;
   }
 
   .subtitle {
