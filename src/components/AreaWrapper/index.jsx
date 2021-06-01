@@ -2,10 +2,10 @@ import React from 'react';
 import clsx from 'clsx';
 import styles from './area.module.css';
 
-function AreaWrapper({ title, decs, contentStyle, containerStyle, children, isBlock }) {
+function AreaWrapper({ title, decs, contentStyle, containerStyle, children, isBlock, style }) {
   return (
     <div className={isBlock && styles.block}>
-      <div className={clsx(styles.container, containerStyle)}>
+      <div className={clsx(styles.container, containerStyle)} style={style || {}}>
         <div className={styles.titleContent}>
           <h2>{title}</h2>
           <p>{decs}</p>

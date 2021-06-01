@@ -4,10 +4,6 @@
  * CSS files with the .module.css suffix will be treated as CSS modules
  * and scoped locally.
  */
-.container {
-  min-height: auto;
-}
-
 .content {
   margin-top: 60px;
   margin-bottom: 40px;
