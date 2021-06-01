@@ -1,0 +1,47 @@
+/* stylelint-disable docusaurus/copyright-header */
+
+/**
+ * CSS files with the .module.css suffix will be treated as CSS modules
+ * and scoped locally.
+ */
+.container {
+  margin-top: 60px;
+  margin-bottom: 40px;
+  display: flex;
+  justify-content: center;
+  flex-flow: row wrap;
+  overflow: hidden;
+}
+
+.logo {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 69px;
+  height: 112px;
+  margin: 0 26px 58px 26px;
+}
+
+.logo span {
+  font-size: 14px;
+  opacity: .45;
+  color: var(--ifm-color-title)
+}
+
+.logo img {
+  width: 69px;
+  height: 69px;
+  border-radius: 12.8px;
+  overflow: hidden;
+}
+
+@media (max-width: 510px) {
+  .buttons {
+    flex-direction: column;
+  }
+
+  .logo {
+    margin: 0 20px 52px 20px;
+  }
+}
