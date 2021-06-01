@@ -12,10 +12,15 @@
   align-items: center;
   overflow: hidden;
   min-height: calc(100vh - var(--ifm-navbar-height));
-  padding: 0 10rem 5rem 10rem;
+  margin: 0 auto;
+  max-width: 1050px;
+  padding: 54px 24px;
 
-  background-color: var(--ifm-background-color);
   color: var(--ifm-color-content-secondary);
+}
+
+.block {
+  background-color: var(--ifm-color-area)
 }
 
 .content {
@@ -26,14 +31,16 @@
 }
 
 .content h2 {
-  font-size: 32px;
+  font-size: 30px;
   font-weight: 600;
+  text-align: center;
+  margin-bottom: 31;
   color: var(--ifm-color-title)
 }
 
 .content p {
-  font-size: 16px;
-  margin-top: 8px;
+  font-size: 15px;
+  margin: 0;
   line-height: 34px;
   color: #878787;
   text-align: center;

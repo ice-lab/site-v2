@@ -17,9 +17,9 @@ export default function Home() {
       description="Description will go into a meta tag in <head />">
       <Splash />
       <main>
-        <Feature />
+        <Feature/>
         <Ecology />
-        <Users />
+        <Users/>
       </main>
     </Layout>
   );

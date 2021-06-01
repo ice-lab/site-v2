@@ -41,6 +41,7 @@ function Feature() {
       title={'渐进式 React 研发框架 icejs'}
       decs={'开箱即用的研发框架，内置工程配置、状态管理、数据请求、权限管理等最佳实践，让开发者可以更加专注于业务逻辑'}
       contentStyle={styles.container}
+      isBlock
     >
       {data.map((item, index) => (
         <div key={index} className={styles.card}>

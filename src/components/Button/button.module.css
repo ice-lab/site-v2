@@ -11,6 +11,9 @@
   cursor: pointer;
   text-align: center;
   color: var(--ifm-color-title);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .primary {
@@ -22,12 +25,12 @@
 }
 
 .button:hover {
-  color: transparent;
+  color: #000;
   background-color: #fff;
   text-decoration: none;
 }
 
 .primary:hover {
-  color:#fff;
+  color: #fff;
   text-decoration: none;
 }

@@ -14,12 +14,6 @@
   margin-bottom: 40px;
 }
 
-@media (max-width: 1366px) {
-  .container {
-    grid-template-columns: repeat(2, calc((100% - 28px) / 2));
-  }
-}
-
 .card {
   position: relative;
   background: var(--ifm-color-background);
@@ -90,4 +84,20 @@
   background-clip: text;
   -webkit-text-fill-color: transparent;
   margin: 0
+}
+
+@media (max-width: 1366px) {
+  .container {
+    grid-template-columns: repeat(2, calc((100% - 28px) / 2));
+  }
+}
+
+@media (max-width: 560px) {
+  .container {
+    grid-template-columns: repeat(1, 100%);
+  }
+
+  .card {
+    height: 200px;
+  }
 }

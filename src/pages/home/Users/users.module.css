@@ -10,7 +10,6 @@
   display: flex;
   justify-content: center;
   flex-flow: row wrap;
-  padding: 0 70px;
   overflow: hidden;
 }
 
@@ -24,15 +23,25 @@
   margin: 0 26px 58px 26px;
 }
 
-.card span {
+.logo span {
   font-size: 14px;
-  color: rgba(0, 0, 0, .45);
+  opacity: .45;
+  color: var(--ifm-color-title)
 }
 
-.card img {
+.logo img {
   width: 69px;
   height: 69px;
   border-radius: 12.8px;
   overflow: hidden;
-  margin: 17px;
+}
+
+@media (max-width: 510px) {
+  .buttons {
+    flex-direction: column;
+  }
+
+  .logo {
+    margin: 0 20px 52px 20px;
+  }
 }

@@ -71,6 +71,7 @@ function Users() {
       title={'谁在使用'}
       decs={'我们在人工智能的领域也在持续探索，不断降低开发门槛与成本'}
       contentStyle={styles.container}
+      isBlock
     >
       {data.map((item, index) => (
         <div key={index} className={styles.logo}>
