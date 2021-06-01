@@ -11,7 +11,7 @@
   --ifm-color-title: #111;
   --ifm-color-background: #fff;
   --ifm-color-border-color: rgba(208, 208, 208, 0.44);
-  --ifm-color-area: #FAFAFA;
+  --ifm-color-area: #fafafa;
   /* --ifm-color-primary-dark: rgb(33, 175, 144);
   --ifm-color-primary-darker: rgb(31, 165, 136);
   --ifm-color-primary-darkest: rgb(26, 136, 112);
@@ -26,7 +26,7 @@
 
 :root[data-theme='dark'] {
   --ifm-color-title: #fff;
-  --ifm-color-background: #2A2D31;
+  --ifm-color-background: #2a2d31;
   --ifm-color-border-color: rgba(149, 149, 149, 0.27);
   --ifm-color-area: #242527;
   --ifm-footer-title-color: #fff;
@@ -41,9 +41,13 @@
 
 .navbar__title {
   font-size: 22px;
-  margin-left: 4px
+  margin-left: 4px;
 }
 
 .navbar__logo {
   height: 50px;
+}
+
+.navbar__search-input:focus {
+  outline: none;
 }

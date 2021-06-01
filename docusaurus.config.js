@@ -3,8 +3,8 @@ const navbar = require('./config/navbar');
 const footer = require('./config/footer');
 
 module.exports = {
-  title: '飞冰（ICE）',
-  tagline: '基于 React 的前端研发框架',
+  title: '飞冰',
+  tagline: '基于 React 的渐进式研发框架',
   url: 'https://beta.ice.work',
   baseUrl: '/',
   onBrokenLinks: 'throw',

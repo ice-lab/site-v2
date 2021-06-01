@@ -25,6 +25,13 @@
   overflow: hidden;
 }
 
+.card:hover {
+  cursor: pointer;
+  text-decoration: none;
+  opacity: 0.8;
+  color: inherit;
+}
+
 .content {
   position: relative;
   display: flex;
@@ -44,12 +51,12 @@
 
 .card span {
   font-size: 14px;
-  opacity: .45;
+  opacity: 0.45;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical
+  -webkit-box-orient: vertical;
 }
 
 .card img {

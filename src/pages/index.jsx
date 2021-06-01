@@ -12,15 +12,12 @@ import Users from './home/Users';
 export default function Home() {
   const { siteConfig } = useDocusaurusContext();
   return (
-    <Layout
-      title={`Hello from ${siteConfig.title}`}
-      description="简单而友好的研发体系"
-    >
+    <Layout title={`${siteConfig.title}-${siteConfig.tagline}`} description="基于 React 的渐进式研发框架">
       <Splash />
       <main>
-        <Feature/>
+        <Feature />
         <Ecology />
-        <Users/>
+        <Users />
       </main>
     </Layout>
   );

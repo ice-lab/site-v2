@@ -2,6 +2,19 @@ module.exports = {
   style: 'dark',
   links: [
     {
+      title: '参考',
+      items: [
+        {
+          label: '前端基础知识',
+          href: '/docs/resource/front-basic',
+        },
+        {
+          label: '前端环境准备',
+          to: '/docs/resource/front-env'
+        }
+      ],
+    },
+    {
       title: '社区',
       items: [
         {
@@ -19,7 +32,7 @@ module.exports = {
       ],
     },
     {
-      title: 'React 生态',
+      title: '生态',
       items: [
         {
           label: '微前端 icestark',

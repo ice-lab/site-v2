@@ -3,30 +3,30 @@ title: 前后端一体化 Serverless
 order: 4
 ---
 
-如果是阿里内部同学，请参考 [文档](https://yuque.alibaba-inc.com/ice/rdy99p/ds1xv0) 
+如果是阿里内部同学，请参考 [文档](https://yuque.alibaba-inc.com/ice/rdy99p/ds1xv0)
 
-------
+---
 
-基于 ServerLess 的能力，在前端项目中可以完成 api 的编写以及页面的渲染，不需要再创建一个后端应用。
+基于 Serverless 的能力，在前端项目中可以完成 api 的编写以及页面的渲染，不需要再创建一个后端应用。
 
 ## 应用创建
 
-使用 VS Code Iceworks 插件可视化创建：
+使用 VS Code AppWorks 插件可视化创建：
 
 ![](https://img.alicdn.com/tfs/TB1mWt5YuL2gK0jSZPhXXahvXXa-2049-970.png)
 
 使用 CLI 创建：
 
 ```bash
-$ npm init ice ice-app --template @icedesign/scaffold-midway-faas 
+$ npm init ice ice-app --template @icedesign/scaffold-midway-faas
 ```
 
 ## 目录说明
 
 ```md
 ├── src/
-│   ├── apis/                 
-│   └── app.ts
+│ ├── apis/  
+│ └── app.ts
 ├── build.json
 ├── f.yml
 └── tsconfig.json

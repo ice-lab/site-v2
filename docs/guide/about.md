@@ -1,5 +1,5 @@
 ---
-title: 关于 icejs
+title: 关于飞冰
 order: 1
 ---
 
@@ -28,16 +28,6 @@ order: 1
 - 可视化的调试、管理依赖、拼装区块等
 - 业务可以根据规范定制自己的物料体系（含项目模板）
 - ……
-
-## 相关生态 🎃
-
-| GitHub                                           | npm                                                                                                        | 文档                                                                               | 描述                         |
-| ------------------------------------------------ | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------- |
-| [icejs](https://github.com/alibaba/ice)          | ![](https://img.shields.io/npm/v/ice.js.svg)                                                               | [docs](/guide/about.md)                                                            | 基于 React 的渐进式研发框架  |
-| [icestark](https://github.com/ice-lab/icestark)  | ![](https://img.shields.io/npm/v/@ice/stark.svg)                                                           | [docs](https://micro-frontends.ice.work/)                                          | 面向大型应用的微前端解决方案 |
-| [AppWorks](https://github.com/appworks-lab/pack) | ![](https://vsmarketplacebadge.apphb.com/version-short/iceworks-team.iceworks.svg?logo=visual-studio-code) | [docs](https://marketplace.visualstudio.com/items?itemName=iceworks-team.iceworks) | 可视化多端研发套件           |
-| [ahooks](https://github.com/alibaba/hooks)       | ![](https://img.shields.io/npm/v/ahooks.svg)                                                               | [docs](https://ahooks.js.org/)                                                     | React Hooks 集合             |
-| [formily](https://github.com/alibaba/formily)    | ![](https://img.shields.io/npm/v/@formily/react.svg)                                                       | [docs](https://v2.formilyjs.org/)                                                  | 复杂场景的表单解决方案       |
 
 ## 常见问题 📝
 
