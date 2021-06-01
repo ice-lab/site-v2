@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://beta.ice.work/blog</id>
-    <title>飞冰（ICE） Blog</title>
+    <title>飞冰 Blog</title>
     <updated>2015-10-25T23:29:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://beta.ice.work/blog"/>
-    <subtitle>飞冰（ICE） Blog</subtitle>
+    <subtitle>飞冰 Blog</subtitle>
     <icon>https://beta.ice.work/img/favicon.ico</icon>
 </feed>
