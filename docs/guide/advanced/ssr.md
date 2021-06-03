@@ -11,7 +11,7 @@ icejs 支持服务端渲染（即 SSR）能力，开发者可以按需一键开�
 
 ## 开启 SSR
 
-> 注意：icejs@1.1.0 及以上版本开始支持 SSR
+> 注意：icejs v1.1.0 及以上版本开始支持 SSR
 
 在工程配置文件 `build.json` 中开启 SSR：
 
@@ -227,7 +227,7 @@ router.get('/*', async (ctx) => {
 });
 ```
 
-icejs@1.15.0 及以上版本开始支持在开启 SSR 的应用中使用[代码分割](/guide/advanced/code-splitting.md)。部署时需要把 `loadable-stats.json` 、`server/loadable-stats.json` 和 `server/` 目录下所有的 bundle 资源下载到 server 端。
+icejs v1.15.0 及以上版本开始支持在开启 SSR 的应用中使用[代码分割](/guide/advanced/code-splitting.md)。部署时需要把 `loadable-stats.json` 、`server/loadable-stats.json` 和 `server/` 目录下所有的 bundle 资源下载到 server 端。
 
 icejs 构建出来的 `server/index.js` 会暴露出 `render` 方法供服务端调用，该方法提供以下参数：
 
