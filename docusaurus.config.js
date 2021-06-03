@@ -8,13 +8,16 @@ module.exports = {
   url: 'https://beta.ice.work',
   baseUrl: '/',
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
+  onBrokenMarkdownLinks: 'throw',
   favicon: 'img/favicon.ico',
-  organizationName: 'alibaba', // Usually your GitHub org/user name.
-  projectName: 'ice', // Usually your repo name.
+  organizationName: 'alibaba', 
+  projectName: 'ice',
   themeConfig: {
     navbar,
     footer,
+    googleAnalytics: {
+      trackingID: 'G-QZ0FEKY38G',
+    },
   },
   presets: [
     [
@@ -22,7 +25,6 @@ module.exports = {
       {
         docs: {
           sidebarPath: require.resolve('./config/sidebars.js'),
-          // Please change this to your repo.
           editUrl:
             'https://github.com/ice-lab/site/edit/master/website/',
         },
@@ -36,15 +38,10 @@ module.exports = {
     [
       require.resolve("@easyops-cn/docusaurus-search-local"),
       {
-        // ... Your options.
-        // `hashed` is recommended as long-term-cache of index file is possible.
         hashed: true,
-        // For Docs using Chinese, The `language` is recommended to set to:
-        // ```
         language: ["en", "zh"],
-        // ```
-        // When applying `zh` in language, please install `nodejieba` in your project.
       },
     ],
+    require.resolve("./plugins/redirect.js"),
   ]
 };
