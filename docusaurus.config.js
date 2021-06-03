@@ -42,7 +42,6 @@ module.exports = {
         language: ["en", "zh"],
       },
     ],
-    '@docusaurus/plugin-google-analytics',
     require.resolve("./plugins/redirect.js"),
   ]
 };
