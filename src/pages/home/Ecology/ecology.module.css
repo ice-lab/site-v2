@@ -23,12 +23,13 @@
   align-items: center;
   color: var(--ifm-color-title);
   overflow: hidden;
+  transition: all .25s ease;
 }
 
 .card:hover {
   cursor: pointer;
   text-decoration: none;
-  opacity: 0.8;
+  opacity: 0.76;
   color: inherit;
 }
 
