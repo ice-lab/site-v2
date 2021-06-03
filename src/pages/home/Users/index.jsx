@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './users.module.css';
 import AreaWrapper from '../../../components/AreaWrapper';
+import useThemeContext from '@theme/hooks/useThemeContext';
 import { style } from '../../../../config/footer';
 
 const data = [
@@ -15,10 +16,12 @@ const data = [
   {
     name: '新华智云',
     image: 'https://img.alicdn.com/tfs/TB1jFDwiamWBuNjy1XaXXXCbXXa-284-56.png',
+    fill: true
   },
   {
     name: '口碑',
     image: 'https://img.alicdn.com/tfs/TB147fnikSWBuNjSszdXXbeSpXa-180-68.png',
+    fill: true
   },
   {
     name: '钉钉',
@@ -39,10 +42,12 @@ const data = [
   {
     name: '闲鱼',
     image: 'https://img.alicdn.com/tfs/TB1DPSIibGYBuNjy0FoXXciBFXa-128-60.png',
+    fill: true
   },
   {
     name: '阿里云',
     image: 'https://img.alicdn.com/tfs/TB1y9TNioR1BeNjy0FmXXb0wVXa-254-74.png',
+    fill: true
   },
   {
     name: '优酷',
@@ -51,10 +56,12 @@ const data = [
   {
     name: '阿里通信',
     image: 'https://img.alicdn.com/tfs/TB1EkveieuSBuNjSsziXXbq8pXa-240-78.png',
+    fill: true
   },
 ];
 
 function Users() {
+  const { isDarkTheme } = useThemeContext()
   return (
     <AreaWrapper
       title={'谁在使用'}
@@ -67,7 +74,7 @@ function Users() {
     >
       {data.map((item, index) => (
         <div key={index} className={styles.logo}>
-          <img alt={item.name} src={item.image}></img>
+          <img alt={item.name} src={item.image} className={item.fill && isDarkTheme && styles.fill}></img>
         </div>
       ))}
     </AreaWrapper>
