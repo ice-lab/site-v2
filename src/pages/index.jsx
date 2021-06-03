@@ -4,10 +4,10 @@
 import React from 'react';
 import Layout from '@theme/Layout';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import Splash from './home/Splash';
-import Feature from './home/Feature';
-import Ecology from './home/Ecology';
-import Users from './home/Users';
+import Splash from '../components/Splash';
+import Feature from '../components/Feature';
+import Ecology from '../components/Ecology';
+import Users from '../components/Users';
 
 export default function Home() {
   const { siteConfig } = useDocusaurusContext();

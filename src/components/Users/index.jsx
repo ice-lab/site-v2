@@ -1,8 +1,7 @@
 import React from 'react';
 import styles from './users.module.css';
-import AreaWrapper from '../../../components/AreaWrapper';
+import AreaWrapper from '../AreaWrapper';
 import useThemeContext from '@theme/hooks/useThemeContext';
-import { style } from '../../../../config/footer';
 
 const data = [
   {

@@ -1,8 +1,7 @@
 import React from 'react';
-import Button from '../../../components/Button';
+import Button from '../Button';
 import styles from './splash.module.css';
-import splash from '../../../../static/img/splash.png';
-import { style } from '../../../../config/footer';
+import splash from '../../../static/img/splash.png';
 
 function Splash() {
   return (
