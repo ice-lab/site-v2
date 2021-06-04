@@ -30,6 +30,9 @@
   --ifm-color-border-color: rgba(149, 149, 149, 0.27);
   --ifm-color-area: #242527;
   --ifm-footer-title-color: #fff;
+
+  --ice-users-fill-filter: drop-shadow(0 40px rgba(255, 255, 255, .72));
+  --ice-users-fill-transform: translateY(-40px);
 }
 
 .docusaurus-highlight-code-line {
