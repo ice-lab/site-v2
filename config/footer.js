@@ -61,7 +61,7 @@ module.exports = {
         },
         {
           label: 'AppWorks',
-          href: 'https://appworks.ice.work',
+          href: 'https://appworks.site',
         },
         {
           label: 'Kraken',
