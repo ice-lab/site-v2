@@ -1,7 +1,6 @@
 import React from 'react';
 import styles from './users.module.css';
 import AreaWrapper from '../AreaWrapper';
-import useThemeContext from '@theme/hooks/useThemeContext';
 
 const data = [
   {
@@ -60,7 +59,6 @@ const data = [
 ];
 
 function Users() {
-  const { isDarkTheme } = useThemeContext()
   return (
     <AreaWrapper
       title={'谁在使用'}
@@ -73,7 +71,7 @@ function Users() {
     >
       {data.map((item, index) => (
         <div key={index} className={styles.logo}>
-          <img alt={item.name} src={item.image} className={item.fill && isDarkTheme && styles.fill}></img>
+          <img alt={item.name} src={item.image} className={item.fill && styles.fill}></img>
         </div>
       ))}
     </AreaWrapper>

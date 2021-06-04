@@ -34,8 +34,8 @@
 }
 
 .fill {
-  filter: drop-shadow(0 40px rgba(255, 255, 255, .72));
-  transform: translateY(-40px);
+  filter: var(--ice-users-fill-filter);
+  transform: var(--ice-users-fill-transform);
 }
 
 @media (max-width: 510px) {
