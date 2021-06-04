@@ -10,7 +10,6 @@
   display: flex;
   justify-content: center;
   flex-flow: row wrap;
-  overflow: hidden;
 }
 
 .logo {
@@ -19,6 +18,8 @@
   justify-content: space-between;
   align-items: center;
   margin: 40px 26px 0 26px;
+  overflow: hidden;
+  height: 40px;
 }
 
 .logo span {
@@ -30,6 +31,11 @@
 .logo img {
   height: 40px;
   overflow: hidden;
+}
+
+.fill {
+  filter: drop-shadow(0 40px rgba(255, 255, 255, .72));
+  transform: translateY(-40px);
 }
 
 @media (max-width: 510px) {
