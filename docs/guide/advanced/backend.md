@@ -3,10 +3,6 @@ title: 后端应用集成
 order: 19
 ---
 
-如果是阿里内部同学，请参考 [文档](https://yuque.alibaba-inc.com/ice/rdy99p/rpivf3) 
-
-------
-
 本文讲解如何在后端应用集成前端资源。
 
 ## Node.js 应用
@@ -57,7 +53,7 @@ const app = (module.exports = new Koa());
 
 app.use(views(path.join(__dirname, '/views'), { extension: 'ejs' }));
 
-app.use(async function(ctx) {
+app.use(async function (ctx) {
   await ctx.render('index', { publicPath: 'http://localhost:4444/' });
 });
 
@@ -76,7 +72,7 @@ $ node app.js
 
 ### 注意事项
 
-- 示例应用只部署了 html，兼容 `BrowserRouter` 做了 `fallback` 处理 (默认所有请求路径返回同一份html)
+- 示例应用只部署了 html，兼容 `BrowserRouter` 做了 `fallback` 处理 (默认所有请求路径返回同一份 html)
 - Node.js 前后端一体应用，需要进行路由配置
 
 ## Java 应用

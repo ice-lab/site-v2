@@ -3,10 +3,6 @@ title: 快速开始
 order: 1
 ---
 
-## 使用 DEF 创建
-
-如果是阿里内部开发者，请参考[文档](https://yuque.alibaba-inc.com/ice/rdy99p/gsfp6h)，可直接打通内部发布流程。
-
 ## CLI 初始化项目
 
 可以选择使用 npm 或者 yarn 工具进行项目初始化，如下输入项目名即可：
