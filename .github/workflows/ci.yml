@@ -28,7 +28,7 @@ jobs:
             ${{ runner.os }}-yarn-
 
       - run: yarn
-      - run: npm run build
+      - run: yarn build
         
       # 部署到 GitHub Pages
       - name: Deploy
