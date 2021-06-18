@@ -55,16 +55,28 @@ module.exports = function (context, options) {
       addRoute({
         path: '/component',
         component: '@site/src/components/Redirect',
+        modules: {
+          // propName -> JSON file path
+          redirectConfig: redirectConfigPath,
+        },
       });
 
       addRoute({
         path: '/docs/guide/advance',
         component: '@site/src/components/Redirect',
+        modules: {
+          // propName -> JSON file path
+          redirectConfig: redirectConfigPath,
+        },
       });
 
       addRoute({
         path: '/docs/materials',
         component: '@site/src/components/Redirect',
+        modules: {
+          // propName -> JSON file path
+          redirectConfig: redirectConfigPath,
+        },
       });
     },
   };

@@ -43,7 +43,3 @@ HomePage.pageConfig = {
   scrollToTop: true
 }
 ```
-
-## 页面埋点
-
-参考 [页面埋点](/guide/advanced/statistical.md)。
