@@ -54,7 +54,7 @@ function Root({ children }) {
                   storage.set(NO_REDIRECT_KEY, 'TRUE', STORAGE_VALID_TIME);
                 }}
               >
-                不再提示
+                七天内不再提示
               </div>
             </div>
           </div>
