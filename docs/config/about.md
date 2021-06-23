@@ -3,6 +3,8 @@ title: 工程配置
 order: 7
 ---
 
+icejs 支持的工程配置项列表，所有配置项都在 [build.json 文件](/guide/basic/build.md) 中编写。
+
 ### entry
 
 - 类型： `string`  | `object`  | `array`

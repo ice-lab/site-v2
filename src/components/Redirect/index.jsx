@@ -20,6 +20,10 @@ export default function Redirect(props) {
         // 自定义物料迁移到单独站点：/docs/materials/xxx -> https://appworks.site/materials/xxx.html
         const targetUrl = `https://appworks.site/materials/${pathname.replace('/docs/materials/', '')}.html`;
         window.location.replace(targetUrl);
+      } else if (/^\/docs\/icestark\//.test(pathname)) {
+        // icestark 迁移到独立站点：/docs/icestark/xxx -> https://micro-frontends.ice.work/
+        const targetUrl = 'https://micro-frontends.ice.work';
+        window.location.replace(targetUrl);
       } else {
         console.log('未知路由', pathname);
       }

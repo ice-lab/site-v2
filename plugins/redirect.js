@@ -78,6 +78,16 @@ module.exports = function (context, options) {
           redirectConfig: redirectConfigPath,
         },
       });
+
+      addRoute({
+        path: '/docs/icestark',
+        component: '@site/src/components/Redirect',
+        modules: {
+          // propName -> JSON file path
+          redirectConfig: redirectConfigPath,
+        },
+      });
+
     },
   };
 }
