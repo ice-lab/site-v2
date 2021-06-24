@@ -21,3 +21,22 @@ This command starts a local development server and opens up a browser window. Mo
 Just push.
 
 ## Contributors
+
+<table>
+<tr>
+    <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
+        <a href=https://github.com/imsobear>
+            <img src=https://avatars.githubusercontent.com/u/2505411?v=4 width="100;"  style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden;padding-top:10px" alt=大果/>
+            <br />
+            <sub style="font-size:14px"><b>大果</b></sub>
+        </a>
+    </td>
+    <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
+        <a href=https://github.com/FuzzyFade>
+            <img src=https://avatars.githubusercontent.com/u/25416941?v=4 width="100;"  style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden;padding-top:10px" alt=Rhuzerv/>
+            <br />
+            <sub style="font-size:14px"><b>Rhuzerv</b></sub>
+        </a>
+    </td>
+</tr>
+</table>
