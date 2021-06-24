@@ -85,19 +85,84 @@ runApp(appConfig);
 
 ## 路由组件参数
 
-对于路由组件（即页面级组件），可通过 `props` 获取到如下属性：
+对于路由组件（即页面级组件），可通过组件 `props` 获取到如下属性：
 
 - `location`：当前路由的 location 对象，包含 `pathname`、`search`、`hash`、`state` 属性
 - `history`：详见 [history api](/api/about.md#history)
 - `searchParams`：当前 URL 的查询参数对象（需要开启 [parseSearchParams](/guide/basic/app.md#启动项配置)）
 - `match`：当前路由和 URL match 后的对象，包含 `path`、`url`、`params`、`isExact` 属性
 
-对于非路由组件，组件内如想获取上述属性需要借助 [withRouter](/api/about.md#withRouter) API。
+对于非路由组件，组件内如想获取上述属性需要借助 [useHistory](/api/about.md#useHistory), [useLocation](/api/about.md#useLocation), [useParams](/api/about.md#useParams), [withRouter](/api/about.md#withRouter) 等 API。
 
 ## 路由跳转
 
-- React 组件内部：使用 [Link 组件](/api/about.md#Link) 或 [useHistory](/api/about.md#useHistory) API
-- 非 React 组件内部：使用 [history API](/api/about.md#history)
+通常使用 `Link` 组件或者 `history` API 进行路由的跳转：
+
+```tsx
+import { Link, useHistory } from 'ice';
+
+function Home() {
+  const history = useHistory();
+  return (
+    <>
+      <Link to="/about">去 about 页面</Link>
+      <span
+        onClick={() => {
+          history.push('/about');
+        }}
+      >
+        去 about 页面
+      </span>
+    </>
+  );
+}
+```
+
+路由跳转传递参数，除了通过 url params 如 `/projects/:id` 以及 url query 如 `/project?id=1` 以外，也可通过 `state` 参数：
+
+> 注意：state 传递参数仅支持 BrowserHistory 不支持 HashHistory，通过 `src/app.ts` 里的 `router.type` 字段可配置。
+
+```jsx
+import { Link, useHistory } from 'ice';
+
+function Home() {
+  const history = useHistory();
+  return (
+    <>
+      <Link
+        to={{
+          pathname: '/about',
+          state: { from: 'click link' },
+        }}
+      >
+        去 about 页面
+      </Link>
+      <span
+        onClick={() => {
+          history.push({
+            pathname: '/about',
+            state: { from: 'click span' },
+          });
+        }}
+      >
+        去 about 页面
+      </span>
+    </>
+  );
+}
+```
+
+在 about 页面即可通过 `location` 访问到对应的 state：
+
+```jsx
+import { useLocation } from 'ice';
+
+function About() {
+  const location = useLocation();
+  console.log('history state', location.state);
+  return <></>;
+}
+```
 
 ## 按需加载
 
@@ -152,13 +217,14 @@ export default LoginWrapper;
 
 前端路由通常有两种实现方式：HashHistory 和 BrowserHistory，路由都带着 `#` 说明使用的是 HashHistory。这两种方式优缺点：
 
-| 特点\\方案     | HashRouter    | BrowserRouter          |
-| -------------- | ------------- | ---------------------- |
-| 美观度         | 不好，有 # 号 | 好                     |
-| 易用性         | 简单          | 中等，需要 server 配合 |
-| 依赖 server    | 不依赖        | 依赖                   |
-| 跟锚点功能冲突 | 冲突          | 不冲突                 |
-| 兼容性         | IE8           | IE10                   |
+| 特点\\方案         | HashHistory   | BrowserHistory         |
+| ------------------ | ------------- | ---------------------- |
+| 美观度             | 不好，有 # 号 | 好                     |
+| 易用性             | 简单          | 中等，需要 server 配合 |
+| 依赖 server 端配置 | 不依赖        | 依赖                   |
+| 跟锚点功能冲突     | 冲突          | 不冲突                 |
+| 兼容性             | IE8           | IE10                   |
+| state 传递参数     | 不支持        | 支持                   |
 
 开发者可以根据自己的实际情况选择对应方案。
 
