@@ -15,9 +15,23 @@ module.exports = {
   themeConfig: {
     navbar,
     footer,
-    googleAnalytics: {
-      trackingID: 'G-QZ0FEKY38G',
+    algolia: {
+      apiKey: '01f284e7e1c13eac3dc14beb6d8b153d',
+      indexName: 'ice',
+      // // Optional: see doc section below
+      // contextualSearch: true,
+
+      // // Optional: see doc section below
+      // appId: 'YOUR_APP_ID',
+
+      // // Optional: Algolia search parameters
+      // searchParameters: {},
+
+      // //... other Algolia params
     },
+    // googleAnalytics: {
+    //   trackingID: 'G-QZ0FEKY38G',
+    // },
   },
   presets: [
     [
@@ -35,13 +49,13 @@ module.exports = {
     ],
   ],
   plugins: [
-    [
-      require.resolve("@easyops-cn/docusaurus-search-local"),
-      {
-        hashed: true,
-        language: ["en", "zh"],
-      },
-    ],
+    // [
+    //   require.resolve("@easyops-cn/docusaurus-search-local"),
+    //   {
+    //     hashed: true,
+    //     language: ["en", "zh"],
+    //   },
+    // ],
     require.resolve("./plugins/redirect.js"),
   ]
 };
