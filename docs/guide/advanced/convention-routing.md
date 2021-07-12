@@ -63,7 +63,7 @@ export default [
 ```markdown
 src/pages
 └── About
-├── \_layout.tsx
+├── _layout.tsx
 ├── a.tsx
 └── b.tsx
 └── Dashboard

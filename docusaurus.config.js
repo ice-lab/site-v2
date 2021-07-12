@@ -29,9 +29,9 @@ module.exports = {
 
       // //... other Algolia params
     },
-    // googleAnalytics: {
-    //   trackingID: 'G-QZ0FEKY38G',
-    // },
+    gtag: {
+      trackingID: 'G-QZ0FEKY38G',
+    },
   },
   presets: [
     [
