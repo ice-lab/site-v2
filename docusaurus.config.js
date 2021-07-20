@@ -40,7 +40,7 @@ module.exports = {
         docs: {
           sidebarPath: require.resolve('./config/sidebars.js'),
           editUrl:
-            'https://github.com/ice-lab/site/edit/master/website/',
+            'https://github.com/ice-lab/site/blob/master/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
