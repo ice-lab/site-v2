@@ -308,6 +308,19 @@ MPA 场景下配置是否生成 vendor，如果希望禁用：
 
 为 less-loader 提供快捷配置，将与默认配置进行浅合并。详细配置可参考 [less-loader options](https://webpack.js.org/loaders/less-loader/#options)。
 
+ice.js 目前默认内置 less 4.x 版本，计算函数对于使用 '/' 的方式默认不进行计算，即类似使用 `round(1 / 2)` 的方式将报错，修复方案如下：
+
+```json
+{
+  "lessLoaderOptions": {
+    // 始终计算 / 操作符结果
+    "math": 0
+  }
+}
+```
+
+也可以通过包裹括号的方式，让编译器对 `/` 操作符合进行计算，比如 `round((1 / 2))`。
+
 ### sassLoaderOptions
 
 - 类型：`object`
