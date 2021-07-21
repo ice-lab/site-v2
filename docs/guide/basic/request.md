@@ -488,7 +488,7 @@ export default {
   local: {
     baseURL: `http://localhost:${process.env.SERVER_PORT}/api`,
   },
-  dailt: {
+  daily: {
     baseURL: 'https://daily.example.com/api',
   },
   prod: {
