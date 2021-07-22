@@ -234,7 +234,7 @@ icestark 从 `1.6.0` 开始支持并推荐使用 UMD 规范的微应用，在微
 }
 ```
 
-### 微应用消费 props
+### 向微应用透传 props
 
 icestark 2.x 支持框架应用通过 [props](https://micro-frontends.ice.work/api/core#props) 自定义传递给微应用的参数。
 
