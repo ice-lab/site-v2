@@ -220,7 +220,7 @@ icejs 中一般不允许修改该配置。
 ```json
 {
   "define": {
-    "ASSER_VERSION": "0.1.0"
+    "ASSETS_VERSION": "0.1.0"
   }
 }
 ```
