@@ -3,7 +3,8 @@ title: 工程配置
 order: 7
 ---
 
-TODO: 对配置支持 vite / webpack 模式进行打标，单独 vite 模式文档
+import Support from '../../src/components/Support'
+import Badge from '../../src/components/Badge'
 
 icejs 支持的工程配置项列表，所有配置项都在 [build.json 文件](/guide/basic/build.md) 中编写。
 
@@ -13,6 +14,8 @@ icejs 支持的工程配置项列表，所有配置项都在 [build.json 文件]
 - 默认值：src/app.[t|j]s
 
 icejs 中一般不允许修改该配置。
+
+<Support list={['webpack', 'vite']} />
 
 ### alias
 
@@ -25,6 +28,8 @@ icejs 中一般不允许修改该配置。
 -import CustomTips from '../../../components/CustomTips';
 +import CustomTips from '@/components/CustomTips';
 ```
+
+<Support list={['webpack', 'vite']} />
 
 ### publicPath
 
@@ -39,6 +44,8 @@ icejs 中一般不允许修改该配置。
 }
 ```
 
+<Support list={['webpack', 'vite']} />
+
 ### devPublicPath
 
 - 类型： `string`
@@ -52,10 +59,14 @@ icejs 中一般不允许修改该配置。
 }
 ```
 
+<Support list={['webpack', 'vite']} />
+
 ### sourceMap
 
 - 类型： `boolean`
 - 默认值： `false`
+
+<Support list={['webpack', 'vite']} />
 
 ### externals
 
@@ -96,6 +107,8 @@ icejs 中一般不允许修改该配置。
 </html>
 ```
 
+<Support list={['webpack', 'vite']} />
+
 ### hash
 
 - 类型：`boolean` | `string`
@@ -117,6 +130,8 @@ icejs 中一般不允许修改该配置。
 }
 ```
 
+<Support list={['webpack', 'vite']} />
+
 ### polyfill
 
 - 类型：`string`
@@ -129,25 +144,15 @@ icejs 中一般不允许修改该配置。
 - `false`: 不引入任何 `polyfill`。
 - `usage`: 根据源码中使用到的代码按需引入 `polyfill`。
 
-**注意：** 在 `usage` 模式下，默认不会去分析 `node_modules` 里的代码，如果需要的话，请看 `compileDependencies` 字段相关的说明，添加相关需要编译的依赖。
+**注意：** 在 `usage` 模式下，默认不会去分析 `node_modules` 里的代码，如果需要的话，请看 `compileDependencies` 字段相关的说明，添加相关需要编译的依赖。vite 构建模式下，开启 polyfill 后默认启用 `@vitejs/plugin-legacy` 插件，为传统浏览器提供兼容性支持
 
-### injectBabel
-
-**已废弃**，请使用 `polyfill` 替代。
-
-- 类型：`string`
-- 默认值：`polyfill`
-- 可选值：`"polyfill"` | `"runtime"` | `false`
-
-默认情况下会注入 core-js/stable 和 regenerator-runtime/runtime，根据  `targets`  配置的兼容浏览器进行 polyfill，实现按需添加。 开发类库项目，可以将配置设置为  `runtime`。 如果想手动 polyfill，可以将配置设置为  `false`，工程将不会进行自动的 polyfill。
-
-TODO: 标识 2.0 版本移除
+<Support list={['webpack', 'vite']} />
 
 ### minify
 
 TODO: 支持多种压缩器
 
-- 类型：`boolean`
+- 类型：`boolean｜string`
 - 默认值：`true`
 
 构建后的资源将进行压缩，如果不希望资源被压缩可以修改为  `false`
@@ -157,6 +162,16 @@ TODO: 支持多种压缩器
   "minify": false
 }
 ```
+
+支持指定不同压缩器进行压缩，可选值为 `terser|esbuild|swc` <Badge text="版本 2.0.0+"/>
+
+```json
+{
+  "minify": "esbuild"
+}
+```
+
+<Support list={['webpack', 'vite']} />
 
 ### outputAssetsPath
 
@@ -174,6 +189,8 @@ TODO: 支持多种压缩器
 }
 ```
 
+<Support list={['webpack', 'vite']} />
+
 ### outputDir
 
 - 类型：`string`
@@ -186,6 +203,8 @@ TODO: 支持多种压缩器
   "outputDir": "dist"
 }
 ```
+
+<Support list={['webpack', 'vite']} />
 
 ### proxy
 
@@ -209,12 +228,16 @@ TODO: 支持多种压缩器
 
 > 代理的每一项配置都可以通过 enable 字段来快速开关代理配置
 
+<Support list={['webpack', 'vite']} />
+
 ### devServer
 
 - 类型： `object`
 - 默认值： `{}`
 
 注意，devServer 不支持 port 属性配置，如需改变端口，请通过命令行参数传入。
+
+<Support list={['webpack']} />
 
 ### define
 
@@ -230,6 +253,8 @@ TODO: 支持多种压缩器
   }
 }
 ```
+
+<Support list={['webpack', 'vite']} />
 
 ### browserslist
 
@@ -249,6 +274,8 @@ TODO: 支持多种压缩器
 
 > 注: 因 targets 字段被使用，这里使用 browserslist 字段替代 @babel/preset-env 的 targets 字段。
 
+<Support list={['webpack', 'vite']} />
+
 ### vendor
 
 - 类型：`boolean`
@@ -262,12 +289,16 @@ MPA 场景下配置是否生成 vendor，如果希望禁用：
 }
 ```
 
+<Support list={['webpack', 'vite']} />
+
 ### libraryTarget
 
 - 类型：`string`
 - 默认值：`''`
 
 配置 webpack 的  [output.libraryTarget](https://webpack.js.org/configuration/output/#outputlibrarytarget)  属性。
+
+<Support list={['webpack']} />
 
 ### library
 
@@ -276,12 +307,16 @@ MPA 场景下配置是否生成 vendor，如果希望禁用：
 
 配置 webpack 的  [output.library](https://webpack.js.org/configuration/output/#outputlibrary)  属性。
 
+<Support list={['webpack']} />
+
 ### libraryExport
 
 - 类型：`string`
 - 默认值：`''`
 
 配置 webpack 的  [output.libraryExport](https://webpack.js.org/configuration/output/#outputlibraryexport)  属性。
+
+<Support list={['webpack']} />
 
 ### compileDependencies
 
@@ -300,12 +335,16 @@ MPA 场景下配置是否生成 vendor，如果希望禁用：
 
 注意：配置为 `"compileDependencies": [""]` 等同于不忽略 `node_modules`。
 
+<Support list={['webpack']} />
+
 ### cssLoaderOptions
 
 - 类型：`object`
 - 默认值：`{}`
 
 为 css-loader 提供快捷配置，将与默认配置进行浅合并。详细配置可参考 [css-loader options](https://webpack.js.org/loaders/css-loader/#options)。
+
+<Support list={['webpack']} />
 
 ### lessLoaderOptions
 
@@ -327,6 +366,8 @@ ice.js 目前默认内置 less 4.x 版本，计算函数对于使用 '/' 的方�
 
 也可以通过包裹括号的方式，让编译器对 `/` 操作符进行计算，比如 `round((1 / 2))`。
 
+<Support list={['webpack', 'vite']} />
+
 ### sassLoaderOptions
 
 - 类型：`object`
@@ -335,6 +376,8 @@ ice.js 目前默认内置 less 4.x 版本，计算函数对于使用 '/' 的方�
 为 sass-loader 提供快捷配置，将与默认配置进行浅合并。详细配置可参考 [sass-loader options](https://webpack.js.org/loaders/sass-loader/#options)。
 
 > ice.js 内置使用 sass 进行编译，如果期望使用 node-sass，请在项目中进行依赖
+
+<Support list={['webpack', 'vite']} />
 
 ### postcssOptions
 
@@ -366,12 +409,16 @@ ice.js 目前默认内置 less 4.x 版本，计算函数对于使用 '/' 的方�
 - 如果工程未内置 postcss 插件，对应配置将会添加到所以样式处理规则的 `postcss-loader` 配置上
 - 设置为 `false` 的 postcss 插件，将从配置中移除
 
+<Support list={['webpack']} />
+
 ### postcssrc
 
 - 类型：`boolean`
 - 默认值：`false`
 
 适用于需要完全重写 postcss 配置。开启配置项后，工程上将清空内置 postcss 配置，读取 postcss 配置文件 postcssrc.js 或 postcss.config.js 中的配置。
+
+<Support list={['webpack']} />
 
 ### terserOptions
 
@@ -395,12 +442,16 @@ ice.js 目前默认内置 less 4.x 版本，计算函数对于使用 '/' 的方�
 
 > 注意该配置方式在 ice.js 1.17.2 版本以上开始支持
 
+<Support list={['webpack', 'vite']} />
+
 ### babelPlugins
 
 - 类型：`array`
 - 默认值：`[]`
 
 为 babel-loader 的配置追加额外的 babel plugin。
+
+<Support list={['webpack']} />
 
 ### babelPresets
 
@@ -409,12 +460,16 @@ ice.js 目前默认内置 less 4.x 版本，计算函数对于使用 '/' 的方�
 
 为 babel-loader 的配置追加额外的 babel preset。如果配置 preset 与内置相同，则优先使用 babelPresets 中的配置内容。
 
+<Support list={['webpack']} />
+
 ### ignoreHtmlTemplate
 
 - 类型：`boolean`
 - 默认值：`false`
 
 开启后，在 `build` 构建时，将移除所有内置 html-webpack-plugin 设置，不再生成 html 文件。
+
+<Support list={['webpack', 'vite']} />
 
 ### eslint
 
@@ -427,6 +482,8 @@ ice.js 目前默认内置 less 4.x 版本，计算函数对于使用 '/' 的方�
 - `false`：不检测 eslint 错误
 - `true`：将 eslint 错误展示在预览页面上
 - `object`：表现等同于 `true`，同时支持配置 [eslint-loader](https://github.com/webpack-contrib/eslint-loader) 的更多参数
+
+<Support list={['webpack']} />
 
 ### disableRuntime
 
@@ -441,6 +498,8 @@ ice.js 目前默认内置 less 4.x 版本，计算函数对于使用 '/' 的方�
 }
 ```
 
+<Support list={['webpack', 'vite']} />
+
 ### tsChecker
 
 - 类型：`boolean`
@@ -454,54 +513,7 @@ ice.js 目前默认内置 less 4.x 版本，计算函数对于使用 '/' 的方�
 }
 ```
 
-### dll
-
-- 类型：`boolean`
-- 默认值：`false`
-
-是否启用 [`DllPlugin`](https://webpack.js.org/plugins/dll-plugin/) 构建 `DLL`。
-
-配置为 `true` 时，默认为 `package.json` `dependencies` 构建 `DLL`。可通过 `dllEntry` 字段配置指定依赖。
-
-启用该选项后，进行 `Webpack` 构建时，会在目录中生成 `dll` 文件夹，包含 `dll` 相关代码。
-
-`dll` 构建产物无需 `git` 提交，建议加到 `.gitignore` 中。
-
-TODO: 标识 2.0 版本移除
-
-### dllEntry
-
-- 类型：`object`
-- 默认值：`{}`
-
-开启 `dll` 后，可通过该选项配置指定依赖。
-配置格式为：
-
-```javascript
-{
-  [string]: string[]
-}
-```
-
-以 `react`、`react-dom` 为例:
-
-```javascript
-// build.json
-{
-  "react": ["react", "react-dom"]
-}
-```
-
-产物如下：
-
-```md
-dll // dll 构建产物文件夹
-├── 7265616374.dll.js // dllEntry 中配置内容的构建产物。文件名根据 dllEntry 中键生成，此处为 react。
-├── 7265616374.manifest.json // DllReferencePlugin 使用
-└── dll-pkg.json // build.json 中所配置的 dllEntry 信息
-```
-
-TODO: 标识 2.0 版本移除
+<Support list={['webpack']} />
 
 ### webpackPlugins
 
@@ -533,6 +545,8 @@ TODO: 标识 2.0 版本移除
 - 对于其他 webpack 插件，需要将插件的 npm 包名作为 key 值进行配置，package.json 中需要添加并安装该插件依赖
 - 每一项插件配置支持 before/after 用来调整 webpack 插件执行顺序
 - 如果配置设置的插件已被添加，则修改插件配置
+
+<Support list={['webpack']} />
 
 ### webpackLoaders
 
@@ -577,16 +591,7 @@ TODO: 标识 2.0 版本移除
   - loaders：配置具体的 webpack loader
 - loaders 参数用来指定具体 webpack loader 的参数；每一项 loader 参数支持 before/after 用来调整 webpack loader 的执行顺序；如果 loader 名已被添加，则修改插件配置
 
-### modularImportRuntime
-
-- 类型：`boolean`
-- 默认值：`true`
-
-> ice.js 1.14.0 版本以上开始支持
-
-开启后将按需加载运行时能力，以减小构建包体积
-
-TODO: 标识 2.0 版本移除(内置)
+<Support list={['webpack']} />
 
 ### esbuild
 
@@ -595,8 +600,111 @@ TODO: 标识 2.0 版本移除(内置)
 
 使用 esbuild 对构建产物进行压缩，可选配置参考 [esbuild 配置文档](https://github.com/privatenumber/esbuild-loader#minifyplugin)
 
+<Support list={['webpack']} />
+
 ### swc
+
+- 类型：`object`
+- 默认值：无
+
+使用 swc 替代 babel 对源码进行编译，可选配置参数详见 [swc 配置文档](https://swc.rs/docs/configuring-swc)
+
+:::info
+
+开启 swc 后，框架工程会处理内置的 babel 配置，但基于 babel 的自定义配置将会失效，比如设置的 babelPlugins、babelPresets 以及通过自定义插件添加的 babel 配置
+
+:::
 
 ### fastRefresh
 
+- 类型：`boolean`
+- 默认值：true
+
+内置 Fast Refresh 能力，源码修改后无需手动刷新浏览器。
+
+### modularImportRuntime <Badge text="@deprecated" />
+
+- 类型：`boolean`
+- 默认值：`true`
+
+开启后将按需加载运行时能力，以减小构建包体积
+
+:::caution
+
+**已废弃**，icejs 2.0 版本中 **已默认开启**
+
+:::
+
+
+### injectBabel <Badge text="@deprecated" />
+
+- 类型：`string`
+- 默认值：`polyfill`
+- 可选值：`"polyfill"` | `"runtime"` | `false`
+
+默认情况下会注入 core-js/stable 和 regenerator-runtime/runtime，根据  `targets`  配置的兼容浏览器进行 polyfill，实现按需添加。 开发类库项目，可以将配置设置为  `runtime`。 如果想手动 polyfill，可以将配置设置为  `false`，工程将不会进行自动的 polyfill。
+
+:::caution
+
+**已废弃**，请使用 **polyfill** 替代。icejs 2.0 版本中 **已移除**
+
+:::
+
+
+### dll <Badge text="@deprecated" />
+
+- 类型：`boolean`
+- 默认值：`false`
+
+是否启用 [`DllPlugin`](https://webpack.js.org/plugins/dll-plugin/) 构建 `DLL`。
+
+配置为 `true` 时，默认为 `package.json` `dependencies` 构建 `DLL`。可通过 `dllEntry` 字段配置指定依赖。
+
+启用该选项后，进行 `Webpack` 构建时，会在目录中生成 `dll` 文件夹，包含 `dll` 相关代码。
+
+`dll` 构建产物无需 `git` 提交，建议加到 `.gitignore` 中。
+
+:::caution
+
+**已废弃**，icejs 2.0 版本中 **已移除**
+
+:::
+
+### dllEntry <Badge text="@deprecated" />
+
+- 类型：`object`
+- 默认值：`{}`
+
+开启 `dll` 后，可通过该选项配置指定依赖。
+配置格式为：
+
+```javascript
+{
+  [string]: string[]
+}
+```
+
+以 `react`、`react-dom` 为例:
+
+```javascript
+// build.json
+{
+  "react": ["react", "react-dom"]
+}
+```
+
+产物如下：
+
+```md
+dll // dll 构建产物文件夹
+├── 7265616374.dll.js // dllEntry 中配置内容的构建产物。文件名根据 dllEntry 中键生成，此处为 react。
+├── 7265616374.manifest.json // DllReferencePlugin 使用
+└── dll-pkg.json // build.json 中所配置的 dllEntry 信息
+```
+
+:::caution
+
+**已废弃**，icejs 2.0 版本中 **已移除**
+
+:::
 
