@@ -3,6 +3,8 @@ title: fusion
 order: 2
 ---
 
+TODO: vite 模式下能力说明
+
 ## Install
 
 ```bash

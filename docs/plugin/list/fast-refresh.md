@@ -18,3 +18,5 @@ $ npm i -save-dev build-plugin-fast-refresh
   "plugins": ["build-plugin-fast-refresh"]
 }
 ```
+
+TODO: 文档移除已内置，增加 `fastRefresh: false` 说明

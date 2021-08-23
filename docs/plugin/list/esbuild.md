@@ -20,3 +20,5 @@ $ npm i --save-dev build-plugin-esbuild
   ]
 }
 ```
+
+TODO: 文档移除，已内置 `minify: 'esbuild'`

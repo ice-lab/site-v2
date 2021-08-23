@@ -73,6 +73,8 @@ module.exports = ({ onHook }) => {
 
 目前支持的命令执行生命周期如下：
 
+TODO: vite 工程下差异化的参数说明
+
 #### start 命令
 
 | 生命周期 | 参数 | 调用时机 |
@@ -189,6 +191,8 @@ module.exports = ({getAllPlugin}) => {
 ```
 
 ## 扩展 API
+
+TODO: 直接基于 2.0 版本, 重新梳理内置 API 说明
 
 除了以上由 build-scripts 内置支持的 API，我们还通过 icejs 对插件 API 做了扩展，扩展的 API 需要通过以下方式调用：
 

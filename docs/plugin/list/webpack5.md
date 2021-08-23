@@ -38,3 +38,5 @@ $ npm i --save-dev build-plugin-webpack5 webpack
   "plugins": ["build-plugin-webpack5"]
 }
 ```
+
+TODO: 文档移除, 已内置, 默认基于 webpack 5
