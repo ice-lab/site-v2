@@ -615,12 +615,16 @@ ice.js 目前默认内置 less 4.x 版本，计算函数对于使用 '/' 的方�
 
 :::
 
+<Support list={['webpack']} />
+
 ### fastRefresh
 
 - 类型：`boolean`
 - 默认值：true
 
 内置 Fast Refresh 能力，源码修改后无需手动刷新浏览器。
+
+<Support list={['webpack', 'vite']} />
 
 ### modularImportRuntime <Badge text="@deprecated" />
 
