@@ -3,25 +3,163 @@ title: 版本升级
 order: 2
 ---
 
-TODO: 版本升级说明，提供 icejs 1.0 -> 2.0 升级说明
-
 ## 版本说明
 
 飞冰的脚手架从 `ice-scripts@1.x` 到 `ice-scripts@2.x` 到 icejs 经过了三个大的版本变化，这些版本变化都是结合我们的业务实践以及用户诉求不断演进的，在能力和规范性上都在不断提高，核心的一些差别：
 
-| 维度\版本    | icejs 1.x               | ice-scripts 2.x                                                               | ice-scripts 1.x                                                                     |
-| ------------ | ----------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| 定位         | 研发框架                | 构建工具                                                                      | 构建工具                                                                            |
-| 配置文件     | build.json              | ice.config.js                                                                 | package.json(buildConfig)                                                           |
-| 文档地址     | [访问](/guide/about.md) | [访问](https://github.com/alibaba/ice/tree/stable/docs-backup/docs/guide-0.x) | [访问](https://github.com/alibaba/ice/tree/stable/docs-backup/docs/ice-scripts-1.x) |
-| 发布时间     | 2020.02                 | 2019.06                                                                       | 2018.02                                                                             |
-| 可渐进升级性 | 好                      | 不好                                                                          | 不好                                                                                |
-| 插件能力     | 工程+运行时             | 工程                                                                          | 无                                                                                  |
-| 工程配置     | 强                      | 强                                                                            | 弱                                                                                  |
-| 运行时配置   | 默认支持                | 默认不支持                                                                    | 默认不支持                                                                          |
-| SSR          | 支持                    | 不支持                                                                        | 不支持                                                                              |
+| 维度\版本    | icejs 2.x               | icejs 1.x               | ice-scripts 2.x                                                               | ice-scripts 1.x                                                                     |
+| ------------ | ----------------------- | ----------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| 定位         | 研发框架                | 研发框架                | 构建工具                                                                      | 构建工具                                                                            |
+| 配置文件     | build.json              | build.json              | ice.config.js                                                                 | package.json(buildConfig)                                                           |
+| 文档地址     | [访问](/guide/about.md) | [访问](/guide/about.md) | [访问](https://github.com/alibaba/ice/tree/stable/docs-backup/docs/guide-0.x) | [访问](https://github.com/alibaba/ice/tree/stable/docs-backup/docs/ice-scripts-1.x) |
+| 发布时间     | 2021.09                 | 2020.02                 | 2019.06                                                                       | 2018.02                                                                             |
+| 可渐进升级性 | 好                      | 好                      | 不好                                                                          | 不好                                                                                |
+| 插件能力     | 工程+运行时             | 工程+运行时             | 工程                                                                          | 无                                                                                  |
+| 工程配置     | 强                      | 强                      | 强                                                                            | 弱                                                                                  |
+| 运行时配置   | 默认支持                | 默认支持                | 默认不支持                                                                    | 默认不支持                                                                          |
+| SSR          | 支持                    | 支持                    | 不支持                                                                        | 不支持                                                                              |
+| SSG          | 支持                    | 不支持                    | 不支持                                                                        | 不支持                                                                              |
 
-> 可渐进升级性「好」意味着整体设计较为稳定，未来的版本变化用户可以低成本的渐进升级
+> 可渐进升级性「好」意味着整体设计较为稳定，未来的版本变化用户可以低成本的渐进升级。
+> icejs 2.x 秉持渐进式升级的理念，优化了工程能力及运行时架构，大幅提升用户体验和开发者体验。
+
+## 从 icejs 1.x 升级
+
+### 1. 升级 package.json 依赖
+
+icejs 2.x 在架构层面经过一系列的重构和升级，但对于大部分官方插件都进行了兼容，因此仅需要升级 `ice.js` 版本：
+
+```diff
+{
+-  "ice.js": "^1.0.0",
++  "ice.js": "^2.0.0",
+}
+```
+
+### 2. 废弃配置及插件
+
+icejs 2.x 移除了已废弃的工程配置和插件，并将一些优化逻辑默认内置：
+
+```diff
+{
+-  "dll": true, // 废弃
+-  "dllEntry": { "react": ["react", "react-dom"] }, // 废弃
+-  "modularImportRuntime": true, // 已内置
+-  "customWebpack": true,
++  "minify": "esbuild",
+  "plugins": [
+-    "build-plugin-fast-refresh", // 默认内置
+-    "build-plugin-esbuild", // 通过 "minify": "esbuild" 开启
+-    "build-plugin-webpack5" // icejs 2.x 默认基于 webpack 5 工程
+  ]
+}
+```
+
+更多工程和插件说明，请参考文档：
+- [工程配置](/docs/config/about)
+- [插件列表](/docs/plugin/list/webpack5)
+
+### 3. 状态管理方案使用
+
+在 icejs 1.x 中推荐通过创建 `store.ts` 的方式[初始化页面状态](/docs/guide/basic/store#页面级状态)，在 2.x 版本中移除了对于自动创建 store 文件的支持
+
+```diff
+src
+└── pages
+|   ├── Home
+|   │   ├── models
+|   │   |   ├── foo.ts
+|   │   |   └── bar.ts
++|   │   ├── store.ts
+|   │   └── index.tsx
+└── app.ts
+```
+
+store.ts 文件定义如下：
+
+```js
+import { createStore } from 'ice';
+import foo from './models/foo';
+import bar from './models/foo';
+
+const store = createStore({ foo, bar });
+
+export default store;
+```
+
+在组件中使用模型状态的方式：
+
+```diff
+// 移除从 ice 下引入具体的 store 的逻辑
+- import store from 'ice/Home';
+// 显式引入 store 文件
++ import store from '@/pages/Home/store'
+```
+
+### 4. 框架 API 迁移
+
+在 icejs 1.x 中已提示废弃的 API，在新版本中已移除：
+
+```diff
+- import { useSearchParams } from 'ice';
+- import { withSearchParams } from 'ice';
++ import { getSearchParams } from 'ice';
+```
+
+更多框架 API 请参考[文档](/docs/api/about)
+
+### 5. 插件迁移
+
+如果对框架进行了深度定制，并且开发了自定义的插件，需要关注相关 API 的变化。
+
+#### 内置规则名变更
+
+```diff
+module.exports = ({ onGetWebpackConfig }) => {
+  onGetWebpackConfig((config) => {
+    config
+        // 规则名从 OptimizeCSSAssetsPlugin 变更为 CssMinimizerPlugin
+        // 插件依赖从 optimize-css-assets-webpack-plugin 变更为 css-minimizer-webpack-plugin
+-      .plugin('OptimizeCSSAssetsPlugin')
++      .plugin('CssMinimizerPlugin)
+      .tap((opts) => opts);
+  });
+}
+```
+
+#### 工程 API 变化
+
+```diff
+module.exports = ({ applyMethod }) => {
+  const templateDir = path.join(__dirname, '../src/types');
+-  applyMethod('addTemplateDir', templateDir);
++  applyMethod('addPluginTemplate', templateDir);
+}
+```
+
+更多工程 API 使用方式，详见[文档](docs/plugin/develop/build#扩展-api)
+
+#### 运行时 API 变化
+
+框架运行时插件 API 变化如下：
+
+```diff
+export default ({
+  // wrapperPageComponent 和 wrapperPageComponent 用法一致，明确了针对 pages 目录下组件的处理场景
+-  wrapperRouteComponent
++  wrapperPageComponent,
+-  createHistory,
+-  getSearchParams,
++  applyRuntimeAPI,
+}) => {
+- const history = createHistory({...});
++ const history = applyRuntimeAPI('createHistory', {...})
+- const params = getSearchParams();
++ const params = applyRuntimeAPI('getSearchParams');
+};
+```
+
+更多运行时 API 使用方式，详见[文档](/docs/plugin/develop/runtime)
 
 ## 从 ice-scripts 2.x 迁移
 
