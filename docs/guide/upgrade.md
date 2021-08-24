@@ -137,7 +137,7 @@ module.exports = ({ applyMethod }) => {
 }
 ```
 
-更多工程 API 使用方式，详见[文档](docs/plugin/develop/build#扩展-api)
+更多工程 API 使用方式，详见[文档](/docs/plugin/develop/build#扩展-api)
 
 #### 运行时 API 变化
 
