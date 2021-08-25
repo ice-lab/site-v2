@@ -214,21 +214,22 @@ class Example extends React.Component {
 import React from 'react';
 import { withRouter } from 'ice';
 
-function ShowTheLocation(props) {
-  const { history, location } = props;
-  const handleHistoryPush = () => {
-    history.push('/new-path');
-  };
+@withRouter
+class Example extends React.Component {
+  render() {
+    const { history, location } = props;
+    const handleHistoryPush = () => {
+      history.push('/new-path');
+    };
 
-  return (
-    <div>
-      <div>当前路径： {location.pathname}</div>
-      <button onClick={handleHistoryPush}>点击跳转新页面</button>
-    </div>
-  );
+    return (
+      <div>
+        <div>当前路径： {location.pathname}</div>
+        <button onClick={handleHistoryPush}>点击跳转新页面</button>
+      </div>
+    );
+  }
 }
-
-export default withRouter(ShowTheLocation);
 ```
 
 ### matchPath
