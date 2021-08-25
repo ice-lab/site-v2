@@ -233,3 +233,44 @@ icestark 从 `1.6.0` 开始支持并推荐使用 UMD 规范的微应用，在微
   ]
 }
 ```
+
+### 向微应用透传 props
+
+icestark 2.x 支持框架应用通过 [props](https://micro-frontends.ice.work/api/core#props) 自定义传递给微应用的参数。
+
+```diff
+// 框架应用
+const appConfig = {
+  ...
+  icestark: {
+    type: 'framework',
+    Layout: BasicLayout,
+    getApps: async () => {
+      const apps = [{
+        path: '/seller',
+        title: '商家平台',
+        url: [
+          '//ice.alicdn.com/icestark/child-seller-react/index.js',
+          '//ice.alicdn.com/icestark/child-seller-react/index.css',
+        ],
++       props: {
++         name: 'micro-child'
++       }
+      }];
+      return apps;
+    },
+   ...
+  },
+};
+
+runApp(appConfig);
+```
+
+在微应用中，可以通过[页面级组件](/guide/basic/router.md#路由组件参数) 的 props 获取框架应用传递的参数。
+
+```js
+function About(props) {
+  const { frameworkProps: { name } } = props;
+  return <div>{name}</div>;
+}
+```
