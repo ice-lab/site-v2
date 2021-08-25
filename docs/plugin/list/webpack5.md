@@ -5,6 +5,12 @@ order: 4
 
 用于 icejs 在使用 webpack 5 能力上的兼容处理
 
+:::caution
+
+**已废弃**，icejs 2.0 版本中内置 webpack 5 的工程链路，Module Federation 调试方案参考[进阶文档](/guide/advanced/module.md)
+
+:::
+
 ## Install
 
 ```bash
@@ -38,5 +44,3 @@ $ npm i --save-dev build-plugin-webpack5 webpack
   "plugins": ["build-plugin-webpack5"]
 }
 ```
-
-TODO: 文档移除, 已内置, 默认基于 webpack 5

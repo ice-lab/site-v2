@@ -1,0 +1,20 @@
+.container {
+  display: flex;
+  align-items: center;
+}
+
+.label {
+  flex: 0 0 auto;
+}
+
+.container img {
+  margin: 5px;
+}
+
+.webpack {
+  height: 24px;
+}
+
+.vite {
+  height: 20px;
+}
