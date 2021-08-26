@@ -294,7 +294,9 @@ const appConfig = {
   },
 };
 
-runApp(appConfig);
+if (!isInIcestark()) {
+  runApp(appConfig);
+}
 
 // 自定义 mount 生命周期函数
 export function mount () {
