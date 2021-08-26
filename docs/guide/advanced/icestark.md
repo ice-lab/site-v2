@@ -274,3 +274,37 @@ function About(props) {
   return <div>{name}</div>;
 }
 ```
+
+### 微应用自定义生命周期函数
+
+插件 build-plugin-icestark 会默认为 ice.js 微应用提供[生命周期函数](https://micro-frontends.ice.work/docs/guide/concept/child/#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F)。在一些业务场景下，需要自定义生命周期函数，则可以下面的示例进行配置：
+
+```js
+import { runApp } from 'ice';
+import { isInIcestark } from '@ice/stark-app';
+import ReactDOM from 'react-dom';
+
+// 微应用 app.tsx
+const appConfig = {
+  router: {
+    type: 'browser',
+  },
+  icestark: {
+    type: 'child',
+  },
+};
+
+if (!isInIcestark()) {
+  runApp(appConfig);
+}
+
+// 自定义 mount 生命周期函数
+export function mount () {
+  runApp(appConfig)
+}
+
+// 自定义 unmount 生命周期函数
+export function unmount ({ container }) {
+  ReactDOM.unmountComponentAtNode(container)
+}
+```
