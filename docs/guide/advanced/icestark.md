@@ -3,6 +3,10 @@ title: 微前端 icestark
 order: 3
 ---
 
+[icestark](https://github.com/ice-lab/icestark) 是飞冰团队针对大型系统提供的微前端解决方案。ice.js 提供独立插件 build-plugin-icestark 快速接入 icestark。
+
+> 更多有关 icestark 的内容请访问 👉 [官网](https://micro-frontends.ice.work/)
+
 ## 框架应用
 
 通过模板快速创建一个微前端的框架应用：
