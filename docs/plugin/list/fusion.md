@@ -3,7 +3,13 @@ title: fusion
 order: 2
 ---
 
-TODO: vite 模式下能力说明
+import Support from '../../../src/components/Support'
+
+提供 `@alifd/next` 在不同业务场景下的能力。
+
+<Support list={['webpack', 'vite']} />
+
+> vite 模式下支持了 `@alifd/next` 按需加载、主题包配置等主要能力，暂不支持多主题切换。
 
 ## Install
 

@@ -3,6 +3,10 @@ title: antd
 order: 3
 ---
 
+import Support from '../../../src/components/Support'
+
+<Support list={['webpack', 'vite']} />
+
 ## Install
 
 ```bash

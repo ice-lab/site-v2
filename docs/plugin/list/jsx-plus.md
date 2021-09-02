@@ -10,6 +10,10 @@ order: 8
 - 不新创造实体，指令在社区中是已经被广泛接受的概念，对开发者更友好，语法糖的表达更简单
 - 统一一套 JSX+ 类似概念的语法规范，减少已存在和潜在的重复建设
 
+import Support from '../../../src/components/Support'
+
+<Support list={['webpack']} />
+
 ## Install
 
 ```bash
