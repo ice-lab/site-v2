@@ -3,8 +3,6 @@ title: 状态管理
 order: 9
 ---
 
-TODO: 增加 disableResetPageStore 说明
-
 icejs 内置了状态管理方案，并在此基础上进一步遵循 **“约定优于配置”** 原则，进行抽象和封装，使得状态管理变得非常容易。
 
 ## 全局应用状态
@@ -466,37 +464,16 @@ export default store.withModel('todos')(TodoList);
 
 ### 路由切换后重置页面状态
 
-在 `build.json` 中开启：
+> icejs 1.0 版本 `store.resetPageState` 已废弃
+
+icejs 2.0 版本默认开启路由切换后重置页面状态(state)。如果希望禁用此功能，需要在 `build.json` 中配置：
 
 ```json
 {
   "store": {
-    "resetPageState": true
+    "disableResetPageState": true
   }
 }
-```
-
-如果开发者自行在 `store.ts` 中初始化 `store` 实例，需要按照以下规则进行创建：
-
-```ts
-// src/pages/Home/store.ts
-import { createStore } from 'ice';
-
-// 有 models 目录的情况
-import user from './models/user';
-import project from './models/project';
-
-// 使用 model 的文件名作为 model key
-export default createStore({
-  user,
-  project,
-});
-
-// 有 model.ts 文件的情况
-import store from './model';
-
-// 使用 default 作为 model key
-export default createStore({ default: store });
 ```
 
 ### Redux Devtools
