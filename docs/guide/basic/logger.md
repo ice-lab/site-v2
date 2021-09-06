@@ -115,7 +115,7 @@ runApp(appConfig);
 
 ## 与 icejs1.x 的区别
 
-### 不再提供 logger 方法
+### 不再提供 logger 模块
 
 在 icejs1.x 中，开发者需要如下使用：
 
