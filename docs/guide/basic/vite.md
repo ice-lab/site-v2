@@ -5,6 +5,16 @@ order: 4
 
 icejs 在确保不丢失框架运行时和工程能力的基础之上提供一键切换 vite 构建模式的配置，让开发者以 native ES module 的方式进行开发，为开发者带来极致的调试体验。
 
+## 快速体验
+
+通过 cli 方式快速初始化一个 icejs 项目，体验 vite 模式带来的开发体验：
+
+```bash
+$ npm init ice <projectName> --template @alifd/scaffold-simple
+# or
+$ yarn create ice <projectName> --template @alifd/scaffold-simple
+```
+
 ## 开启 vite 构建
 
 默认情况下，项目的构建基于 webpack，在 build.json 中进行以下配置启用 vite 构建：
