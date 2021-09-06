@@ -17,7 +17,7 @@ module.exports = {
     {
       to: '/docs/guide/basic/vite',
       position: 'right',
-      label: 'vite 构建',
+      label: 'vite 构建🔥',
     },
     {
       to: '/docs/config/about',
