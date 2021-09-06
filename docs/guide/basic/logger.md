@@ -3,31 +3,19 @@ title: 日志打印
 order: 12
 ---
 
-TODO: 替换成 2.0 方案说明
-
 前端应用中常见的使用最多的毋庸置疑是 `console.log`，然而很多时候我们只希望在开发环境中打印日志，在生产环境中则不打印日志，或者设置日志的级别，避免生产环境的调试日志在生产环境中出现，这便是框架内置提供的日志功能的初衷。
 
 ## 日志分类
 
 框架日志分为 TRACE、DEBUG、INFO、WARN、ERROR 和 SILENT 6 个级别，分别在不同的场景下使用：
 
-* `logger.trace(msg)`：输出一个堆栈跟踪
-* `logger.debug(msg)`：输出一个调试日志
-* `logger.info(msg)`：输出一个信息日志
-* `logger.warn(msg)`：输出一个警告日志
-* `logger.error(msg)`：输出一个错误日志
+* `console.trace(msg)`：输出一个堆栈跟踪
+* `console.debug(msg)`：输出一个调试日志
+* `console.log(msg)`：输出一个信息日志
+* `console.warn(msg)`：输出一个警告日志
+* `console.error(msg)`：输出一个错误日志
 
-更多 API 详见：[loglevel](https://github.com/pimterry/loglevel)
-
-## 使用
-
-```tsx
-import { logger } from 'ice';
-
-logger.info('== info ==');
-```
-
-## 配置
+## 运行时配置
 
 ### smartLoglevel
 
@@ -89,3 +77,56 @@ const appConfig = {
 
 runApp(appConfig);
 ```
+
+
+## 构建配置
+
+在运行时配置的基础上，icejs 支持通过日志级别移除最终产物中的日志代码。
+
+### dropLogLevel
+
+默认值为：`trace`。
+
+在 `build.json` 中进行如下配置：
+
+```json
+{
+  "dropLogLevel": "warn"
+}
+```
+
+如上配置后，最终产物中将会移除所有 `warn` 级别以下的日志：`console.trace`/`console.debug`/`console.log`。
+
+
+**根据不同环境设置移除日志的级别：**
+
+```json
+{
+  "modeConfig": {
+    "daily": {
+      "dropLogLevel": "trace"
+    },
+    "prod": {
+      "dropLogLevel": "error"
+    }
+  }
+}
+```
+
+## 与 icejs1.x 的区别
+
+### 不再提供 logger 方法
+
+在 icejs1.x 中，开发者需要如下使用：
+
+```javascript
+import { logger } from 'ice';
+
+logger.info('log info');
+```
+
+而在 icejs2.x 中，开发者可以直接使用 `console.*`。
+
+### 具备自动移除日志代码的能力
+
+详见 `dropLogLevel` 的使用。
