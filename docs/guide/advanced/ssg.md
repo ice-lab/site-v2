@@ -39,9 +39,6 @@ export default [
     path: '/',
     exact: true,
     component: Home,
-    getInitialProps: () => {
-      return Promise.resolve({ data: [Math.random(), Math.random(), Math.random()] });
-    }
   },
   {
     path: '/dashboard',
@@ -72,7 +69,7 @@ export default [
 
 ## 预渲染动态路由
 
-预渲染默认不渲染动态路由里的所有页面，如果需要渲染动态路由中的页面，可以在`src/routes.ts` 中配置 `getStaticPath` 函数：
+预渲染默认不渲染动态路由里的所有页面，比如 `/about/:id`。如果需要渲染动态路由中的页面，可以在`src/routes.ts` 中配置 `getStaticPath` 函数：
 
 ```js
 import About from '@/pages/About';
@@ -130,9 +127,9 @@ export default [
 
 ## 部署
 
-### 使用 Nginx
+### 使用静态资源服务器
 
-如果是博客、官网等页面数据较为静态的应用，可以直接使用 nginx、oss 等进行部署，以 nginx 部署为例：
+如果是博客、官网等页面数据较为静态的应用，可以直接使用 Nginx、OSS、GitHub Pages 等进行部署，以 Nginx 部署为例：
 
 ```plain
 location / {
@@ -142,7 +139,7 @@ location / {
 }
 ```
 
-### 使用 Node.js
+### 使用 Node.js 服务器
 
 对于有部分页面组件开启 SSR 的情况，生产环境下需要对应的服务端进行渲染，核心逻辑如下：
 
