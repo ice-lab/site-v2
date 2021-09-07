@@ -1,5 +1,5 @@
 ---
-title: 渐进式 Web 应用 (PWA)
+title: 渐进式 Web 应用 PWA
 order: 6
 ---
 
