@@ -113,11 +113,11 @@ runApp(appConfig);
 }
 ```
 
-## 与 icejs1.x 的区别
+## 与 icejs 1.x 的区别
 
 ### 不再提供 logger 模块
 
-在 icejs1.x 中，开发者需要如下使用：
+在 icejs 1.x 中，开发者需要如下使用：
 
 ```javascript
 import { logger } from 'ice';
@@ -125,7 +125,7 @@ import { logger } from 'ice';
 logger.info('log info');
 ```
 
-而在 icejs2.x 中，开发者可以直接使用 `console.*`。
+而在 icejs 2.x 中，开发者可以直接使用 `console.*`。
 
 ### 具备自动移除日志代码的能力
 
