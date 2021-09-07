@@ -3,8 +3,6 @@ title: 状态管理
 order: 9
 ---
 
-TODO: 增加 disableResetPageStore 说明
-
 icejs 内置了状态管理方案，并在此基础上进一步遵循 **“约定优于配置”** 原则，进行抽象和封装，使得状态管理变得非常容易。
 
 ## 全局应用状态
@@ -80,10 +78,9 @@ export default store;
 
 `createStore()` 支持的 options:
 
-- disableImmer：布尔类型，可选，默认值 false，如果设置为 true，那么 immer 将被禁用，这意味着不能再在 reducers 中直接改变状态，而是必须返回新的状态。
 - disableError：布尔类型，可选，默认值 false，如果设置为 true，则 `UseModelEffectsError` 和 `WithModelEffectsError` 将不可用。
 - disableLoading：布尔类型，可选，默认值 false，如果设置为 true，则 `useModelEffectsLoading` 和 `withModelEffectsLoading` 将不可用。
-- plugins：数组类型，可选，Redux 插件
+- plugins：数组类型，可选，Immer 插件、Redux 插件
 - redux：对象类型，可选
   - middlewares：数组类型，Redux middlewares
   - devtoolOptions：对象类型，Redux Devtools 参数
@@ -332,18 +329,17 @@ export default {
 
 + reducers: {
 +   increment (prevState, payload) {
-+     //
-+     prevState.count += 1;
-+     prevState.list.push(1);
++     const newList = prevState.list.slice();
++     newList.push(payload);
++     const newCount = prevState.count + 1;
++     return { ...prevState, count: newCount, list: newList }
 +   },
 +   decrement (prevState) {
-+     prevState.count += 1;
++     return { ...prevState, count: prevState.count - 1 }
 +   }
 + }
 }
 ```
-
-> icestore 默认内置了 immer，因此 reducer 中直接修改数据即可，无需返回新对象
 
 **effects**
 
@@ -358,11 +354,17 @@ export default {
   state: { count: 0 },
 
   reducers: {
-    increment (prevState, payload) {
-      prevState.count += 1;
+    increment (prevState) {
+      return {
+        ...prevState,
+        count: prevState.count + 1
+      }
     },
     decrement (prevState) {
-      prevState.count -= 1;
+      return {
+        ...prevState,
+        count: prevState.count - 1
+      }
     }
   },
 
@@ -466,37 +468,17 @@ export default store.withModel('todos')(TodoList);
 
 ### 路由切换后重置页面状态
 
-在 `build.json` 中开启：
+> icejs 1.0 版本 `store.resetPageState` 已废弃
+> icejs 1.0 版本默认禁用此功能，如需使用需要主动开启 `store.resetPageState`
+
+icejs 2.0 版本默认开启路由切换后重置页面状态(state)。如果希望禁用此功能，需要在 `build.json` 中配置：
 
 ```json
 {
   "store": {
-    "resetPageState": true
+    "disableResetPageState": true
   }
 }
-```
-
-如果开发者自行在 `store.ts` 中初始化 `store` 实例，需要按照以下规则进行创建：
-
-```ts
-// src/pages/Home/store.ts
-import { createStore } from 'ice';
-
-// 有 models 目录的情况
-import user from './models/user';
-import project from './models/project';
-
-// 使用 model 的文件名作为 model key
-export default createStore({
-  user,
-  project,
-});
-
-// 有 model.ts 文件的情况
-import store from './model';
-
-// 使用 default 作为 model key
-export default createStore({ default: store });
 ```
 
 ### Redux Devtools
@@ -544,6 +526,8 @@ function Child() {
 
 ## 版本变更说明
 
+### v1.9.7
+
 icejs v1.9.7 版本开始框架推荐开发者自行初始化 store，这样可以更灵活的定制一些参数，相对之前方案带来的改变：
 
 - 开发者需要自行在 store.ts 中初始化 store 实例，框架默认不初始化
@@ -575,3 +559,43 @@ export default store;
 ```
 
 对于之前的版本我们做了向前兼容，只有当项目里存在 `src/store.ts` 或者 `src/pages/*/store.ts` 时才会触发新的方案，如果之前项目里刚好存在同名文件则有可能触发 break change。
+
+### v2.0.0
+
+icejs@2.x 版本开始默认不内置 immer。如果需要启用 immer，需要做以下两个步骤：
+
+安装 `@ice/store-plugin-immer` 插件：
+
+```shell
+npm i @ice/store-plugin-immer -S
+```
+
+在初始化 store 时引入该插件：
+
+```js
+import { createStore } from 'ice';
+import createImmerPlugin from '@ice/store-plugin-immer';
+import user from './models/user';
+
+const store = createStore(
+  { user },
+  { plugins: [createImmerPlugin()] },
+);
+
+export default store;
+```
+
+这样我们就可以直接修改 state 的值：
+
+```diff
+export default {
+  state: { count: 0 },
+
+  reducers: {
+    increment (prevState) {
+-     return { ...prevState, count: prevState.count + 1 }
++     prevState.count += 1;
+    }
+  },
+};
+```
