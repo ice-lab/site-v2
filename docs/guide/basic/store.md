@@ -330,18 +330,17 @@ export default {
 
 + reducers: {
 +   increment (prevState, payload) {
-+     //
-+     prevState.count += 1;
-+     prevState.list.push(1);
++     const newList = prevState.list.slice();
++     newList.push(payload);
++     const newCount = prevState.count + 1;
++     return { ...prevState, count: newCount, list: newList }
 +   },
 +   decrement (prevState) {
-+     prevState.count += 1;
++     return { ...prevState, count: prevState.count - 1 }
 +   }
 + }
 }
 ```
-
-> icestore 默认内置了 immer，因此 reducer 中直接修改数据即可，无需返回新对象
 
 **effects**
 
@@ -356,11 +355,17 @@ export default {
   state: { count: 0 },
 
   reducers: {
-    increment (prevState, payload) {
-      prevState.count += 1;
+    increment (prevState) {
+      return {
+        ...prevState,
+        count: prevState.count + 1
+      }
     },
     decrement (prevState) {
-      prevState.count -= 1;
+      return {
+        ...prevState,
+        count: prevState.count - 1
+      }
     }
   },
 
@@ -465,6 +470,7 @@ export default store.withModel('todos')(TodoList);
 ### 路由切换后重置页面状态
 
 > icejs 1.0 版本 `store.resetPageState` 已废弃
+> icejs 1.0 版本默认禁用此功能，如需使用需要主动开启 `store.resetPageState`
 
 icejs 2.0 版本默认开启路由切换后重置页面状态(state)。如果希望禁用此功能，需要在 `build.json` 中配置：
 
@@ -521,6 +527,8 @@ function Child() {
 
 ## 版本变更说明
 
+### v1.9.7
+
 icejs v1.9.7 版本开始框架推荐开发者自行初始化 store，这样可以更灵活的定制一些参数，相对之前方案带来的改变：
 
 - 开发者需要自行在 store.ts 中初始化 store 实例，框架默认不初始化
@@ -552,3 +560,43 @@ export default store;
 ```
 
 对于之前的版本我们做了向前兼容，只有当项目里存在 `src/store.ts` 或者 `src/pages/*/store.ts` 时才会触发新的方案，如果之前项目里刚好存在同名文件则有可能触发 break change。
+
+### v2.0.0
+
+icejs@2.x 版本开始默认不内置 immer。如果需要启用 immer，需要做以下两个步骤：
+
+安装 `@ice/store-plugin-immer` 插件：
+
+```shell
+npm i @ice/store-plugin-immer -S
+```
+
+在初始化 store 时引入该插件：
+
+```js
+import { createStore } from 'ice';
+import createImmerPlugin from '@ice/store-plugin-immer';
+import user from './models/user';
+
+const store = createStore(
+  { user },
+  { plugins: [createImmerPlugin()] },
+);
+
+export default store;
+```
+
+这样我们就可以直接修改 state 的值：
+
+```diff
+export default {
+  state: { count: 0 },
+
+  reducers: {
+    increment (prevState) {
+-     return { ...prevState, count: prevState.count + 1 }
++     prevState.count += 1;
+    }
+  },
+};
+```
