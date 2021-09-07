@@ -9,6 +9,10 @@ icejs 支持服务端渲染（即 SSR）能力，开发者可以按需一键开�
 - 与服务端低耦合，无论是传统的 Nodejs 应用还是 Serverless 模式，都可以非常简单的集成
 - 支持页面级服务端加载数据
 
+import Support from '../../../src/components/Support'
+
+<Support list={['webpack']} />
+
 ## 开启 SSR
 
 > 注意：icejs v1.1.0 及以上版本开始支持 SSR
@@ -232,7 +236,6 @@ icejs 构建出来的 `server/index.js` 会暴露出 `render` 方法供服务端
 - ctx: 必填，当前请求上下文
 - options:
   - loadableStatsPath: 必填，loadable-stats.json 本地路径
-  - publicPath: 选填，静态资源的公共路径，默认为 `/`
   - htmlTemplate: 选填，html 模板内容
   - initialData: 选填，如果不填写，服务端则会调用前端声明的 `getInitialData` 方法，但如果**对性能追求比较极致**，服务端则可以自行获取对应数据并通过 `initialData` 传入。（调用前端的 getInitialData 一般会发起 HTTP 请求，但是服务端有可能通过缓存/数据库来查询，速度会快一点）
 

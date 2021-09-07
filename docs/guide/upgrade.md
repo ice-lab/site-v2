@@ -61,6 +61,9 @@ icejs 2.x 移除了已废弃的工程配置和插件，并将一些优化逻辑�
 
 ### 3. 状态管理方案使用
 
+
+#### 自动创建 store 废弃
+
 在 icejs 1.x 中推荐通过创建 `store.ts` 的方式[初始化页面状态](/docs/guide/basic/store#页面级状态)，在 2.x 版本中移除了对于自动创建 store 文件的支持
 
 ```diff
@@ -95,6 +98,10 @@ export default store;
 // 显式引入 store 文件
 + import store from '@/pages/Home/store'
 ```
+
+#### 移除 immer 的依赖
+
+icejs 2.x 默认移除了 immer 依赖以减小构建体积，迁移方式详见[状态管理文档](/docs/guide/basic/store#v200)
 
 ### 4. 框架 API 迁移
 

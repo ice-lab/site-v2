@@ -7,6 +7,11 @@ order: 7
 
 > ice.js@1.15.0 以上版本开始支持
 
+
+import Support from '../../../src/components/Support'
+
+<Support list={['webpack']} />
+
 ## Install
 
 ```bash

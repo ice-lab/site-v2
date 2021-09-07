@@ -5,6 +5,10 @@ order: 5
 
 `build-plugin-css-assets-local` 提供将 css 中的网络资源本地化能力，例如字体文件等。
 
+import Support from '../../../src/components/Support'
+
+<Support list={['webpack']} />
+
 ## Install
 
 ```bash

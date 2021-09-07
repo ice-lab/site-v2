@@ -8,6 +8,10 @@ icejs 提供构建时预渲染方案，即在构建时渲染页面组件并生�
 - 静态站点生成
 - 没有后端服务的场景下需要更好的 SEO 和更少的首屏渲染时间
 
+import Support from '../../../src/components/Support'
+
+<Support list={['webpack']} />
+
 ## 开启预渲染
 
 在工程配置文件 `build.json` 中开启：

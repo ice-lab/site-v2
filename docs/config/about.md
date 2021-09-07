@@ -150,9 +150,7 @@ icejs 中一般不允许修改该配置。
 
 ### minify
 
-TODO: 支持多种压缩器
-
-- 类型：`boolean｜string`
+- 类型：`boolean｜string|object`
 - 默认值：`true`
 
 构建后的资源将进行压缩，如果不希望资源被压缩可以修改为  `false`
@@ -168,6 +166,19 @@ TODO: 支持多种压缩器
 ```json
 {
   "minify": "esbuild"
+}
+```
+
+对于需要指定压缩器配置的场景，可以通过如下方式进行配置 <Badge text="版本 2.0.0+"/>
+
+```json
+{
+  "minify": {
+    "type": "esbuild",
+    "options": {
+      "target": "es2015"
+    }
+  }
 }
 ```
 
@@ -261,7 +272,7 @@ TODO: 支持多种压缩器
 - 类型： `string` | `object`
 - 默认值：`last 2 versions, Firefox ESR, > 1%, ie >= 9, iOS >= 8, Android >= 4`
 
-配置 @babel/preset-env 的浏览器最低版本(https://babeljs.io/docs/en/babel-preset-env#targets)，新配置的 `browserslist`  会覆盖默认值。
+配置 @babel/preset-env 的浏览器最低版本( https://babeljs.io/docs/en/babel-preset-env#targets )，新配置的 `browserslist`  会覆盖默认值。
 
 ```json
 {
@@ -593,15 +604,6 @@ ice.js 目前默认内置 less 4.x 版本，计算函数对于使用 '/' 的方�
 
 <Support list={['webpack']} />
 
-### esbuild
-
-- 类型：`object`
-- 默认值：无
-
-使用 esbuild 对构建产物进行压缩，可选配置参考 [esbuild 配置文档](https://github.com/privatenumber/esbuild-loader#minifyplugin)
-
-<Support list={['webpack']} />
-
 ### swc
 
 - 类型：`object`
@@ -634,6 +636,21 @@ ice.js 目前默认内置 less 4.x 版本，计算函数对于使用 '/' 的方�
 开启 vite 构建模式，详见 [vite 构建文档](/docs/guide/basic/vite)
 
 <Support list={['vite']} />
+
+### esbuild
+
+- 类型：`object`
+- 默认值：无
+
+使用 esbuild 对构建产物进行压缩，可选配置参考 [esbuild 配置文档](https://github.com/privatenumber/esbuild-loader#minifyplugin)
+
+<Support list={['webpack']} />
+
+:::caution
+
+**已废弃**，icejs 2.0 版本中推荐通过 `minify` 字段进行配置
+
+:::
 
 ### modularImportRuntime <Badge text="@deprecated" />
 
