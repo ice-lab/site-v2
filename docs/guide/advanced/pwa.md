@@ -107,9 +107,7 @@ Service Worker 的作用域， 默认为 `'/'`。Service Worker 默认在应用�
 当新的 Service Worker 注册成功后，是否立即执行 `skipWaiting`。默认 `true`。
 
 
-## 使用
-
-### 添加 Manifest 文件
+## 添加 Manifest 文件
 
 [Manifest](https://developer.mozilla.org/en-US/docs/Web/Manifest) 文件是在 JSON 文本文件中提供有关应用程序的信息。Manifest 可以将应用安装到设备的主屏幕。
 
@@ -177,4 +175,14 @@ icejs 会默认将此文件打包至构建产物目录下，并将其添加至 `
 ```html
 <link rel="manifest" href="/manifest.json">
 ```
+
+## 部署限制
+
+当试图注册一个在部署在 CDN 上的 Service Worker，在浏览器中会出现这个错误：
+
+```text
+Uncaught (in promise) DOMException: Failed to register a ServiceWorker: The origin of the provided scriptURL ('https://cdn.example.com/sw.js') does not match the current origin ('https://www.example.com').
+```
+
+因此，生成的 `sw.js` 需要部署到应用的 host 下。
 
