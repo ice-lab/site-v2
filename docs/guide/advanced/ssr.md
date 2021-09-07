@@ -9,6 +9,10 @@ icejs 支持服务端渲染（即 SSR）能力，开发者可以按需一键开�
 - 与服务端低耦合，无论是传统的 Nodejs 应用还是 Serverless 模式，都可以非常简单的集成
 - 支持页面级服务端加载数据
 
+import Support from '../../../src/components/Support'
+
+<Support list={['webpack']} />
+
 ## 开启 SSR
 
 > 注意：icejs v1.1.0 及以上版本开始支持 SSR

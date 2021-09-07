@@ -7,6 +7,10 @@ order: 6
 
 - 开启调试后，可以指定页面加载本地 assets 资源
 
+import Support from '../../../src/components/Support'
+
+<Support list={['webpack']} />
+
 ## Install
 
 ```bash

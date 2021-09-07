@@ -8,6 +8,10 @@ order: 12
 - 页面渲染前将自动加载配置的 assets 资源，资源类型包括 js 和 css
 - 根据不同的执行命令，加载不同的 assets 资源
 
+import Support from '../../../src/components/Support'
+
+<Support list={['webpack']} />
+
 ## Install
 
 ```bash
