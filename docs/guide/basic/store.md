@@ -78,10 +78,9 @@ export default store;
 
 `createStore()` 支持的 options:
 
-- disableImmer：布尔类型，可选，默认值 false，如果设置为 true，那么 immer 将被禁用，这意味着不能再在 reducers 中直接改变状态，而是必须返回新的状态。
 - disableError：布尔类型，可选，默认值 false，如果设置为 true，则 `UseModelEffectsError` 和 `WithModelEffectsError` 将不可用。
 - disableLoading：布尔类型，可选，默认值 false，如果设置为 true，则 `useModelEffectsLoading` 和 `withModelEffectsLoading` 将不可用。
-- plugins：数组类型，可选，Redux 插件
+- plugins：数组类型，可选，Immer 插件、Redux 插件
 - redux：对象类型，可选
   - middlewares：数组类型，Redux middlewares
   - devtoolOptions：对象类型，Redux Devtools 参数
