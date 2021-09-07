@@ -562,7 +562,7 @@ export default store;
 
 ### v2.0.0
 
-icejs@2.x 版本开始默认不内置 immer。如果需要启用 immer，需要做以下两个步骤：
+icejs 2.x 版本开始默认不内置 immer。如果需要启用 immer，需要做以下两个步骤：
 
 安装 `@ice/store-plugin-immer` 插件：
 
