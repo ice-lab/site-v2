@@ -7,7 +7,7 @@ order: 13
 
 ### runApp
 
-> 1.7.0 版本之后推荐使用 runApp 替代原先的 createApp
+> API createApp 从 1.7.0 版本标记废弃，2.0 版本完全移除，请使用 runApp 替代
 
 用于创建渲染整个应用。[详见](/guide/basic/app.md)
 
@@ -159,6 +159,8 @@ function Home() {
 
 ### getSearchParams
 
+> API useSearchParams 和 withSearchParams 于 1.9.0 版本标记废弃，2.0 版本完全移除，请使用 getSearchParams 替代
+
 用于在非路由函数组件中解析 url 参数。
 
 假设当前 URL 为 `https://example.com?foo=bar`，解析查询参数如下：
@@ -170,47 +172,6 @@ import { getSearchParams } from 'ice';
 function Example() {
   const searchParams = getSearchParams();
   // console.log(searchParams); => { foo: 'bar' }
-}
-```
-
-### useSearchParams
-
-:::caution
-
-**icejs 2.0 已移除**，请使用 getSearchParams。
-
-:::
-
-假设当前 URL 为 `https://example.com?foo=bar`，解析查询参数如下：
-
-```tsx
-// src/components/Example
-import { useSearchParams } from 'ice';
-
-function Example() {
-  const searchParams = useSearchParams();
-  // console.log(searchParams); => { foo: 'bar' }
-}
-```
-
-### withSearchParams
-
-:::caution
-
-**icejs 2.0 已移除**，请使用 getSearchParams 
-
-:::
-
-```tsx
-import { withSearchParams } from 'ice';
-
-@withSearchParams
-class Example extends React.Component {
-  render() {
-    const { searchParams } = this.props;
-    // console.log(searchParams); => { foo: bar }
-    return <>Foo</>;
-  }
 }
 ```
 

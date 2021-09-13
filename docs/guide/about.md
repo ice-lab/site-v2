@@ -45,7 +45,7 @@ order: 1
 
 ### 飞冰可以使用哪些 UI 组件？
 
-飞冰的框架和工具都不耦合 UI 组件，因此开发者可以选择自己喜欢的 UI 组件使用，比如：
+飞冰的框架和工具都不耦合 UI 组件，因此开发者可以选择任意的 React UI 组件使用，比如：
 
 - [使用 fusion 组件](/plugin/list/fusion.md)
 - [使用 antd 组件](/plugin/list/antd.md)
@@ -56,12 +56,7 @@ order: 1
 
 ### icejs 是否有 Bundleless 相关计划
 
-有，目前 icejs 团队核心在做两件事情：
-
-1. 基于 ESM 的研发框架，初步计划是基于 vite，将 icejs 上层的解决方案都可以对接过来
-2. icejs v2.0，在 1.0 的基础上渐进演进，升级 webpack5 提升调试速度、更快的安装速度、更强大的动态多主题方案等
-
-这两个方向预计将在七月份发布版本。
+icejs 2.0 已支持 vite 模式，[了解更多](//guide/basic/vite.md) 。
 
 ## 联系我们 🧼
 

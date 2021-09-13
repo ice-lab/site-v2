@@ -104,7 +104,11 @@ const HomePage = () => {
 
 ## 页面级状态
 
-页面状态只能在该页面下的组件中使用，无法跨页面使用。约定页面状态在 `src/pages/*/models` 中定义。
+页面状态只能在该页面下的组件中使用，无法跨页面使用。
+
+### 非嵌套页面
+
+大部分场景中一个 `pages/Foo` 目录对应一个路由，即非嵌套页面，此时约定页面状态在 `src/pages/*/models` 中定义。
 
 目录组织如下：
 
@@ -166,9 +170,11 @@ const HomePage = () => {
 ```md
 src
 └── pages
-│ ├── Home // Home 页面包含了 Foo、Bar 等多个路由页面
-│ │ ├── Foo  
-│ │ ├── Bar
+│ ├── Home     // Home 页面包含了 A、B 等多个路由页面
+│ │ ├── HomeA
+│ │ │ └── index.tsx
+│ │ ├── HomeB
+│ │ │ └── index.tsx
 │ │ ├── Layout // 页面布局
 │ │ │ └── index.tsx
 │ │ ├── models // 页面状态
@@ -178,10 +184,10 @@ src
 └── app.ts
 ```
 
-对于嵌套页面，框架会将 store 的 Provider 包裹在 `Layout/index.tsx` 上，因此需要保证该文件的存在：
+对于嵌套页面，框架会将 store 的 Provider 包裹在 `Layout/index.tsx` 上，此时所有嵌套的页面以及组件都可以访问到这里的 store。`Layout/index.tsx` 内容如下：
 
 ```jsx
-// Layout/index.tsx
+// Layout 中可以定义这些嵌套页面共用的布局，如果没有共用布局则直接渲染 children 即可
 export default ({ children }) => {
   return <>{children}</>;
 };
@@ -192,8 +198,8 @@ export default ({ children }) => {
 ```diff
 // src/routes.ts
 +import HomeLayout from '@/pages/Home/Layout';
-import Foo from '@/pages/Home/Foo';
-import Bar from '@/pages/Home/Bar';
++import HomeA from '@/pages/Home/HomeA';
++import HomeB from '@/pages/Home/HomeB';
 import About from '@/pages/About';
 
 export default [
@@ -204,12 +210,12 @@ export default [
       {
         path: '/home',
 +        component: HomeLayout,
-        children: [
-          {
-            path: '/foo',
-            component: Foo
-          }
-        ]
++        children: [
++          {
++            path: '/a',
++            component: HomeA
++          }
++        ]
       },
       {
         path: '/about',
@@ -236,8 +242,6 @@ const appConfig = {
 
 runApp(appConfig);
 ```
-
-> API `store.getInitialStates` 已废弃，推荐使用 `store.initialStates`
 
 > SSR 场景下 `initialData.initialStates` 会默认赋值给 `store.initialStates`
 
@@ -526,11 +530,22 @@ function Child() {
 
 ## 版本变更说明
 
-### v1.9.7
+### 不再自动初始化 store
 
-icejs v1.9.7 版本开始框架推荐开发者自行初始化 store，这样可以更灵活的定制一些参数，相对之前方案带来的改变：
+> 1.9.7 版本标记废弃，2.0.0 版本完全移除
 
-- 开发者需要自行在 store.ts 中初始化 store 实例，框架默认不初始化
+推荐开发者自行创建 `store.js` 并在其中初始化 store，这样可以更灵活的定制一些参数，相对之前方案带来的改变：
+
+- 开发者需要在 `models/` 同层目录自行创建 `store.ts` 并初始化 store 实例：
+
+```diff
+src
+└── models
+|   ├── foo.ts
+|   └── bar.ts
++|── store.ts
+└── app.ts
+```
 
 ```ts
 // src/store.ts
@@ -558,44 +573,30 @@ export default store;
 + import store from '@/pages/Home/store';
 ```
 
-对于之前的版本我们做了向前兼容，只有当项目里存在 `src/store.ts` 或者 `src/pages/*/store.ts` 时才会触发新的方案，如果之前项目里刚好存在同名文件则有可能触发 break change。
+### Model 中不再支持 `actions: {}` 写法
 
-### v2.0.0
+> 1.7.0 版本标记废弃，2.0.0 版本完全移除
 
-icejs 2.x 版本开始默认不内置 immer。如果需要启用 immer，需要做以下两个步骤：
-
-安装 `@ice/store-plugin-immer` 插件：
-
-```shell
-npm i @ice/store-plugin-immer -S
-```
-
-在初始化 store 时引入该插件：
-
-```js
-import { createStore } from 'ice';
-import createImmerPlugin from '@ice/store-plugin-immer';
-import user from './models/user';
-
-const store = createStore(
-  { user },
-  { plugins: [createImmerPlugin()] },
-);
-
-export default store;
-```
-
-这样我们就可以直接修改 state 的值：
+将原先的 `actions: {}` 拆分为 `effects: () => {}` 和 `reducers: {}` 两个字段：
 
 ```diff
-export default {
-  state: { count: 0 },
-
-  reducers: {
-    increment (prevState) {
--     return { ...prevState, count: prevState.count + 1 }
-+     prevState.count += 1;
-    }
-  },
-};
+const counter = {
+  state: { value: 0 },
+-  actions: {
+-    increment:(state) => ({ value: state.value + 1 }),
+-    async asyncIncrement(state, payload, actions, globalActions) {},
+-  }
++  reducers: {
++    increment:(prevState) => ({ value: prevState.value + 1 }),
++  },
++  effects: (dispatch) => ({
++    async asyncIncrement(payload, rootState) {},
++  }),
+}
 ```
+
+### 不再支持 `store.getInitialStates()`
+
+> 1.7.0 版本标记废弃，2.0.0 版本完全移除
+
+推荐使用 `store.initialStates`
