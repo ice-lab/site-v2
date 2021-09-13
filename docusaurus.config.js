@@ -10,9 +10,15 @@ module.exports = {
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'throw',
   favicon: 'img/favicon.ico',
-  organizationName: 'alibaba', 
+  organizationName: 'alibaba',
   projectName: 'ice',
   themeConfig: {
+    announcementBar: {
+      id: 'announcementBar-2',
+      content:
+        'icejs 2.0 版本已发布，支持 webpack5 和 vite 两种构建模式，点击 <a target="_blank" rel="noopener noreferrer" href="#">了解更多</a>',
+      isCloseable: false,
+    },
     navbar,
     footer,
     algolia: {
