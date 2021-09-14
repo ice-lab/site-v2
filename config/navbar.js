@@ -10,14 +10,14 @@ module.exports = {
       position: 'right',
     },
     {
-      to: '/docs/guide/basic/vite',
-      position: 'right',
-      label: 'Vite 模式 🔥',
-    },
-    {
       to: '/docs/guide/about',
       position: 'right',
       label: '指南',
+    },
+    {
+      to: '/docs/guide/basic/vite',
+      position: 'right',
+      label: 'Vite 模式 🔥',
     },
     {
       to: '/docs/config/about',
