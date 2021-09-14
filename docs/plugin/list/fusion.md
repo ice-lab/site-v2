@@ -5,11 +5,9 @@ order: 2
 
 import Support from '../../../src/components/Support'
 
-提供 `@alifd/next` 在不同业务场景下的能力。
-
 <Support list={['webpack', 'vite']} />
 
-> vite 模式下支持了 `@alifd/next` 按需加载、主题包配置等主要能力，暂不支持多主题切换。
+提供 `@alifd/next` 在不同业务场景下的能力。
 
 ## Install
 
@@ -145,6 +143,8 @@ runApp(appConfig);
 ```
 
 ### 动态切换主题
+
+> Vite 模式下不支持
 
 build-plugin-fusion 结合 fusion 自身可以配置主题包的能力，支持多个主题包的配置，大大简化多主题切换的成本，通过 css 变量能力实现动态主题的切换，核心实现思路如下：
 

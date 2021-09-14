@@ -3,19 +3,17 @@ title: 服务端渲染 SSR
 order: 2
 ---
 
+import Support from '../../../src/components/Support'
+
+<Support list={['webpack']} />
+
 icejs 支持服务端渲染（即 SSR）能力，开发者可以按需一键开启 SSR 的模式，相比于传统的客户端渲染，SSR 常用于两个场景：1. 有 SEO 诉求；2. 对首屏渲染速度要求比较高。相比于传统的 SSR 方案，icejs 提供的 SSR 能力具有以下特性：
 
 - 支持一键开启/关闭 SSR 能力
 - 与服务端低耦合，无论是传统的 Nodejs 应用还是 Serverless 模式，都可以非常简单的集成
 - 支持页面级服务端加载数据
 
-import Support from '../../../src/components/Support'
-
-<Support list={['webpack']} />
-
 ## 开启 SSR
-
-> 注意：icejs v1.1.0 及以上版本开始支持 SSR
 
 在工程配置文件 `build.json` 中开启 SSR：
 
@@ -31,7 +29,9 @@ import Support from '../../../src/components/Support'
 
 ## 应用级数据
 
-在 `src/app.ts` 中可通过 `getInitialData` 获取全局数据：
+### 获取应用初始化数据
+
+在 `src/app.ts` 中可通过 `app.getInitialData()` 获取全局数据：
 
 ```diff
 import { runApp, request } from 'ice';
@@ -41,8 +41,9 @@ const appConfig = {
 +    getInitialData: async (ctx) => {
 +      // const data = await request.get('/api/data');
 +      return {
++       foo: 'bar',
 +       initialStates: {
-+         user: { name: 'Jack Ma', id: '01' }
++         user: { name: 'Jack', id: '01' }
 +       }
 +      };
 +    }
@@ -54,8 +55,8 @@ runApp(appConfig);
 
 开启了 SSR 的行为说明：
 
-- 服务端渲染时直接调用 `getInitialData` 获取数据并渲染应用，同时将数据注入到全局变量中
-- 浏览器端渲染时不再调用 `getInitialData`，会直接通过全局变量获取初始数据
+- 服务端渲染时直接调用 `app.getInitialData()` 获取数据并渲染应用，同时将数据注入到全局变量中
+- 浏览器端渲染时不再调用 `app.getInitialData()`，会直接通过全局变量获取初始数据
 - 可以获取到当前请求的上下文 `ctx` 参数，包含以下字段
   - `ctx.req`：HTTP request 对象 （仅在 server 端输出）
   - `ctx.res`：HTTP response 对象 （仅在 server 端输出）
@@ -66,45 +67,37 @@ runApp(appConfig);
 
 未开启 SSR 的行为说明：
 
-- 浏览器端会同步调用 `getInitialData`，调用完成后执行 render 逻辑
+- 浏览器端会同步调用 `getInitialData`
+- 调用完成后执行页面 render 逻辑
 
-`getInitialData` 返回的 `initialData.initialStates` 会作为 store 的初始状态，因此 View 里通过 model 拿到的默认 state 即 `initialData.initialStates`，如 `models/user.js` 的默认 states 即上出的 `{ name: 'Jack Ma', id: '01' }`。
+### 消费应用初始化数据
 
-```diff
-import { runApp } from 'ice';
+框架提供了两种方式获取 `app.getInitialData()` 返回的数据：
 
-const appConfig = {
-  app: {
-    getInitialData: async () => {}
-  },
-  store: {
-+   // 参数 initialData 即 getInitialData 返回的数据
-+   getInitialStates: (initialData) => {
-+     // 可按需选择需要作为 initialStates 的数据
-+     return initialData;
-+   }
-  }
-};
-
-runApp(appConfig);
-```
-
-框架提供了两种方式获取 `getInitialData` 返回的数据：
-
-- 通过 `getInitialData` API 消费 `initialData`。
+#### 通过 `getInitialData()` 消费
 
 ```ts
 import React from 'react';
 import { getInitialData } from 'ice';
 
 export default = () => {
-  // 获取通过 app.getInitialData 返回的 initialData 数据。
-  const initialData = getInitialData();
-  console.log(initialData);
+  const { foo } = getInitialData();
+  console.log(initialData);  // => bar
 };
 ```
 
-- 通过 store 的 `initialStates` 来使用消费 `initalData`，[详见](/guide/basic/store.md)。
+#### 作为 store 的初始化状态
+
+`app.getInitialData()` 返回的 `initialStates` 字段会作为 store 的初始状态，比如 `models/user.js` 的默认 states 即上述的 `{ name: 'Jack', id: '01' }`，可以直接在 View 中使用：
+
+```jsx
+import store from '@/store';
+const HomePage = () => {
+  const [userState, userDispatchers] = store.useModel('user');
+  console.log(userState.name); // => Jack
+  return <>{userState.name}</>;
+}
+```
 
 ## 页面级数据
 
@@ -128,10 +121,10 @@ function Home({ stars }) {
   return <div>icejs stars: {stars}</div>;
 }
 
-+Home.getInitialProps = async (ctx) => {
-+  const res = await request.get('https://api.github.com/repos/ice-lab/icejs');
-+  return { stars: res.data.stargazers_count };
-+}
++ Home.getInitialProps = async (ctx) => {
++   const res = await request.get('https://api.github.com/repos/alibaba/ice');
++   return { stars: res.data.stargazers_count };
++ }
 
 export default Home;
 ```
@@ -143,7 +136,10 @@ export default Home;
 
 未开启 SSR 的行为说明：
 
-- 浏览器端渲染时会在组件渲染后（didMount）理解调用该方法，同时触发组件的 rerender。
+- 浏览器端渲染时会在组件渲染（render）后调用该方法
+- 调用完成后触发组件的 rerender
+
+注意：页面组件渲染使用 props 时需要兼容 `getInitialProps` 未调用的情况
 
 ## 构建产物
 
@@ -155,12 +151,15 @@ export default Home;
   │   ├── index.html
   │   ├── css/index.css
   │   ├── js/index.js
++ │   ├── server/loadable-stats.json
 + │   └── server/index.js // 服务端代码文件
 ```
 
+> icejs 1.15.0 开始支持在开启 SSR 的应用中使用[代码分割](/guide/advanced/code-splitting.md)，部署时需要把 `server/` 目录下所有的 bundle 资源下载到 server 端。
+
 ## 页面 Meta 标签
 
-在 SEO 场景下，往往需要设置每个页面的标题和 Meta 标签，以更好地让搜索引擎抓取页面内容。使用步骤如下：
+在 SEO 场景下，往往需要动态设置每个页面的标题和 Meta 标签，以更好地让搜索引擎抓取页面内容。使用步骤如下：
 
 ```jsx
 // pages/Home/index.jsx
@@ -174,7 +173,7 @@ const Home = (props) => {
     <div>
       <Head>
         <title>{title}</title>
-        <meta name="description" content={props.description} />
+        <meta name="description" content={description} />
         <meta name="keywords" content="Home Keywords" />
       </Head>
     </div>
@@ -184,7 +183,10 @@ const Home = (props) => {
 Home.getInitialProps = async () => {
   // 模拟服务端返回 title 和 description 数据
   const res = await request('/detail');
-  return res;
+  return {
+    title: res.data.title,
+    description: res.data.description,
+  };
 };
 ```
 
@@ -198,7 +200,7 @@ const path = require('path');
 router.get('/*', async (ctx) => {
   // server/index.js 路径
   const serverBundlePath = path.resolve('../build', 'server/index.js');
-  const webStatsPath = path.resolve('../build', 'loadable-stats.json');
+  const webStatsPath = path.resolve('../build', 'server/loadable-stats.json');
   const serverRender = require(serverBundlePath);
   const { html, error, redirectUrl } = await serverRender.default(
     // 当前请求上下文（必选）
@@ -229,17 +231,13 @@ router.get('/*', async (ctx) => {
 });
 ```
 
-icejs v1.15.0 及以上版本开始支持在开启 SSR 的应用中使用[代码分割](/guide/advanced/code-splitting.md)。部署时需要把 `loadable-stats.json` 、`server/loadable-stats.json` 和 `server/` 目录下所有的 bundle 资源下载到 server 端。
-
 icejs 构建出来的 `server/index.js` 会暴露出 `render` 方法供服务端调用，该方法提供以下参数：
 
 - ctx: 必填，当前请求上下文
 - options:
   - loadableStatsPath: 必填，loadable-stats.json 本地路径
   - htmlTemplate: 选填，html 模板内容
-  - initialData: 选填，如果不填写，服务端则会调用前端声明的 `getInitialData` 方法，但如果**对性能追求比较极致**，服务端则可以自行获取对应数据并通过 `initialData` 传入。（调用前端的 getInitialData 一般会发起 HTTP 请求，但是服务端有可能通过缓存/数据库来查询，速度会快一点）
-
-以上即 icejs SSR 能力的使用说明，如遇到相关问题，欢迎给我们提 issue。
+  - initialData: 选填，如果不填写，服务端则会调用前端声明的 `app.getInitialData()` 方法，但如果**对性能追求比较极致**，服务端则可以自行获取对应数据并通过 `initialData` 传入。（调用前端的 getInitialData 一般会发起 HTTP 请求，但是服务端有可能通过缓存/数据库来查询，速度会快一点）
 
 ## 其他问题
 
@@ -252,23 +250,10 @@ icejs 构建出来的 `server/index.js` 会暴露出 `render` 方法供服务端
 ```js
 if (process.env.__IS_SERVER__) {
   // 动态扩展环境：服务端通过环境变量区分，此处以 Midway 为例
-  global.__app_mode__ = process.env.MIDWAY_SERVER_ENV;
+  globalThis.__app_mode__ = process.env.MIDWAY_SERVER_ENV;
 } else {
-  // 动态扩展环境：两种方式
-
-  // 方式 1. 通过服务端输出的全局变量
-  window.__app_mode__ = window.g_config.faasEnv;
-
-  // 方式 2. 通过 url 地址动态判断
-  if (/pre.example.com/.test(location.host)) {
-    window.__app_mode__ = 'pre';
-  } else if (/daily.example.com/.test(location.host)) {
-    window.__app_mode__ = 'daily';
-  } else if (/example.com/.test(location.host)) {
-    window.__app_mode__ = 'prod';
-  } else {
-    window.__app_mode__ = 'local';
-  }
+  // 动态扩展环境
+  globalThis.__app_mode__ = globalThis.__env__;
 }
 
 export default {
@@ -276,13 +261,10 @@ export default {
     baseURL: `http://localhost:${process.env.SERVER_PORT}`,
   },
   daily: {
-    baseURL: 'https://ice-ssr.daily.fx.alibaba.net',
-  },
-  pre: {
-    baseURL: 'https://ice-ssr.pre-fx.alibaba-inc.com',
+    baseURL: 'https://ice-ssr.daily.fx.net',
   },
   prod: {
-    baseURL: 'https://ice-ssr.fx.alibaba-inc.com',
+    baseURL: 'https://ice-ssr.fx.com',
   },
 };
 ```

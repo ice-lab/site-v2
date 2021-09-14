@@ -1,16 +1,22 @@
 ---
-title: dynamic-load-assets
+title: load-assets（不推荐）
 order: 12
 ---
+
+import Support from '../../../src/components/Support'
+
+<Support list={['webpack']} />
+
+:::caution
+
+因侵入源码不推荐使用，建议直接修改 public/index.html
+
+:::
 
 插件提供自动加载 assets 资源能力：
 
 - 页面渲染前将自动加载配置的 assets 资源，资源类型包括 js 和 css
 - 根据不同的执行命令，加载不同的 assets 资源
-
-import Support from '../../../src/components/Support'
-
-<Support list={['webpack']} />
 
 ## Install
 

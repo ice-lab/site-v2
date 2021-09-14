@@ -8,9 +8,9 @@ function Splash() {
     <header>
       <div className={styles.splash}>
         <div className={styles['title-container']}>
-          <h1 className={styles.title}>基于 React 的渐进式研发框架</h1>
+          <h1 className={styles.title}>基于 React 的研发解决方案</h1>
           <p className={styles.subtitle}>
-            开箱即用的工程能力和最佳实践，面向领域的微前端、Hooks、表单等解决开发，让前端开发更加简单规范。
+            开箱即用的 React 研发框架 icejs，面向领域的微前端、Hooks、表单等解决开发，让前端开发更加简单规范。
           </p>
           <div className={styles.githubStars}>
             <iframe

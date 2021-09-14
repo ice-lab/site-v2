@@ -79,9 +79,9 @@ module.exports = ({ onHook }) => {
 | --- | --- | --- |
 | before.start.load | {<br />  args: CommandArgs, // 启动参数<br /> webpackConfig: ConfigInfo[]<br />} | 配置转化之前 |
 | before.start.run | {<br />  args: CommandArgs, // 启动参数<br /> config: WebpackConfig[]<br />} | 构建执行之前 |
-| after.start.compile | {<br />  url: string // serverUrl, <br />isFirstCompile: boolean,<br />  stats: WebpackAssets // vite 模式下不存在 stats<br />} | 编译结束，每次重新编译都会执行 |
-| before.start.devServer | {<br />  url: string // serverUrl,<br /> devServer:  WebpackDevServer | viteServer<br />} | 中间件加载后，dev server 启动前，仅支持 webpack 构建模式 |
-| after.start.devServer | {<br />  url: string // serverUrl,<br />  devServer: WebpackDevServer ｜ viteServer,<br />  err: Error<br />} | dev server 启动后，仅支持 webpack 构建模式 |
+| after.start.compile | {<br />  url: string // serverUrl, <br />isFirstCompile: boolean,<br />  stats: WebpackAssets // Vite 模式下不存在 stats<br />} | 编译结束，每次重新编译都会执行 |
+| before.start.devServer | {<br />  url: string // serverUrl,<br /> devServer:  WebpackDevServer | viteServer<br />} | 中间件加载后，dev server 启动前，仅支持 Webpack 构建模式 |
+| after.start.devServer | {<br />  url: string // serverUrl,<br />  devServer: WebpackDevServer ｜ viteServer,<br />  err: Error<br />} | dev server 启动后，仅支持 Webpack 构建模式 |
 
 #### build 命令
 
@@ -89,7 +89,7 @@ module.exports = ({ onHook }) => {
 | --- | --- | --- |
 | before.build.load | {<br />  args: CommandArgs, // 启动参数<br /> webpackConfig: ConfigInfo[]<br />} | 配置转化之前 |
 | before.build.run | {<br />  args: CommandArgs, // 启动参数<br /> config: WebpackConfig[]<br />} | 构建执行之前 |
-| after.build.compile | {<br />  err: Error,<br />  stats: WebpackAssets // vite 模式下不存在 stats<br />} | 构建结束 |
+| after.build.compile | {<br />  err: Error,<br />  stats: WebpackAssets // Vite 模式下不存在 stats<br />} | 构建结束 |
 
 #### test 命令
 
@@ -158,7 +158,7 @@ module.exports = ({modifyUserConfig}) => {
 
 ### registerTask
 
-添加 webpack 配置，配置为 webpack-chain 形式。
+添加 Webpack 配置，配置为 webpack-chain 形式。
 
 ```javascript
 module.exports = ({registerTask}) => {
@@ -168,7 +168,7 @@ module.exports = ({registerTask}) => {
 
 ### getAllTask
 
-获取所有 webpack 配置名称。
+获取所有 Webpack 配置名称。
 
 ```javascript
 module.exports = ({getAllTask}) => {

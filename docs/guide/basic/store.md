@@ -76,14 +76,7 @@ const store = createStore(
 export default store;
 ```
 
-`createStore()` 支持的 options:
-
-- disableError：布尔类型，可选，默认值 false，如果设置为 true，则 `UseModelEffectsError` 和 `WithModelEffectsError` 将不可用。
-- disableLoading：布尔类型，可选，默认值 false，如果设置为 true，则 `useModelEffectsLoading` 和 `withModelEffectsLoading` 将不可用。
-- plugins：数组类型，可选，Immer 插件、Redux 插件
-- redux：对象类型，可选
-  - middlewares：数组类型，Redux middlewares
-  - devtoolOptions：对象类型，Redux Devtools 参数
+详细文档请参考 [API-createStore](api/about.md#createStore) 。
 
 ### 在 View 中使用模型状态
 
@@ -243,7 +236,7 @@ const appConfig = {
 runApp(appConfig);
 ```
 
-> SSR 场景下 `initialData.initialStates` 会默认赋值给 `store.initialStates`
+> 如果定义了 `app.getInitialData()`，该方法返回的 `initialStates` 字段会默认赋值给 `store.initialStates`
 
 > 页面级状态目前不支持设置 initialStates
 
@@ -497,11 +490,11 @@ icejs 中默认集成了 [Redux Devtools](https://github.com/zalmoxisus/redux-de
 
 满足以下几种情况，框架都会自动帮助开发者包裹 `store.Provider`：
 
-- SPA 全局 store：`src/` 下有 `store.js` 和 `app.js`
-- SPA 页面级 store：`src/pages/Home` 下有 `store.js` 和 `index.jsx`
-- SPA 嵌套页面级 store：`src/pages/Home` 下有 `store.js` 和 `Layout/index.jsx`（优先级低于上面）
-- MPA 组件类型的 entry：`src/pages/Home` 下有 `store.js` 和 `index.jsx`
-- MPA 单页类型的 entry：`src/pages/Home` 下有 `store.js`, `app.js`, `Layout/index.jsx`
+- SPA 全局 store：`src/` 下有 `store.ts` 和 `app.ts`
+- SPA 页面级 store：`src/pages/Home` 下有 `store.ts` 和 `index.tsx`
+- SPA 嵌套页面级 store：`src/pages/Home` 下有 `store.ts` 和 `Layout/index.tsx`（优先级低于上面）
+- MPA 组件类型的 entry：`src/pages/Home` 下有 `store.ts` 和 `index.tsx`
+- MPA 单页类型的 entry：`src/pages/Home` 下有 `store.ts`, `app.ts`, `Layout/index.tsx`
 
 如果不满足上述情况，则需要开发者自行包裹 `store.Provider`。比如希望在 `src/pages/Home/Foo/` 下创建一个 store：
 
@@ -534,7 +527,7 @@ function Child() {
 
 > 1.9.7 版本标记废弃，2.0.0 版本完全移除
 
-推荐开发者自行创建 `store.js` 并在其中初始化 store，这样可以更灵活的定制一些参数，相对之前方案带来的改变：
+推荐开发者自行创建 `store.ts` 并在其中初始化 store，这样可以更灵活的定制一些参数，相对之前方案带来的改变：
 
 - 开发者需要在 `models/` 同层目录自行创建 `store.ts` 并初始化 store 实例：
 

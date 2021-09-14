@@ -6,23 +6,23 @@ order: 2
 icejs 的默认应用目录架构提供了良好的代码分层结构，适用于开发或大或小的应用，约定的目录结构如下：
 
 ```md
-├── .ice/ # 运行时生成的临时目录
-├── build/ # 构建产物目录
-├── mock/ # 本地模拟数据
+├── .ice/             // 运行时生成的临时目录
+├── build/            // 构建产物目录
+├── mock/             // 本地模拟数据
 │ ├── index.js
-├── public/
-│ ├── index.html # 应用入口 HTML
-│ └── favicon.png # Favicon
-├── src/ # 源码
-│ ├── components/ # 自定义业务组件
-│ ├── layouts/ # 布局组件
-│ ├── pages/ # 页面
-│ ├── models/ # 应用级数据状态
-│ ├── global.scss # 全局样式
-│ ├── config.ts # 环境配置
-│ ├── routes.ts # 路由配置
-│ └── app.ts # 应用入口
-├── build.json
+├── public/           // 静态资源
+│ ├── index.html      // 应用入口 HTML
+│ └── favicon.png     // Favicon
+├── src/              // 源码
+│ ├── components/     // 自定义业务组件
+│ ├── layouts/        // 布局组件
+│ ├── pages/          // 路由页面组件
+│ ├── models/         // 应用级数据状态
+│ ├── global.scss     // 全局样式
+│ ├── config.ts       // 运行时配置
+│ ├── routes.ts       // 路由配置
+│ └── app.tsx          // 应用入口
+├── build.json        // 工程配置
 ├── package.json
 └── tsconfig.json
 ```
@@ -90,7 +90,7 @@ Home/ # Home 页面
 └── index.module.scss # 页面样式文件
 ```
 
-##### app.ts
+##### app.tsx
 
 项目的入口文件，用于对应用进行全局配置，包括路由、运行环境、请求、日志等。[详见](/guide/basic/app.md)
 

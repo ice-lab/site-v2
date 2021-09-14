@@ -1,15 +1,15 @@
 ---
-title: esbuild
-order: 10
+title: esbuild（已废弃）
+order: 16
 ---
-
-使用 [`esbuild`](https://github.com/evanw/esbuild) 进行代码压缩，显著提升代码压缩速度。
 
 :::caution
 
-**已废弃**，icejs 2.0 版本中已支持通过配置 **"minify": "esbuild"** 开启
+icejs 2.0 已废弃，推荐通过配置 **"minify": "esbuild"** 开启
 
 :::
+
+使用 [`esbuild`](https://github.com/evanw/esbuild) 进行代码压缩，显著提升代码压缩速度。
 
 ## Install
 

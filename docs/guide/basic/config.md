@@ -22,8 +22,6 @@ icejs 支持区分不同环境，开发者可根据环境区分**工程配置**�
 }
 ```
 
-> 阿里内部同学可参考[文档](https://yuque.alibaba-inc.com/ice/rdy99p/angwyx#TzBL7)区分日常和线上环境
-
 ## 区分工程配置
 
 在定义好环境之后，即可在 `build.json` 中通过 `modeConfig` 来根据环境区分配置了：
@@ -104,17 +102,17 @@ console.log(config.appId);
 // src/config.ts：动态扩展环境：两种方式
 
 // 方式 1. 通过服务端输出到页面上的全局变量
-window.__app_mode__ = window.g_config.faasEnv; // window.g_config.faasEnv 也可能是 window.__env__，具体看服务端怎么约定
+globalThis.__app_mode__ = globalThis.g_config.faasEnv; // globalThis.g_config.faasEnv 也可能是 globalThis.__env__，具体看服务端怎么透传
 
 // 方式 2. 通过 url 地址动态判断
 if (/pre.example.com/.test(location.host)) {
-  window.__app_mode__ = 'pre';
+  globalThis.__app_mode__ = 'pre';
 } else if (/daily.example.com/.test(location.host)) {
-  window.__app_mode__ = 'daily';
+  globalThis.__app_mode__ = 'daily';
 } else if (/example.com/.test(location.host)) {
-  window.__app_mode__ = 'prod';
+  globalThis.__app_mode__ = 'prod';
 } else {
-  window.__app_mode__ = 'local';
+  globalThis.__app_mode__ = 'local';
 }
 
 export default {
@@ -124,5 +122,3 @@ export default {
   prod: {},
 };
 ```
-
-> 注意：在服务端渲染时不存在 window 变量，需要通过 global 进行定义，如：global.\__app_mode_ = 'prod'

@@ -3,6 +3,8 @@ title: 框架 API
 order: 13
 ---
 
+import Badge from '../../src/components/Badge'
+
 ## 基础
 
 ### runApp
@@ -23,11 +25,54 @@ order: 13
 
 用于错误边界的组件。[详见](/guide/advanced/error-boundaries.md#ErrorBoundary)
 
+### Head
+
+设置页面 `<head>` 标签的信息，如 meta、title 等：
+
+```jsx
+import React from 'react';
+import { Head } from 'ice';
+
+const Home = (props) =>
+  return (
+    <div>
+      <Head>
+        <title>Home</title>
+        <meta name="description" content='页面描述' />
+      </Head>
+      <h1>Home Page</h1>
+    </div>
+  );
+};
+```
+
 ## 状态管理
 
-### store
+### createStore
 
-应用级别的 store 实例。[详见](/guide/basic/store.md)
+初始化 store 实例。
+
+```ts
+import { createStore } from 'ice';
+import user from './models/user';
+
+const store = createStore({
+  user,
+}, {
+  // options
+});
+
+export default store;
+```
+
+`createStore()` 支持的 options:
+
+- disableError：布尔类型，可选，默认值 false，如果设置为 true，则 `UseModelEffectsError` 和 `WithModelEffectsError` 将不可用。
+- disableLoading：布尔类型，可选，默认值 false，如果设置为 true，则 `useModelEffectsLoading` 和 `withModelEffectsLoading` 将不可用。
+- plugins：数组类型，可选，Immer 插件、Redux 插件
+- redux：对象类型，可选
+  - middlewares：数组类型，Redux middlewares
+  - devtoolOptions：对象类型，Redux Devtools 参数
 
 ## 路由
 
@@ -134,7 +179,7 @@ function Home() {
   const params = useParams();
   return (
     <>
-      <p>params: {JSON.stringify(params)}</p>
+      <p>ID: {params.id}</p>
     </>
   );
 }
@@ -282,19 +327,51 @@ const history = createMemoryHistory();
 
 用于数据请求的 hooks。[详见](/guide/basic/request.md#useRequest)
 
+## 权限
+
+### useAuth
+
+在函数组件中获取和更新权限。
+
+```jsx
+import React from 'react';
+import { useAuth } from 'ice';
+
+function Foo() {
+  const [auth, setAuth] = useAuth();
+  // auth：当前权限列表数据
+  // setAuth：更改当前权限列表数据
+  return <>Foo</>;
+}
+```
+
+### withAuth
+
+在 Class 组件中获取和更新权限。
+
+```jsx
+import React from 'react';
+import { withAuth } from 'ice';
+
+Class Foo extends React.Component {
+  render() {
+    const { auth, setAuth } = this.props;
+    return <>Foo</>;
+  }
+}
+
+export default withAuth(Foo)
+```
+
 ## 工具方法
 
 ### getInitialData
 
-获取通过 `app.getInitialData` 返回的 initialData 数据。[详见](/guide/advanced/ssr.md#应用级数据)
+获取通过 `app.getInitialData()` 返回的 initialData 数据。[详见](#通过-getinitialdata-消费)
 
 ### lazy
 
 用于代码懒加载。[详见](/guide/advanced/code-splitting.md)
-
-### logger
-
-用于日志打印。[详见](/guide/basic/logger.md)
 
 ## 类型
 

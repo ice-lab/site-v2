@@ -3,8 +3,6 @@ title: 通过插件定制运行时能力
 order: 3
 ---
 
-TODO: 基于 2.0 版本重新梳理运行时能力
-
 插件运行时能力通过 `src/runtime.ts` 定义，结构如下
 
 ```javascript

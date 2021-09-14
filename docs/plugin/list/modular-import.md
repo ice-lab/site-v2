@@ -3,12 +3,11 @@ title: modular-import
 order: 11
 ---
 
-用于快捷增加 [babel-plugin-import](https://github.com/ant-design/babel-plugin-import) 的配置
-
 import Support from '../../../src/components/Support'
 
 <Support list={['webpack']} />
 
+用于快捷增加 [babel-plugin-import](https://github.com/ant-design/babel-plugin-import) 的配置
 ## Install
 
 ```bash
