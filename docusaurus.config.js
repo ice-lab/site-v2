@@ -4,7 +4,7 @@ const footer = require('./config/footer');
 
 module.exports = {
   title: '飞冰',
-  tagline: '基于 React 的渐进式研发框架',
+  tagline: '基于 React 的研发解决方案',
   url: 'https://beta.ice.work',
   baseUrl: '/',
   onBrokenLinks: 'throw',
