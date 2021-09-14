@@ -15,7 +15,8 @@ module.exports = {
   themeConfig: {
     announcementBar: {
       id: 'announcementBar-2',
-      content: 'icejs 2.0 版本已发布，支持 Webpack 5 和 Vite 两种构建模式，点击 <a href="#">了解更多</a>',
+      // TODO: 补充了解更多的链接
+      content: 'icejs 2.0 beta 版本已发布，支持 Webpack 5 和 Vite 两种构建模式，点击 <a href="#">了解更多</a>',
       isCloseable: false,
     },
     navbar,
