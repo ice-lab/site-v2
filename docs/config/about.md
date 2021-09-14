@@ -8,14 +8,14 @@ import Badge from '../../src/components/Badge'
 
 icejs 支持的工程配置项列表，所有配置项都在 [build.json 文件](/guide/basic/build.md) 中编写。
 
-### entry <Support list={['webpack', 'vite']} />
+## entry <Support list="{['webpack', 'vite']}" />
 
 - 类型： `string`  | `object`  | `array`
 - 默认值：`src/app.[t|j]sx`
 
 icejs 中一般不建议修改该配置。
 
-### alias <Support list={['webpack', 'vite']} />
+## alias <Support list="{['webpack', 'vite']}" />
 
 - 类型： `object`
 - 默认值： `null`
@@ -27,7 +27,7 @@ icejs 中一般不建议修改该配置。
 +import CustomTips from '@/components/CustomTips';
 ```
 
-### publicPath <Support list={['webpack', 'vite']} />
+## publicPath <Support list="{['webpack', 'vite']}" />
 
 - 类型： `string`
 - 默认值： `/`
@@ -40,7 +40,7 @@ icejs 中一般不建议修改该配置。
 }
 ```
 
-### devPublicPath <Support list={['webpack', 'vite']} />
+## devPublicPath <Support list="{['webpack', 'vite']}" />
 
 - 类型： `string`
 - 默认值： `/`
@@ -53,12 +53,12 @@ icejs 中一般不建议修改该配置。
 }
 ```
 
-### sourceMap <Support list={['webpack', 'vite']} />
+## sourceMap <Support list="{['webpack', 'vite']}" />
 
 - 类型： `boolean`
 - 默认值： `false`
 
-### externals <Support list={['webpack', 'vite']} />
+## externals <Support list="{['webpack', 'vite']}" />
 
 - 类型：`object`
 - 默认值：`{}`
@@ -97,7 +97,7 @@ icejs 中一般不建议修改该配置。
 </html>
 ```
 
-### hash <Support list={['webpack', 'vite']} />
+## hash <Support list="{['webpack', 'vite']}" />
 
 - 类型：`boolean` | `string`
 - 默认值：`false`
@@ -118,7 +118,7 @@ icejs 中一般不建议修改该配置。
 }
 ```
 
-### polyfill <Support list={['webpack', 'vite']} />
+## polyfill <Support list="{['webpack', 'vite']}" />
 
 - 类型：`string`
 - 默认值：`"entry"`
@@ -132,14 +132,14 @@ icejs 中一般不建议修改该配置。
 
 **注意：** 在 `usage` 模式下，默认不会去分析 `node_modules` 里的代码，如果需要的话，请看 `compileDependencies` 字段相关的说明，添加相关需要编译的依赖。Vite 构建模式下，开启 polyfill 后默认启用 `@vitejs/plugin-legacy` 插件，为传统浏览器提供兼容性支持
 
-### dropLogLevel <Support list={['webpack', 'vite']} /><Badge text="2.0.0" />
+## dropLogLevel <Support list="{['webpack', 'vite']}" /><Badge text="2.0.0" />
 
 - 类型：`trace|debug|log|warn|error`
 - 默认值：`null`，不移除任何代码
 
 压缩代码时移除 `console.*` 相关代码，配置了 `log` 则会移除 `console.trace|console.debug|console.log` 代码。
 
-### minify <Support list={['webpack', 'vite']} />
+## minify <Support list="{['webpack', 'vite']}" />
 
 - 类型：`boolean｜string|object`
 - 默认值：`true`，使用 terser 压缩
@@ -151,6 +151,8 @@ icejs 中一般不建议修改该配置。
   "minify": false
 }
 ```
+
+### terser
 
 如果想指定 terser 配置项<Badge text="2.0.0" />：
 
@@ -169,7 +171,9 @@ icejs 中一般不建议修改该配置。
 }
 ```
 
-如果想使用 esbuild 压缩<Badge text="2.0.0" />：
+### esbuild <Badge text="2.0.0" />
+
+如果想使用 esbuild 压缩：
 
 ```json
 {
@@ -186,10 +190,11 @@ icejs 中一般不建议修改该配置。
 }
 ```
 
-如果想使用 swc 压缩<Badge text="2.0.0" />：
+### swc <Support list="{['webpack']}" /> <Badge text="2.0.0" />
+
+如果想使用 swc 压缩：
 
 ```json
-// Vite 模式不支持使用 swc 压缩
 {
   "minify": "swc"
 }
@@ -206,7 +211,7 @@ icejs 中一般不建议修改该配置。
 }
 ```
 
-### outputAssetsPath <Support list={['webpack', 'vite']} />
+## outputAssetsPath <Support list="{['webpack', 'vite']}" />
 
 - 类型：`object`
 - 默认值：`{ js: 'js', css: 'css' }`
@@ -222,7 +227,7 @@ icejs 中一般不建议修改该配置。
 }
 ```
 
-### outputDir <Support list={['webpack', 'vite']} />
+## outputDir <Support list="{['webpack', 'vite']}" />
 
 - 类型：`string`
 - 默认值：`build`
@@ -235,7 +240,7 @@ icejs 中一般不建议修改该配置。
 }
 ```
 
-### proxy <Support list={['webpack', 'vite']} />
+## proxy <Support list="{['webpack', 'vite']}" />
 
 - 类型：`object`
 - 默认值：`{}`
@@ -257,7 +262,7 @@ icejs 中一般不建议修改该配置。
 
 > 代理的每一项配置都可以通过 enable 字段来快速开关代理配置
 
-### devServer <Support list={['webpack']} />
+## devServer <Support list="{['webpack']}" />
 
 - 类型： `object`
 - 默认值： `{}`
@@ -268,7 +273,7 @@ icejs 中一般不建议修改该配置。
 - https: 推荐通过命令行参数 `--https`
 - proxy: 推荐通过顶层 proxy 配置
 
-### define <Support list={['webpack', 'vite']} />
+## define <Support list="{['webpack', 'vite']}" />
 
 - 类型： `object`
 - 默认值： `{}`
@@ -283,7 +288,7 @@ icejs 中一般不建议修改该配置。
 }
 ```
 
-### browserslist <Support list={['webpack', 'vite']} />
+## browserslist <Support list="{['webpack', 'vite']}" />
 
 - 类型： `string` | `object`
 - 默认值：`last 2 versions, Firefox ESR, > 1%, ie >= 9, iOS >= 8, Android >= 4`
@@ -301,7 +306,7 @@ icejs 中一般不建议修改该配置。
 
 > 注: 因 targets 字段被使用，这里使用 browserslist 字段替代 @babel/preset-env 的 targets 字段。
 
-### vendor <Support list={['webpack', 'vite']} />
+## vendor <Support list="{['webpack', 'vite']}" />
 
 - 类型：`boolean`
 - 默认值：`true`
@@ -314,28 +319,28 @@ MPA 场景下配置是否生成 vendor，如果希望禁用：
 }
 ```
 
-### libraryTarget <Support list={['webpack']} />
+## libraryTarget <Support list="{['webpack']}" />
 
 - 类型：`string`
 - 默认值：`''`
 
 配置 Webpack 的  [output.libraryTarget](https://webpack.js.org/configuration/output/#outputlibrarytarget)  属性。
 
-### library <Support list={['webpack']} />
+## library <Support list="{['webpack']}" />
 
 - 类型：`string`
 - 默认值：`''`
 
 配置 Webpack 的 [output.library](https://webpack.js.org/configuration/output/#outputlibrary)  属性。
 
-### libraryExport <Support list={['webpack']} />
+## libraryExport <Support list="{['webpack']}" />
 
 - 类型：`string`
 - 默认值：`''`
 
 配置 Webpack 的  [output.libraryExport](https://webpack.js.org/configuration/output/#outputlibraryexport)  属性。
 
-### compileDependencies <Support list={['webpack']} />
+## compileDependencies <Support list="{['webpack']}" />
 
 - 类型：`array`
 - 默认值：`[]`
@@ -352,14 +357,14 @@ MPA 场景下配置是否生成 vendor，如果希望禁用：
 
 注意：配置为 `"compileDependencies": [""]` 等同于不忽略 `node_modules`。
 
-### cssLoaderOptions <Support list={['webpack']} />
+## cssLoaderOptions <Support list="{['webpack']}" />
 
 - 类型：`object`
 - 默认值：`{}`
 
 为 css-loader 提供快捷配置，将与默认配置进行浅合并。详细配置可参考 [css-loader options](https://webpack.js.org/loaders/css-loader/#options)。
 
-### lessLoaderOptions <Support list={['webpack', 'vite']} />
+## lessLoaderOptions <Support list="{['webpack', 'vite']}" />
 
 - 类型：`object`
 - 默认值：`{}`
@@ -379,7 +384,7 @@ ice.js 目前默认内置 less 4.x 版本，计算函数对于使用 '/' 的方�
 
 也可以通过包裹括号的方式，让编译器对 `/` 操作符进行计算，比如 `round((1 / 2))`。
 
-### sassLoaderOptions <Support list={['webpack', 'vite']} />
+## sassLoaderOptions <Support list="{['webpack', 'vite']}" />
 
 - 类型：`object`
 - 默认值：`{}`
@@ -388,7 +393,7 @@ ice.js 目前默认内置 less 4.x 版本，计算函数对于使用 '/' 的方�
 
 > ice.js 内置使用 sass 进行编译，如果期望使用 node-sass，请在项目中进行依赖
 
-### postcssOptions <Support list={['webpack']} />
+## postcssOptions <Support list="{['webpack']}" />
 
 - 类型：`object`
 - 默认值：无
@@ -418,21 +423,21 @@ ice.js 目前默认内置 less 4.x 版本，计算函数对于使用 '/' 的方�
 - 如果工程未内置 postcss 插件，对应配置将会添加到所以样式处理规则的 `postcss-loader` 配置上
 - 设置为 `false` 的 postcss 插件，将从配置中移除
 
-### postcssrc <Support list={['webpack']} />
+## postcssrc <Support list="{['webpack']}" />
 
 - 类型：`boolean`
 - 默认值：`false`
 
 适用于需要完全重写 postcss 配置。开启配置项后，工程上将清空内置 postcss 配置，读取 postcss 配置文件 `postcssrc.js` 或 `postcss.config.js` 中的配置。
 
-### ignoreHtmlTemplate <Support list={['webpack', 'vite']} />
+## ignoreHtmlTemplate <Support list="{['webpack', 'vite']}" />
 
 - 类型：`boolean`
 - 默认值：`false`
 
 开启后，在 `build` 构建时，将移除所有内置 html-webpack-plugin 设置，不再生成 html 文件。
 
-### eslint <Support list={['webpack']} />
+## eslint <Support list="{['webpack']}" />
 
 - 类型：`boolean` | `object`
 - 默认值：`undefined`
@@ -444,21 +449,21 @@ ice.js 目前默认内置 less 4.x 版本，计算函数对于使用 '/' 的方�
 - `true`：将 eslint 错误展示在预览页面上
 - `object`：表现等同于 `true`，同时支持配置 [eslint-loader](https://github.com/webpack-contrib/eslint-loader) 的更多参数
 
-### fastRefresh <Support list={['webpack', 'vite']} /><Badge text="2.0.0" />
+## fastRefresh <Support list="{['webpack', 'vite']}" /><Badge text="2.0.0" />
 
 - 类型：`boolean`
 - 默认值：`true`
 
 React Fast Refresh 能力，源码修改后无需手动刷新浏览器。
 
-### vite <Support list={['vite']} /><Badge text="2.0.0" />
+## vite <Support list="{['vite']}" /><Badge text="2.0.0" />
 
 - 类型：`boolean`
 - 默认值：`false`
 
 开启/关闭 Vite 构建模式
 
-### vitePlugins <Support list={['vite']} /><Badge text="2.0.0" />
+## vitePlugins <Support list="{['vite']}" /><Badge text="2.0.0" />
 
 - 类型：`array`
 - 默认值：`[]`
@@ -477,7 +482,7 @@ export default {
 }
 ```
 
-### remoteRuntime <Support list={['webpack']} /><Badge text="2.0.0" />
+## remoteRuntime <Support list="{['webpack']}" /><Badge text="2.0.0" />
 
 - 类型：`boolean|object`
 - 默认值：`false`
@@ -492,7 +497,7 @@ export default {
 
 更多配置和使用场景，请参考[预编译开发模式](/guide/advanced/pre-compile.md)
 
-### swc <Support list={['webpack']} /><Badge text="2.0.0" />
+## swc <Support list="{['webpack']}" /><Badge text="2.0.0" />
 
 - 类型：`object`
 - 默认值：无
@@ -505,7 +510,7 @@ export default {
 
 :::
 
-### disableRuntime <Support list={['webpack', 'vite']} />
+## disableRuntime <Support list="{['webpack', 'vite']}" />
 
 - 类型：`boolean`
 - 默认值：`false`
@@ -518,7 +523,7 @@ export default {
 }
 ```
 
-### tsChecker <Support list={['webpack']} />
+## tsChecker <Support list="{['webpack']}" />
 
 - 类型：`boolean`
 - 默认值：`false`
@@ -531,21 +536,21 @@ export default {
 }
 ```
 
-### babelPlugins <Support list={['webpack']} />
+## babelPlugins <Support list="{['webpack']}" />
 
 - 类型：`array`
 - 默认值：`[]`
 
 为 babel-loader 的配置追加额外的 babel plugin。
 
-### babelPresets <Support list={['webpack']} />
+## babelPresets <Support list="{['webpack']}" />
 
 - 类型：`array`
 - 默认值：`[]`
 
 为 babel-loader 的配置追加额外的 babel preset。如果配置 preset 与内置相同，则优先使用 babelPresets 中的配置内容。
 
-### webpackPlugins <Support list={['webpack']} />
+## webpackPlugins <Support list="{['webpack']}" />
 
 - 类型：`object`
 - 默认值：无
@@ -576,7 +581,7 @@ export default {
 - 每一项插件配置支持 before/after 用来调整 Webpack 插件执行顺序
 - 如果配置设置的插件已被添加，则修改插件配置
 
-### webpackLoaders <Support list={['webpack']} />
+## webpackLoaders <Support list="{['webpack']}" />
 
 - 类型：`object`
 - 默认值：无
@@ -619,7 +624,7 @@ export default {
   - loaders：配置具体的 Webpack loader
 - loaders 参数用来指定具体 Webpack loader 的参数；每一项 loader 参数支持 before/after 用来调整 Webpack loader 的执行顺序；如果 loader 名已被添加，则修改插件配置
 
-### terserOptions <Badge text="@deprecated" />
+## terserOptions <Badge text="@deprecated" />
 
 :::caution
 
@@ -645,7 +650,7 @@ export default {
 
 为 terserPlugin 提供快捷配置，将与默认配置进行浅合并。详细配置可参考 [terser options](https://github.com/terser/terser#minify-options)
 
-### esbuild <Badge text="@deprecated" />
+## esbuild <Badge text="@deprecated" />
 
 :::caution
 
@@ -658,7 +663,7 @@ export default {
 
 使用 esbuild 对构建产物进行压缩，可选配置参考 [esbuild 配置文档](https://github.com/privatenumber/esbuild-loader#minifyplugin)
 
-### modularImportRuntime <Badge text="@deprecated" />
+## modularImportRuntime <Badge text="@deprecated" />
 
 :::caution
 
@@ -671,7 +676,7 @@ export default {
 
 开启后将按需加载运行时能力，以减小构建包体积
 
-### injectBabel <Badge text="@deprecated" />
+## injectBabel <Badge text="@deprecated" />
 
 :::caution
 
@@ -685,7 +690,7 @@ export default {
 
 默认情况下会注入 core-js/stable 和 regenerator-runtime/runtime，根据  `targets`  配置的兼容浏览器进行 polyfill，实现按需添加。 开发类库项目，可以将配置设置为  `runtime`。 如果想手动 polyfill，可以将配置设置为  `false`，工程将不会进行自动的 polyfill。
 
-### dll <Badge text="@deprecated" />
+## dll <Badge text="@deprecated" />
 
 :::caution
 
@@ -703,7 +708,7 @@ export default {
 
 `dll` 构建产物无需 `git` 提交，建议加到 `.gitignore` 中。
 
-### dllEntry <Badge text="@deprecated" />
+## dllEntry <Badge text="@deprecated" />
 
 :::caution
 
