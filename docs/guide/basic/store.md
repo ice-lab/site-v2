@@ -426,20 +426,22 @@ icejs 同时支持使用 [immer](https://github.com/immerjs/immer) 来实现可�
 ```js
 export default {
   state: {
-    user: {
-      name: 'Bob',
-      tasks: ['A Task', 'B Task']
-    },
+    tasks: ['A Task', 'B Task'],
     detail: {
-      age: 3
+      name: 'Bob',
+      age: 3,
+      address: {
+        country: 'China',
+        province: 'Zhejiang'
+      }
     }
   },
   reducers: {
     addTasks(prevState, payload) {
-      prevState.user.tasks.push(payload)
+      prevState.tasks.push(payload)
     },
-    updateDetail(prevState, payload) {
-      prevState.detail = payload
+    updateProvince(prevState, payload) {
+      prevState.detail.address.province = payload
     }
   }
 }
