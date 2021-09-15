@@ -107,10 +107,10 @@ const HomePage = () => {
 
 ```diff
 src
-├── models                  // 全局状态
+├── models                   // 全局状态
 │   └── user.ts
 └── pages
-|   ├── Home                // Home 页面
+|   ├── Home                 // Home 页面
 +|   │   ├── models          // 页面状态
 +|   │   |   ├── foo.ts
 +|   │   |   └── bar.ts
@@ -418,6 +418,40 @@ export default {
 > 如果遇到 `this.foo` 的 ts 类型错误，请参考文档 [icestore QA](https://github.com/ice-lab/icestore/blob/master/docs/qna.zh-CN.md) 进行修复
 
 > setState 是 icestore 内置的一个 reducer，可以直接使用
+
+### 使用 immer
+
+icejs 同时支持使用 [immer](https://github.com/immerjs/immer) 来实现可变状态的操作 API。
+
+```js
+export default {
+  state: {
+    user: {
+      name: 'a',
+      tasks: ['b', 'c']
+    }
+  },
+  reducers: {
+    addTasks(prevState, payload) {
+      prevState.user.tasks.push(payload)
+    }
+  }
+}
+```
+
+注意，Immer 只支持对普通对象和数组的变化检测，所以像字符串或数字这样的类型需要返回一个新值。 例如：
+
+```js
+const count = {
+  state: 0,
+  reducers: {
+    add(state) {
+      state += 1;
+      return state;
+    },
+  },
+}
+```
 
 ### 获取 effects 的状态 loading/error
 
