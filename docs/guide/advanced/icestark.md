@@ -373,7 +373,7 @@ const apps = [{
 
 ```js
 const onAppLeave = (appConfig) => {
-  window.webpackJsonp = [];
+  window.webpackJsonp_icedesign_stark_child_scaffold = [];
 };
 ```
 
