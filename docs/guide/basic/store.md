@@ -107,10 +107,10 @@ const HomePage = () => {
 
 ```diff
 src
-├── models                   // 全局状态
+├── models                  // 全局状态
 │   └── user.ts
 └── pages
-|   ├── Home                 // Home 页面
+|   ├── Home                // Home 页面
 +|   │   ├── models          // 页面状态
 +|   │   |   ├── foo.ts
 +|   │   |   └── bar.ts
