@@ -286,7 +286,7 @@ const user = {
 };
 ```
 
-### model 定义详细说明
+### Model 定义详细说明
 
 如上示例所述，icejs 约定在 `src/models`、`src/pages/*/models` 目录下的文件为项目定义的模型文件，每个文件需要默认导出一个对象。
 
@@ -374,7 +374,7 @@ export default {
 };
 ```
 
-### model 之间通信
+### Model 之间通信
 
 > 注意：如果两个 model 不属于同一个 store 实例，是无法通信的
 
@@ -419,43 +419,50 @@ export default {
 
 > setState 是 icestore 内置的一个 reducer，可以直接使用
 
-### 使用 immer
+### Model 中使用 immer 更改 state
 
-icejs 同时支持使用 [immer](https://github.com/immerjs/immer) 来实现可变状态的操作 API。
+Redux 默认的函数式写法在处理一些复杂对象的 state 时会非常繁琐，因此 icejs 同时支持了使用 [immer](https://immerjs.github.io/immer/) 来操作 state：
 
-```js
+```diff
 export default {
   state: {
     tasks: ['A Task', 'B Task'],
     detail: {
       name: 'Bob',
       age: 3,
-      address: {
-        country: 'China',
-        province: 'Zhejiang'
-      }
-    }
+    },
   },
   reducers: {
     addTasks(prevState, payload) {
-      prevState.tasks.push(payload)
+-     return {
+-       ..prevState,
+-       tasks: [ ...prevState.tasks, payload ],
+-     },
++     prevState.tasks.push(payload);
     },
-    updateProvince(prevState, payload) {
-      prevState.detail.address.province = payload
+    updateAge(prevState, payload) {
+-     return {
+-       ..prevState,
+-       detail: {
+-         ...prevState.detail,
+-         age: payload,
+-       },
+-     },
++     prevState.detail.age = payload
     }
   }
 }
 ```
 
-注意，Immer 只支持对普通对象和数组的变化检测，所以像字符串或数字这样的类型需要返回一个新值。 例如：
+注意：因为 immer 无法支持字符串或数字这样的简单类型，因此如果 state 符合这种情况（极少数）则不支持通过 immer 操作，必须使用 Redux 默认的函数式写法（返回一个新值）：
 
-```js
+```diff
 const count = {
   state: 0,
   reducers: {
-    add(state) {
-      state += 1;
-      return state;
+    add(prevState) {
+-     state += 1;
++     return state += 1;
     },
   },
 }
