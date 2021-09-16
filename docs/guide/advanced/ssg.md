@@ -89,37 +89,6 @@ location / {
 }
 ```
 
-### 使用 Node.js 服务器
-
-对于有部分页面组件开启 SSR 的情况，生产环境下需要对应的服务端进行渲染，核心逻辑如下：
-
-```js
-
-const express = require('express');
-const path = require('path');
-const fse = require('fs-extra');
-const app = express()
-
-const renderBundlePath = path.join(__dirname, './build', 'server/index.js');
-const webStatsPath = path.join(__dirname, './build', 'loadable-stats.json');
-const pagesData = require('./build/server/pages-data.json'); // 预渲染生成静态 HTML 内容
-
-app.get('/*', async function (req, res) {
-  const render = require(renderBundlePath);
-  // 如果在路由配置中配置了 ssr: true，则使用服务端渲染页面，否则直接返回预渲染生成的静态 HTML
-  const { html, error, redirectUrl } = await render.default({ req, res }, { loadableStatsPath: webStatsPath, pagesData });
-  if (redirectUrl) {
-    ctx.res.redirect(302, redirectUrl);
-  } else if (error) {
-    console.log('[SSR ERROR]', 'serverRender error', error);
-  } else {
-    res.send(html)
-  }
-})
-
-app.listen(3000)
-```
-
 ## 进阶用法
 
 ### 预渲染动态路由

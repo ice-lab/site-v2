@@ -419,6 +419,48 @@ export default {
 
 > setState 是 icestore 内置的一个 reducer，可以直接使用
 
+### 使用 immer
+
+icejs 同时支持使用 [immer](https://github.com/immerjs/immer) 来实现可变状态的操作 API。
+
+```js
+export default {
+  state: {
+    tasks: ['A Task', 'B Task'],
+    detail: {
+      name: 'Bob',
+      age: 3,
+      address: {
+        country: 'China',
+        province: 'Zhejiang'
+      }
+    }
+  },
+  reducers: {
+    addTasks(prevState, payload) {
+      prevState.tasks.push(payload)
+    },
+    updateProvince(prevState, payload) {
+      prevState.detail.address.province = payload
+    }
+  }
+}
+```
+
+注意，Immer 只支持对普通对象和数组的变化检测，所以像字符串或数字这样的类型需要返回一个新值。 例如：
+
+```js
+const count = {
+  state: 0,
+  reducers: {
+    add(state) {
+      state += 1;
+      return state;
+    },
+  },
+}
+```
+
 ### 获取 effects 的状态 loading/error
 
 通过 `useModelEffectsState` API 即可获取到 effects 的 loading 和 error 状态。
