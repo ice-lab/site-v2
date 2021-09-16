@@ -1,9 +1,13 @@
 ---
-title: 预编译开发模式
+title: 预编译 Module Federation
 order: 8
 ---
 
-借助 webpack5 的 Module Federation 特性，icejs 框架支持将应用的依赖预构建为一个 Module Federation 的 remote 应用，供当前应用进行消费，应用依赖不再编译到一个文件中，以减少 webpack 对于依赖打包所需的时间。
+import Badge from '../../../src/components/Badge'
+
+<Badge text="2.0.0" />
+
+借助 Webpack 5 的 Module Federation 特性，icejs 框架支持将应用的依赖预构建为一个 Module Federation 的 remote 应用，供当前应用进行消费，应用依赖不再编译到一个文件中，以减少 Webpack 对于依赖打包所需的时间。
 
 ## 开启预编译
 
@@ -22,14 +26,13 @@ order: 8
 - include：`string|string[]`，通过正则规则指定参与预编译的三方依赖
 - exclude：：`string|string[]`，通过正则规则指定忽略参与预编译的三方依赖
 
-
 ## 预编译效果
 
-通过 Module Federation 预编译的开启，热启动相比 1.x 版本提升明显，并且让热更新时间缩短近 60%。Module Federation 是 webpack 5 提供的能力，对于历史项目可以平滑的迁移适配，以达到项目编译的提速。
+通过 Module Federation 预编译的开启，热启动相比 1.x 版本提升明显，并且让热更新时间缩短近 60%。Module Federation 是 Webpack 5 提供的能力，对于历史项目可以平滑的迁移适配，以达到项目编译的提速。
 
-![启动速度提升](../../../static/img/mf_01.png) 
+![启动速度提升](../../../static/img/mf_01.png)
 
-![热更新速度提升](../../../static/img/mf_01.png) 
+![热更新速度提升](../../../static/img/mf_01.png)
 
 ## 常见问题
 

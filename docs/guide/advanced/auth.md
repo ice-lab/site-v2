@@ -9,8 +9,6 @@ order: 9
 - 操作权限：页面中的某些按钮或组件针对无权限的用户直接隐藏；
 - 接口权限：当用户通过操作调用没有权限的接口时跳转到无权限页面。
 
-> 框架默认内置权限插件，开发者无需安装。如果 ice.js 版本低于 1.11.2，需要自行安装 `build-plugin-ice-auth` 依赖，并在 `build.json` 中引入该插件。
-
 ## 初始化权限数据
 
 大多数情况下权限管理通常需要从服务端获取权限数据，然后在前端通过权限对比以此控制页面、操作等等权限行为。在 icejs 框架中约定通过 `getInitialData` 从服务端异步获取初始化的权限数据，并且约定最终返回格式为 `{auth: {[key: string]: boolean }}` 的形式。
@@ -97,7 +95,7 @@ import { useAuth } from 'ice';
 function Foo() {
   const [auth, setAuth] = useAuth();
 
-  // 更新权限
+  // 更新权限，与默认的 auth 数据进行合并
   function updateAuth() {
     setAuth({ starRepo: false, followRepo: false });
   }
@@ -156,54 +154,12 @@ function Foo() {
 
 请参考文档 [数据请求](/guide/basic/request.md)，业务上封装统一的请求方法，与服务端约定接口协议，前端根据状态码判断无权限、未登录等状态，然后跳转到指定页面。
 
-## API
+## 版本升级
 
-### useAuth
+### 不再依赖状态管理方案
 
-用于在函数组件中获取和设置权限数据的 Hooks。
+icejs 2.0 开始，auth 直接基于 Context 实现，不再依赖状态管理方案，开发者使用方式保持一致。
 
-```ts
-const [auth, setAuth] = useAuth();
-```
+### 插件内置
 
-示例：
-
-```tsx
-import React from 'react';
-import { useAuth } from 'ice';
-
-function Foo() {
-  const [auth, setAuth] = useAuth();
-  // auth：当前权限列表数据
-  // setAuth：设置当前权限列表数据
-
-  return <>Foo</>;
-}
-```
-
-### withAuth
-
-用于在 Class 组件中获取和设置权限数据的高阶函数。
-
-```ts
-withAuth(Component);
-```
-
-示例：
-
-```tsx
-import React from 'react';
-
-Class Foo extends React.Component {
-  render() {
-    const { auth, setAuth } = this.props;
-    // auth：当前权限列表数据
-    // setAuth：设置当前权限列表数据
-    return (
-      <>Foo</>
-    )
-  }
-}
-
-export default withAuth(Foo)
-```
+icejs 1.11.2 开始框架默认内置权限插件，开发者无需安装。如果 ice.js 版本低于 1.11.2，需要自行安装 `build-plugin-ice-auth` 依赖，并在 `build.json` 中引入该插件。

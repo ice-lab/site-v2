@@ -5,12 +5,12 @@ order: 1
 
 import Support from '../../../src/components/Support'
 
+<Support list={['webpack']} />
+
 `build-plugin-moment-locales` 将对 moment 依赖的使用进行优化：
 
 - 优化 moment 语言包加载
 - 根据设置自动加载对应语言包
-
-<Support list={['webpack']} />
 
 ## Install
 

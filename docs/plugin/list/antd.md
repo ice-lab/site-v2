@@ -7,6 +7,8 @@ import Support from '../../../src/components/Support'
 
 <Support list={['webpack', 'vite']} />
 
+支持 antd/antd-mobile 按需构建&主题定制。
+
 ## Install
 
 ```bash
@@ -37,7 +39,9 @@ $ npm install build-plugin-antd --save-dev
 }
 ```
 
-## 使用 antd-mobile
+## 常见场景
+
+### 使用 antd-mobile
 
 ```json
 {

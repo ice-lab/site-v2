@@ -43,7 +43,7 @@ Options:
   --disable-reload       禁用热更新模块
   --disable-mock         禁用 mock 服务
   --disable-open         禁止浏览器默认打开行为
-  --disable-assets       禁止 webpack assets 的输出
+  --disable-assets       禁止 Webpack assets 的输出
 ```
 
 ### build
@@ -139,7 +139,7 @@ function Example() {
 
 ## 自定义工程配置
 
-如果基础配置和已有插件都无法支持业务需求，可以通过自定义配置来实现，自定义配置同时也是一个 webpack 插件。
+如果基础配置和已有插件都无法支持业务需求，可以通过自定义配置来实现，自定义配置同时也是一个 Webpack 插件。
 
 首先新建 `build.plugin.js`  文件作为一个自定义插件，然后写入以下代码：
 
@@ -161,7 +161,7 @@ module.exports = ({ context, onGetWebpackConfig }) => {
 
 ## 调试
 
-在某些情况下可能遇到配置没有生效，或者配置不符合预期，这时候我们可以通过下面的命令进行调试，查看最终的 webpack 配置是否符合预期。
+在某些情况下可能遇到配置没有生效，或者配置不符合预期，这时候我们可以通过下面的命令进行调试，查看最终的 Webpack 配置是否符合预期。
 
 ```bash
 # 调试开发环境

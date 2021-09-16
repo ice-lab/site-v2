@@ -1,5 +1,5 @@
 ---
-title: 编写组件
+title: React 组件
 order: 6
 ---
 

@@ -3,14 +3,13 @@ title: keep-alive
 order: 7
 ---
 
-`build-plugin-keep-alive` 可以让开发者快捷开启 SPA 下基于路由级别的 Keep Alive 能力。
-
-> ice.js@1.15.0 以上版本开始支持
-
-
 import Support from '../../../src/components/Support'
 
 <Support list={['webpack']} />
+
+让开发者快捷开启 SPA 下基于路由级别的 Keep Alive 能力。
+
+> ice.js@1.15.0 以上版本开始支持
 
 ## Install
 

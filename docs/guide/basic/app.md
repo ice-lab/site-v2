@@ -12,23 +12,11 @@ order: 3
 ```ts
 import { runApp, IAppConfig } from 'ice';
 
-// 应用配置
 const appConfig: IAppConfig = {
-  app: {
-    // ...
-  },
-  router: {
-    // ...
-  },
-  store: {
-    // ...
-  },
-  request: {
-    // ...
-  },
-  logger: {
-    // ...
-  },
+  app: {},
+  router: {},
+  store: {},
+  request: {},
 };
 
 runApp(appConfig);
@@ -43,21 +31,24 @@ import { runApp } from 'ice';
 
 const appConfig = {
   app: {
-    // 可选，根节点 id，默认为 ice-container
+    // 可选，默认 ice-container，根节点 id
     rootId: 'ice-container',
 
     // 可选，根节点 DOM 元素，更灵活的 rootId
     mountNode: document.getElementById('ice-container'),
 
-    // 可选，是否解析路由组件的查询参数，默认 true
-    parseSearchParams: true
+    // 可选，默认 true，是否解析路由组件的查询参数
+    parseSearchParams: true,
+
+    // 可选，默认 false，是否开启 React.StrictMode，icejs 2.0 开始支持
+    strict: false,
 
     // 可选，自定义添加 Provider
     addProvider: ({ children }) => {
       return <ConfigProvider>{children}</ConfigProvider>;
     },
 
-    // 可选，常用于 SSR 场景或者异步获取数据请求的场景
+    // 可选，常用于 SSR 场景或者初始化异步获取数据的场景
     // 如果返回字段中包含 initialStates 字段将会作为状态管理 store 的初始值
     // 如果返回字段中包含 auth 字段将会作为权限管理 auth 的初始值
     getInitialData: async() => {
@@ -87,4 +78,3 @@ runApp(appConfig);
 - [路由配置](/guide/basic/router.md#路由配置)
 - [请求配置](/guide/basic/request.md#请求配置)
 - [状态管理配置](/guide/basic/store.md#配置参数)
-- [日志配置](/guide/basic/logger.md#配置)

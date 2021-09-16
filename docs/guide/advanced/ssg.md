@@ -3,14 +3,15 @@ title: 构建时预渲染 SSG
 order: 3
 ---
 
+import Support from '../../../src/components/Support'
+import Badge from '../../../src/components/Badge'
+
+<Support list={['webpack']} /><Badge text="2.0.0" />
+
 icejs 提供构建时预渲染方案，即在构建时渲染页面组件并生成静态的 HTML 文件，以更好解决以下的业务场景：
 
 - 静态站点生成
 - 没有后端服务的场景下需要更好的 SEO 和更少的首屏渲染时间
-
-import Support from '../../../src/components/Support'
-
-<Support list={['webpack']} />
 
 ## 开启预渲染
 
@@ -25,10 +26,11 @@ import Support from '../../../src/components/Support'
 假如现在有以下的目录结构：
 
 ```markdown
-/with-prerender-spa/src
+./src
 ├── pages
 |  ├── Dashboard
 |  ├── Home
+├── app.ts
 └── routes.ts
 ```
 
@@ -52,7 +54,7 @@ export default [
 ];
 ```
 
-执行 `npm run build`，将会得到以下的构建产物：
+执行 `npm run build`，将会得到以下构建产物：
 
 ```markdown
 ├── build
@@ -67,67 +69,11 @@ export default [
 |  └── pages-data.json
 ```
 
-通过静态服务启动，通过预渲染后的 HTML 截图如下：
+通过静态服务启动，预渲染后的 HTML 截图如下：
 
 ![html](https://img.alicdn.com/imgextra/i1/O1CN01U6YANR1scx8IMIz6A_!!6000000005788-2-tps-2468-1750.png)
 
-## 预渲染动态路由
-
-预渲染默认不渲染动态路由里的所有页面，比如 `/about/:id`。如果需要渲染动态路由中的页面，可以在`src/routes.ts` 中配置 `getStaticPath` 函数：
-
-```js
-import About from '@/pages/About';
-
-export default [
-  {
-    path: '/about/:id',
-    exact: true,
-    component: About,
-    getStaticPath: () => {
-      // 构建时将会渲染 /about/a /about/b /about/c 页面组件
-      return Promise.resolve(['/about/a', '/about/b', '/about/c']);
-    }
-  }
-];
-```
-
-执行 `npm run build` 后，将会得到以下的构建产物：
-
-```markdown
-build
-├── about
-|  ├── a
-|  |  └── index.html
-|  ├── b
-|  |  └── index.html
-|  └── c
-|     └── index.html
-├── js
-|  └── index.js
-└── server
-|  ├── index.js
-|  ├── loadable-stats.json
-|  └── pages-data.json
-```
-
-## 部分页面使用 SSR
-
-预渲染的时机是应用构建时，当用户访问时，页面上的数据不一定是最新的。如果某些页面有较多的实时数据，或者动态路由数量不可枚举时，可以为此页面开启 SSR：
-
-```js
-import Dashboard from '@/pages/Dashboard';
-
-export default [
-  {
-    path: '/dashboard',
-    exact: true,
-    component: Dashboard,
-    ssr: true
-  }
-];
-```
-
-这样在构建时不会为该页面预渲染生成静态 HTML，生产环境下需要配合服务端进行渲染。服务端集成的相关内容可参考下面[使用 Node.js 部署](/docs/guide/advanced/ssg#部署)文档。
+与 SSR 一致，SSG 在构建渲染时会调用 `app.getInitialData()` 和 `Page.getInitialData()` 方法，可以参考 SSR 文档在这两个方法里按需获取一些动态数据。
 
 ## 部署
 
@@ -143,33 +89,55 @@ location / {
 }
 ```
 
-### 使用 Node.js 服务器
+## 进阶用法
 
-对于有部分页面组件开启 SSR 的情况，生产环境下需要对应的服务端进行渲染，核心逻辑如下：
+### 预渲染动态路由
+
+预渲染默认不渲染动态路由里的所有页面，比如下方的 `/project/:id` 路由：
 
 ```js
+// src/routes.ts
+import Project from '@/pages/Project';
 
-const express = require('express');
-const path = require('path');
-const fse = require('fs-extra');
-const app = express()
-
-const renderBundlePath = path.join(__dirname, './build', 'server/index.js');
-const webStatsPath = path.join(__dirname, './build', 'loadable-stats.json');
-const pagesData = require('./build/server/pages-data.json'); // 预渲染生成静态 HTML 内容
-
-app.get('/*', async function (req, res) {
-  const render = require(renderBundlePath);
-  // 如果在路由配置中配置了 ssr: true，则使用服务端渲染页面，否则直接返回预渲染生成的静态 HTML
-  const { html, error, redirectUrl } = await render.default({ req, res }, { loadableStatsPath: webStatsPath, pagesData });
-  if (redirectUrl) {
-    ctx.res.redirect(302, redirectUrl);
-  } else if (error) {
-    console.log('[SSR ERROR]', 'serverRender error', error);
-  } else {
-    res.send(html)
+export default [
+  {
+    path: '/project/:id',
+    exact: true,
+    component: Project,
   }
-})
- 
-app.listen(3000)
+];
+```
+
+如果需要渲染动态路由中的页面，可以配置页面组件的 `getStaticPaths()` 属性：
+
+```diff
+// src/pages/Project/index.tsx
+const Project = (props) => {
+  return <></>;
+}
+
++Project.getStaticPaths = async () => {
++  return Promise.resolve(['/project/1', '/project/100', '/project/1001']);
++}
+
+export default Project;
+```
+
+执行 `npm run build` 后，将会得到以下的构建产物：
+
+```markdown
+build
+├── project
+|  ├── 1
+|  |  └── index.html
+|  ├── 100
+|  |  └── index.html
+|  └── 1001
+|     └── index.html
+├── js
+|  └── index.js
+└── server
+|  ├── index.js
+|  ├── loadable-stats.json
+|  └── pages-data.json
 ```
