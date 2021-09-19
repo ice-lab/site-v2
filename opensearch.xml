@@ -4,8 +4,8 @@
   <ShortName>飞冰</ShortName>
   <Description>Search 飞冰</Description>
   <InputEncoding>UTF-8</InputEncoding>
-  <Image width="16" height="16" type="image/x-icon">https://beta.ice.work/img/favicon.ico</Image>
-  <Url type="text/html" method="get" template="https://beta.ice.work/search?q={searchTerms}"/>
-  <Url type="application/opensearchdescription+xml" rel="self" template="https://beta.ice.work/opensearch.xml" />
-  <moz:SearchForm>https://beta.ice.work/</moz:SearchForm>
+  <Image width="16" height="16" type="image/x-icon">https://ice.work/img/favicon.ico</Image>
+  <Url type="text/html" method="get" template="https://ice.work/search?q={searchTerms}"/>
+  <Url type="application/opensearchdescription+xml" rel="self" template="https://ice.work/opensearch.xml" />
+  <moz:SearchForm>https://ice.work/</moz:SearchForm>
 </OpenSearchDescription>
