@@ -450,7 +450,7 @@ export default {
 }
 ```
 
-## 高阶指南
+## 高阶用法
 
 ### Mock 接口
 
@@ -510,3 +510,9 @@ const appConfig = {
 
 runApp(appConfig);
 ```
+
+## 版本升级
+
+### 内置的 axios 从 0.19.x 升级到 0.21.x
+
+icejs 2.0 中升级

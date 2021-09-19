@@ -510,6 +510,13 @@ export default {
 
 :::
 
+## store <Support list="{['webpack', 'vite']}" />
+
+- 类型：`boolean`
+- 默认值：`true`
+
+禁用 store 能力，不再注入 store 相关依赖。
+
 ## disableRuntime <Support list="{['webpack', 'vite']}" />
 
 - 类型：`boolean`

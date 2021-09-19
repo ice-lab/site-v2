@@ -50,20 +50,23 @@ runApp(appConfig);
 
 页面权限通常也称之为路由权限，如需对某些页面进行权限控制只需在页面组件的 `pageConfig` 中配置准入权限即可。
 
-```tsx
-import React from 'react';
+```diff
+// src/routes.ts
+import Home from '@/pages/Home';
 
-const Home = () => {
-  return <>Home Page</>;
-};
+export default [
+  {
+    path: '/home',
+    component: Home,
++    // icejs 1.x 仅支持将 pageConfig 配置在对应的页面组件上，请参考「页面组件」章节
++    pageConfig: {
++      auth: ['admin'],
++    },
+  },
+];
 
-Home.pageConfig = {
-  // 可选，配置准入权限，若不配置则代表所有角色都可以访问
-  auth: ['admin'],
-};
+export default routerConfig;
 ```
-
-> 除了 pageConfig.auth 的方式，页面级鉴权也可通过在 `src/routes.ts` 中配置 wrappers 字段实现，可参考 [wrappers 配置](/guide/basic/router.md#路由高阶组件) 。
 
 ## 操作权限
 

@@ -66,6 +66,8 @@ icejs 2.x 移除了已废弃的工程配置和插件，并将一些优化逻辑�
 
 ### 3. 运行时 API 升级
 
+#### 核心 API
+
 在 icejs 1.x 中已提示废弃的 API，在 2.0 版本中完全移除：
 
 ```diff
@@ -81,12 +83,40 @@ icejs 2.x 移除了已废弃的工程配置和插件，并将一些优化逻辑�
 + import { runApp } from 'ice';
 ```
 
-### 4. 状态管理方案升级
+#### 状态管理方案
 
-在 icejs 1.x 中已提示废弃的用法，在 2.0 版本中完全移除：
+在 1.x 中已提示废弃的用法，在 2.0 版本中完全移除：
 
 - 不再支持自动初始化 store，推荐开发者按需求创建自己的 `store.[ts|js]`，[请按照文档进行升级](/guide/basic/store.md#不再自动初始化-store) 。
 - Model 中使用 `reducers&effects` 替代 `actions: {}` 写法，[请按照文档进行升级](/guide/basic/store.md#model-中不再支持-actions--写法) 。
+- 内置的 immer 从 6.x 升级到最新版本 9.x
+
+#### 权限管理方案
+
+2.0 中权限方案不再耦合状态管理，直接基于 React Context 实现，更加轻量，开发者端的 API 无任何变化。
+
+#### 请求数据方案
+
+将内置的 axios 版本从 `0.19.x` 升级到 `0.21.x`。
+
+### 4. 工程依赖版本变化
+
+框架内置的一些工程依赖也同时做了升级，理论上对于项目没有影响，可视具体情况来看：
+
+```bash
+webpack^4 -> 5
+postcss^7.0.32 -> 8.0.0
+
+css-loader ^3.2.0 -> 5.2.4
+sass-loader ^10.0.0 -> 11.0.1
+less-loader ^7.0.0 -> 8.1.1
+postcss-loader^3.0.0 -> 5.2.0
+
+mini-css-extract-plugin^1.0.0 -> 2.1.0
+terser-webpack-plugin^2.3.1 -> 5.1.4
+copy-webpack-plugin^5.0.4 -> 9.0.1
+html-webpack-plugin^4.0.0 -> 5.3.1
+```
 
 ### 5. 自定义插件迁移
 

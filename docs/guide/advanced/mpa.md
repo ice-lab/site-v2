@@ -254,4 +254,4 @@ html 中使用 EJS 语法：
   └── tsconfig.json
 ```
 
-`LoginEntry.jsx` 只需要导出一个 React 组件即可。
+`LoginEntry.jsx` 需要自行调用 `ReactDOM.render()` 渲染。

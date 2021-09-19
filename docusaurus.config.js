@@ -16,8 +16,8 @@ module.exports = {
     announcementBar: {
       id: 'announcementBar-2',
       // TODO: 补充了解更多的链接
-      content: 'icejs 2.0 beta 版本已发布，支持 Webpack 5 和 Vite 两种构建模式，点击 <a href="#">了解更多</a>',
-      isCloseable: false,
+      content: 'icejs 2.0 版本已发布，支持 Webpack 5 和 Vite 两种构建模式，点击 <a href="/docs/guide/upgrade">快速升级</a>',
+      isCloseable: true,
     },
     navbar,
     footer,

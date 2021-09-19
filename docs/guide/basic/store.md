@@ -219,7 +219,7 @@ export default [
 ]
 ```
 
-## 参阅资料
+## 高阶用法
 
 ### 设置初始状态
 
@@ -512,21 +512,6 @@ export default store.withModel('todos')(TodoList);
 
 [完整 API 文档](https://github.com/ice-lab/icestore/blob/master/docs/api.md)
 
-### 路由切换后重置页面状态
-
-> icejs 1.0 版本 `store.resetPageState` 已废弃
-> icejs 1.0 版本默认禁用此功能，如需使用需要主动开启 `store.resetPageState`
-
-icejs 2.0 版本默认开启路由切换后重置页面状态(state)。如果希望禁用此功能，需要在 `build.json` 中配置：
-
-```json
-{
-  "store": {
-    "disableResetPageState": true
-  }
-}
-```
-
 ### Redux Devtools
 
 icejs 中默认集成了 [Redux Devtools](https://github.com/zalmoxisus/redux-devtools-extension)，不需要额外的配置就可以通过 Redux Devtools 调试：
@@ -570,7 +555,23 @@ function Child() {
 }
 ```
 
+### 使用其他状态管理方案
+
+icejs 默认使用 [@ice/store](https://github.com/ice-lab/icestore) 作为状态管理方案，如需使用其他方案，需要在 build.json 中通过选项关闭默认方案：
+
+```json
+{
+  "store": false
+}
+```
+
+此时项目不会再引入 `@ice/store` 相关的各种能力，包含上述的自动包裹 `Provider` 等，此时就可以灵活的引入其他状态管理方案了。
+
 ## 版本变更说明
+
+### 内置的 immer 从 6.x 升级到最新版本 9.x
+
+icejs 2.0.0 版本升级
 
 ### 不再自动初始化 store
 
@@ -641,4 +642,26 @@ const counter = {
 
 > 1.7.0 版本标记废弃，2.0.0 版本完全移除
 
-推荐使用 `store.initialStates`
+推荐使用 `store.initialStates`。
+
+### 路由切换后重新初始化页面状态
+
+icejs 1.0 中有一个「错误」的设计，切换页面再次进入原页面后页面状态不会重新初始化，如需重新初始化需要主动配置：
+
+```json
+{
+  "store": {
+    "resetPageState": true
+  }
+}
+```
+
+icejs 2.0 版本将此默认行为进行了修正，切换页面再次进入原页面后会重新初始化页面状态，如果希望跟 1.0 表现一致，则需要主动配置：
+
+```json
+{
+  "store": {
+    "disableResetPageState": true
+  }
+}
+```
