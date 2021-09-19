@@ -1,7 +1,18 @@
 ---
-title: smart-debug
-order: 6
+title: smart-debug（不推荐）
+order: 13
 ---
+
+import Support from '../../../src/components/Support'
+
+<Support list={['webpack']} />
+
+:::caution
+
+因侵入源码因此不再推荐使用，推荐通过 Chrome 插件b比如 [山海关](https://chrome.google.com/webstore/detail/%E5%B1%B1%E6%B5%B7%E5%85%B3%E6%8F%92%E4%BB%B6/jfalnandddhgfnmejfgjgfbfnnkhljog) 代理实现。
+
+:::
+
 
 用于 debug 调试，常见于线上环境加载本地 assets 资源进行调试的场景：
 

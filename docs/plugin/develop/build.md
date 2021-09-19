@@ -77,19 +77,19 @@ module.exports = ({ onHook }) => {
 
 | 生命周期 | 参数 | 调用时机 |
 | --- | --- | --- |
-| before.start.load | {<br />  args: array // 启动参数<br />} | 获取webpack配置之前 |
-| before.start.run | - | webpack执行之前 |
-| after.start.compile | {<br />  url: string // serverUrl，<br />  stats: WebpackAssets<br />} | 编译结束，每次重新编译都会执行 |
-| before.start.devServer | {<br />  url: string // serverUrl，<br /> devServer:  WebpackDevServer<br />} | 中间件加载后，webpack dev server 启动前 |
-| after.start.devServer | {<br />  url: string // serverUrl,<br />  devServer: WebpackDevServer,<br />  err: Error<br />} | webpack dev server 启动后 |
+| before.start.load | {<br />  args: CommandArgs, // 启动参数<br /> webpackConfig: ConfigInfo[]<br />} | 配置转化之前 |
+| before.start.run | {<br />  args: CommandArgs, // 启动参数<br /> config: WebpackConfig[]<br />} | 构建执行之前 |
+| after.start.compile | {<br />  url: string // serverUrl, <br />isFirstCompile: boolean,<br />  stats: WebpackAssets // Vite 模式下不存在 stats<br />} | 编译结束，每次重新编译都会执行 |
+| before.start.devServer | {<br />  url: string // serverUrl,<br /> devServer:  WebpackDevServer | viteServer<br />} | 中间件加载后，dev server 启动前，仅支持 Webpack 构建模式 |
+| after.start.devServer | {<br />  url: string // serverUrl,<br />  devServer: WebpackDevServer ｜ viteServer,<br />  err: Error<br />} | dev server 启动后，仅支持 Webpack 构建模式 |
 
 #### build 命令
 
 | 生命周期 | 参数 | 调用时机 |
 | --- | --- | --- |
-| before.build.load | {<br />  args: array // 启动参数<br />} | 获取 webpack 配置之前 |
-| before.build.run | - | webpack 构建执行之前 |
-| after.build.compile | {<br />  err: Error,<br />  stats: WebpackAssets<br />} | 构建结束 |
+| before.build.load | {<br />  args: CommandArgs, // 启动参数<br /> webpackConfig: ConfigInfo[]<br />} | 配置转化之前 |
+| before.build.run | {<br />  args: CommandArgs, // 启动参数<br /> config: WebpackConfig[]<br />} | 构建执行之前 |
+| after.build.compile | {<br />  err: Error,<br />  stats: WebpackAssets // Vite 模式下不存在 stats<br />} | 构建结束 |
 
 #### test 命令
 
@@ -158,7 +158,7 @@ module.exports = ({modifyUserConfig}) => {
 
 ### registerTask
 
-添加 webpack 配置，配置为 webpack-chain 形式。
+添加 Webpack 配置，配置为 webpack-chain 形式。
 
 ```javascript
 module.exports = ({registerTask}) => {
@@ -168,7 +168,7 @@ module.exports = ({registerTask}) => {
 
 ### getAllTask
 
-获取所有 webpack 配置名称。
+获取所有 Webpack 配置名称。
 
 ```javascript
 module.exports = ({getAllTask}) => {
@@ -199,40 +199,49 @@ module.exports = ({ applyMethod }) => {
 }
 ```
 
-目前扩展的 API 仅支持同步调用。
+### addPluginTemplate
 
-### addIceExport
+为运行时目录中的模版生成提供统一的渲染服务（目录）：
+
+```js
+// 默认渲染目录由插件名称决定
+applyMethod('addPluginTemplate', path.join(__dirname, '../template'));
+
+// 指定模版渲染目录
+const renderData = {}; // 可选，ejs 额外渲染参数
+applyMethod('addPluginTemplate', {
+  template: path.join(__dirname, '../src/types'),
+  targetDir: 'router/types',
+}, renderData);
+```
+
+### addRenderFile
+
+向运行时目录添加提供文件的渲染服务（文件）：
+
+```js
+const sourceFile = '../template/index.tsx.ejs');
+const targetFile = path.join(runtimeDir, 'source/index.tsx');
+const renderData = {}; // 可选，ejs 额外渲染参数
+applyMethod('addRenderFile', path.join(__dirname, sourceFile, targetFile, renderData);
+```
+
+### addExport
 
 向 `ice` 里注册模块，实现 `import { foo } from 'ice';` 的能力：
 
 ```js
+
+// API 参数
+// source: 指定导出模块引入的文件目录
+// exportName: 从 ice 中导出的模块名称。
+// specifier: 从 source 中默认导出方式，可选，默认值为 default export，如果为 named export 需要额外设置
+//
 // 实现 import { request } from 'ice'; request 由插件的 `./request/request` 文件实现
-applyMethod('addIceExport', { source: './request/request', exportName: 'request' })
+applyMethod('addExport', { source: './request/request', exportName: 'request' })
 ```
 
-### removeIceExport
-
-与 `addIceExport` 对应：
-
-```js
-this.applyMethod('removeIceExport', 'store');
-```
-
-### addPageExport
-
-向 `ice/Home` 里注册模块，实现 `import { foo } from 'ice/Home'`，目前主要用于页面级状态管理的实现：
-
-```js
-this.applyMethod('addPageExport', 'Home', { source: './models', 'store' })
-```
-
-一般情况下需要循环向每个页面添加。
-
-### removePageExport
-
-与 `addPageExport` 对应
-
-### addIceAppConfigTypes
+### addAppConfigTypes
 
 向 appConfig 添加类型
 
@@ -250,12 +259,8 @@ this.applyMethod('addPageExport', 'Home', { source: './models', 'store' })
 // export interface IAppConfig {
 //   foo?: Foo
 // }
-applyMethod('addIceAppConfigTypes', { source: `./foo/types`, specifier: '{ Foo }', exportName: `foo?: Foo` });
+applyMethod('addAppConfigTypes', { source: `./foo/types`, specifier: '{ Foo }', exportName: `foo?: Foo` });
 ```
-
-### removeIceAppConfigTypes
-
-与 `addIceAppConfigTypes` 对应
 
 ### getPages
 
@@ -264,6 +269,15 @@ applyMethod('addIceAppConfigTypes', { source: `./foo/types`, specifier: '{ Foo }
 ```js
 // ['Home', 'About']
 const pages = this.applyMethod('getPages', this.rootDir);
+```
+
+### addDisableRuntimePlugin
+
+禁用插件的运行时能力
+
+```js
+// 禁用内置的 request 的运行时能力
+applyMethod('addDisableRuntimePlugin', 'build-plugin-ice-request');
 ```
 
 ### watchFileChange
@@ -342,5 +356,5 @@ const iceDirPath = getValue('TEMP_PATH');  // 对应 .ice 的路径
 
 接口类型通过以下方法引入：
 ```javascript
-import { IPlugin } from '@alib/build-scripts';
+import { IPlugin } from 'build-scripts';
 ```

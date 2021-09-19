@@ -12,7 +12,7 @@ order: 1
 <br />
 <br />
 
-> 定位：基于 React 的渐进式研发框架
+飞冰是一个基于 React 的研发解决方案，围绕研发框架 icejs 提供完善的领域解决方案，同时结合可视化操作、物料复用等方案降低研发门槛。
 
 ## 特性 🎉
 
@@ -24,9 +24,9 @@ order: 1
 
 在框架基础上，也可以搭配 VS Code 插件 [AppWorks](https://vsmarketplacebadge.apphb.com/version-short/iceworks-team.iceworks.svg?logo=visual-studio-code) 享受到更多功能：
 
-- 通过大量的官方模板（fusion/antd）可视化创建项目
-- 可视化的调试、管理依赖、拼装区块等
-- 业务可以根据规范定制自己的物料体系（含项目模板）
+- 通过大量的官方模板（fusion/antd）可视化创建项目，[查看官方物料](https://appworks.site/materialCenter/fusion.html)
+- 基于 VS Code 插件可视化的调试、管理依赖、拼装区块等，[查看文档](https://appworks.site)
+- 业务可以根据规范定制自己的物料体系（含项目模板），[查看物料开发文档](https://appworks.site/materials/about.html)
 - ……
 
 ## 常见问题 📝
@@ -45,7 +45,7 @@ order: 1
 
 ### 飞冰可以使用哪些 UI 组件？
 
-飞冰的框架和工具都不耦合 UI 组件，因此开发者可以选择自己喜欢的 UI 组件使用，比如：
+飞冰的框架和工具都不耦合 UI 组件，因此开发者可以选择任意的 React UI 组件使用，比如：
 
 - [使用 fusion 组件](/plugin/list/fusion.md)
 - [使用 antd 组件](/plugin/list/antd.md)
@@ -54,18 +54,26 @@ order: 1
 
 低代码方案一般指以可视化拖拽搭建为主，少量地方使用代码辅助，此类方案往往是面向具体领域而非通用场景的，飞冰是面向通用领域的，以源码研发为主，通过框架、物料、GUI 操作等能力降低研发门槛，因此飞冰并不是通俗意义的低代码方案。
 
-### icejs 是否有 Bundleless 相关计划
+### 与直接使用 Vite/Webpack 相比，使用 icejs 有什么优势？
 
-有，目前 icejs 团队核心在做两件事情：
+Vite/Webpack 只提供了基础的工程能力，icejs 在此基础上扩展了很多能力：
 
-1. 基于 ESM 的研发框架，初步计划是基于 vite，将 icejs 上层的解决方案都可以对接过来
-2. icejs v2.0，在 1.0 的基础上渐进演进，升级 webpack5 提升调试速度、更快的安装速度、更强大的动态多主题方案等
+- 默认集成好的工程能力，无需再手动配置一边
+- 不止是工程配置，更有面向业务领域的最佳实践，比如路由配置、目录组织、状态管理等
+- 让很多业务接入成本高的能力可以开箱即用，比如 SSR/SSG、微前端、一体化，基于原始的 Webpack 建设这些能力需要付出很高成本
+- 通过插件化让以上这些能力可以被扩展以及跨项目复用
 
-这两个方向预计将在七月份发布版本。
+### icejs 与 Next.js、UmiJS 之类的框架有什么区别？
+
+icejs、Next.js、UmiJS 以及基于 Vue 的 Nuxt.js 都是同一个层面的解决方案，而这些方案基本都有受 Next.js 启发。各个框架除了功能实现上有些许差异外，更多是不同团队有不同的最佳实践以及设计原则，开发者可以结合自身的功能诉求以及最佳实践做选择。
 
 ## 联系我们 🧼
 
 - 反馈/建议：<https://github.com/alibaba/ice/issues/new>
-- 答疑钉钉群，**社区同学请扫以下二维码，内部同学请搜索「飞冰（ICE）万能群」**：
+- 答疑钉钉群：
+
+**阿里内部同学请搜索「飞冰（ICE）万能群」，社区同学请扫以下二维码**<br />
+**阿里内部同学请搜索「飞冰（ICE）万能群」，社区同学请扫以下二维码**<br />
+**阿里内部同学请搜索「飞冰（ICE）万能群」，社区同学请扫以下二维码**<br />
 
   <img src="http://ice.alicdn.com/assets/images/qrcode.png" width="300" />

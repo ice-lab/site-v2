@@ -3,11 +3,13 @@ title: 框架 API
 order: 13
 ---
 
+import Badge from '../../src/components/Badge'
+
 ## 基础
 
 ### runApp
 
-> 1.7.0 版本之后推荐使用 runApp 替代原先的 createApp
+> API createApp 从 1.7.0 版本标记废弃，2.0 版本完全移除，请使用 runApp 替代
 
 用于创建渲染整个应用。[详见](/guide/basic/app.md)
 
@@ -23,11 +25,54 @@ order: 13
 
 用于错误边界的组件。[详见](/guide/advanced/error-boundaries.md#ErrorBoundary)
 
+### Head
+
+设置页面 `<head>` 标签的信息，如 meta、title 等：
+
+```jsx
+import React from 'react';
+import { Head } from 'ice';
+
+const Home = (props) =>
+  return (
+    <div>
+      <Head>
+        <title>Home</title>
+        <meta name="description" content='页面描述' />
+      </Head>
+      <h1>Home Page</h1>
+    </div>
+  );
+};
+```
+
 ## 状态管理
 
-### store
+### createStore
 
-应用级别的 store 实例。[详见](/guide/basic/store.md)
+初始化 store 实例。
+
+```ts
+import { createStore } from 'ice';
+import user from './models/user';
+
+const store = createStore({
+  user,
+}, {
+  // options
+});
+
+export default store;
+```
+
+`createStore()` 支持的 options:
+
+- disableError：布尔类型，可选，默认值 false，如果设置为 true，则 `UseModelEffectsError` 和 `WithModelEffectsError` 将不可用。
+- disableLoading：布尔类型，可选，默认值 false，如果设置为 true，则 `useModelEffectsLoading` 和 `withModelEffectsLoading` 将不可用。
+- plugins：数组类型，可选，Immer 插件、Redux 插件
+- redux：对象类型，可选
+  - middlewares：数组类型，Redux middlewares
+  - devtoolOptions：对象类型，Redux Devtools 参数
 
 ## 路由
 
@@ -134,7 +179,7 @@ function Home() {
   const params = useParams();
   return (
     <>
-      <p>params: {JSON.stringify(params)}</p>
+      <p>ID: {params.id}</p>
     </>
   );
 }
@@ -159,6 +204,8 @@ function Home() {
 
 ### getSearchParams
 
+> API useSearchParams 和 withSearchParams 于 1.9.0 版本标记废弃，2.0 版本完全移除，请使用 getSearchParams 替代
+
 用于在非路由函数组件中解析 url 参数。
 
 假设当前 URL 为 `https://example.com?foo=bar`，解析查询参数如下：
@@ -170,39 +217,6 @@ import { getSearchParams } from 'ice';
 function Example() {
   const searchParams = getSearchParams();
   // console.log(searchParams); => { foo: 'bar' }
-}
-```
-
-### useSearchParams
-
-**已废弃**，请使用 getSearchParams。用于在非路由函数组件中解析 url 参数。
-
-假设当前 URL 为 `https://example.com?foo=bar`，解析查询参数如下：
-
-```tsx
-// src/components/Example
-import { useSearchParams } from 'ice';
-
-function Example() {
-  const searchParams = useSearchParams();
-  // console.log(searchParams); => { foo: 'bar' }
-}
-```
-
-### withSearchParams
-
-**已废弃**，请使用 getSearchParams。与 `useSearchParams` 对应，用在 Class Component 中。
-
-```tsx
-import { withSearchParams } from 'ice';
-
-@withSearchParams
-class Example extends React.Component {
-  render() {
-    const { searchParams } = this.props;
-    // console.log(searchParams); => { foo: bar }
-    return <>Foo</>;
-  }
 }
 ```
 
@@ -314,19 +328,51 @@ const history = createMemoryHistory();
 
 用于数据请求的 hooks。[详见](/guide/basic/request.md#useRequest)
 
+## 权限
+
+### useAuth
+
+在函数组件中获取和更新权限。
+
+```jsx
+import React from 'react';
+import { useAuth } from 'ice';
+
+function Foo() {
+  const [auth, setAuth] = useAuth();
+  // auth：当前权限列表数据
+  // setAuth：更改当前权限列表数据
+  return <>Foo</>;
+}
+```
+
+### withAuth
+
+在 Class 组件中获取和更新权限。
+
+```jsx
+import React from 'react';
+import { withAuth } from 'ice';
+
+Class Foo extends React.Component {
+  render() {
+    const { auth, setAuth } = this.props;
+    return <>Foo</>;
+  }
+}
+
+export default withAuth(Foo)
+```
+
 ## 工具方法
 
 ### getInitialData
 
-获取通过 `app.getInitialData` 返回的 initialData 数据。[详见](/guide/advanced/ssr.md#应用级数据)
+获取通过 `app.getInitialData()` 返回的 initialData 数据。[详见](#通过-getinitialdata-消费)
 
 ### lazy
 
 用于代码懒加载。[详见](/guide/advanced/code-splitting.md)
-
-### logger
-
-用于日志打印。[详见](/guide/basic/logger.md)
 
 ## 类型
 

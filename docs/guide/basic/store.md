@@ -76,15 +76,7 @@ const store = createStore(
 export default store;
 ```
 
-`createStore()` 支持的 options:
-
-- disableImmer：布尔类型，可选，默认值 false，如果设置为 true，那么 immer 将被禁用，这意味着不能再在 reducers 中直接改变状态，而是必须返回新的状态。
-- disableError：布尔类型，可选，默认值 false，如果设置为 true，则 `UseModelEffectsError` 和 `WithModelEffectsError` 将不可用。
-- disableLoading：布尔类型，可选，默认值 false，如果设置为 true，则 `useModelEffectsLoading` 和 `withModelEffectsLoading` 将不可用。
-- plugins：数组类型，可选，Redux 插件
-- redux：对象类型，可选
-  - middlewares：数组类型，Redux middlewares
-  - devtoolOptions：对象类型，Redux Devtools 参数
+详细文档请参考 [API-createStore](api/about.md#createStore) 。
 
 ### 在 View 中使用模型状态
 
@@ -105,7 +97,11 @@ const HomePage = () => {
 
 ## 页面级状态
 
-页面状态只能在该页面下的组件中使用，无法跨页面使用。约定页面状态在 `src/pages/*/models` 中定义。
+页面状态只能在该页面下的组件中使用，无法跨页面使用。
+
+### 非嵌套页面
+
+大部分场景中一个 `pages/Foo` 目录对应一个路由，即非嵌套页面，此时约定页面状态在 `src/pages/*/models` 中定义。
 
 目录组织如下：
 
@@ -167,9 +163,11 @@ const HomePage = () => {
 ```md
 src
 └── pages
-│ ├── Home // Home 页面包含了 Foo、Bar 等多个路由页面
-│ │ ├── Foo  
-│ │ ├── Bar
+│ ├── Home     // Home 页面包含了 A、B 等多个路由页面
+│ │ ├── HomeA
+│ │ │ └── index.tsx
+│ │ ├── HomeB
+│ │ │ └── index.tsx
 │ │ ├── Layout // 页面布局
 │ │ │ └── index.tsx
 │ │ ├── models // 页面状态
@@ -179,10 +177,10 @@ src
 └── app.ts
 ```
 
-对于嵌套页面，框架会将 store 的 Provider 包裹在 `Layout/index.tsx` 上，因此需要保证该文件的存在：
+对于嵌套页面，框架会将 store 的 Provider 包裹在 `Layout/index.tsx` 上，此时所有嵌套的页面以及组件都可以访问到这里的 store。`Layout/index.tsx` 内容如下：
 
 ```jsx
-// Layout/index.tsx
+// Layout 中可以定义这些嵌套页面共用的布局，如果没有共用布局则直接渲染 children 即可
 export default ({ children }) => {
   return <>{children}</>;
 };
@@ -193,8 +191,8 @@ export default ({ children }) => {
 ```diff
 // src/routes.ts
 +import HomeLayout from '@/pages/Home/Layout';
-import Foo from '@/pages/Home/Foo';
-import Bar from '@/pages/Home/Bar';
++import HomeA from '@/pages/Home/HomeA';
++import HomeB from '@/pages/Home/HomeB';
 import About from '@/pages/About';
 
 export default [
@@ -205,12 +203,12 @@ export default [
       {
         path: '/home',
 +        component: HomeLayout,
-        children: [
-          {
-            path: '/foo',
-            component: Foo
-          }
-        ]
++        children: [
++          {
++            path: '/a',
++            component: HomeA
++          }
++        ]
       },
       {
         path: '/about',
@@ -221,7 +219,7 @@ export default [
 ]
 ```
 
-## 参阅资料
+## 高阶用法
 
 ### 设置初始状态
 
@@ -238,9 +236,7 @@ const appConfig = {
 runApp(appConfig);
 ```
 
-> API `store.getInitialStates` 已废弃，推荐使用 `store.initialStates`
-
-> SSR 场景下 `initialData.initialStates` 会默认赋值给 `store.initialStates`
+> 如果定义了 `app.getInitialData()`，该方法返回的 `initialStates` 字段会默认赋值给 `store.initialStates`
 
 > 页面级状态目前不支持设置 initialStates
 
@@ -290,7 +286,7 @@ const user = {
 };
 ```
 
-### model 定义详细说明
+### Model 定义详细说明
 
 如上示例所述，icejs 约定在 `src/models`、`src/pages/*/models` 目录下的文件为项目定义的模型文件，每个文件需要默认导出一个对象。
 
@@ -330,18 +326,17 @@ export default {
 
 + reducers: {
 +   increment (prevState, payload) {
-+     //
-+     prevState.count += 1;
-+     prevState.list.push(1);
++     const newList = prevState.list.slice();
++     newList.push(payload);
++     const newCount = prevState.count + 1;
++     return { ...prevState, count: newCount, list: newList }
 +   },
 +   decrement (prevState) {
-+     prevState.count += 1;
++     return { ...prevState, count: prevState.count - 1 }
 +   }
 + }
 }
 ```
-
-> icestore 默认内置了 immer，因此 reducer 中直接修改数据即可，无需返回新对象
 
 **effects**
 
@@ -356,11 +351,17 @@ export default {
   state: { count: 0 },
 
   reducers: {
-    increment (prevState, payload) {
-      prevState.count += 1;
+    increment (prevState) {
+      return {
+        ...prevState,
+        count: prevState.count + 1
+      }
     },
     decrement (prevState) {
-      prevState.count -= 1;
+      return {
+        ...prevState,
+        count: prevState.count - 1
+      }
     }
   },
 
@@ -373,7 +374,7 @@ export default {
 };
 ```
 
-### model 之间通信
+### Model 之间通信
 
 > 注意：如果两个 model 不属于同一个 store 实例，是无法通信的
 
@@ -417,6 +418,55 @@ export default {
 > 如果遇到 `this.foo` 的 ts 类型错误，请参考文档 [icestore QA](https://github.com/ice-lab/icestore/blob/master/docs/qna.zh-CN.md) 进行修复
 
 > setState 是 icestore 内置的一个 reducer，可以直接使用
+
+### Model 中使用 immer 更改 state
+
+Redux 默认的函数式写法在处理一些复杂对象的 state 时会非常繁琐，因此 icejs 同时支持了使用 [immer](https://immerjs.github.io/immer/) 来操作 state：
+
+```diff
+export default {
+  state: {
+    tasks: ['A Task', 'B Task'],
+    detail: {
+      name: 'Bob',
+      age: 3,
+    },
+  },
+  reducers: {
+    addTasks(prevState, payload) {
+-     return {
+-       ..prevState,
+-       tasks: [ ...prevState.tasks, payload ],
+-     },
++     prevState.tasks.push(payload);
+    },
+    updateAge(prevState, payload) {
+-     return {
+-       ..prevState,
+-       detail: {
+-         ...prevState.detail,
+-         age: payload,
+-       },
+-     },
++     prevState.detail.age = payload
+    }
+  }
+}
+```
+
+注意：因为 immer 无法支持字符串或数字这样的简单类型，因此如果 state 符合这种情况（极少数）则不支持通过 immer 操作，必须使用 Redux 默认的函数式写法（返回一个新值）：
+
+```diff
+const count = {
+  state: 0,
+  reducers: {
+    add(prevState) {
+-     state += 1;
++     return state += 1;
+    },
+  },
+}
+```
 
 ### 获取 effects 的状态 loading/error
 
@@ -462,41 +512,6 @@ export default store.withModel('todos')(TodoList);
 
 [完整 API 文档](https://github.com/ice-lab/icestore/blob/master/docs/api.md)
 
-### 路由切换后重置页面状态
-
-在 `build.json` 中开启：
-
-```json
-{
-  "store": {
-    "resetPageState": true
-  }
-}
-```
-
-如果开发者自行在 `store.ts` 中初始化 `store` 实例，需要按照以下规则进行创建：
-
-```ts
-// src/pages/Home/store.ts
-import { createStore } from 'ice';
-
-// 有 models 目录的情况
-import user from './models/user';
-import project from './models/project';
-
-// 使用 model 的文件名作为 model key
-export default createStore({
-  user,
-  project,
-});
-
-// 有 model.ts 文件的情况
-import store from './model';
-
-// 使用 default 作为 model key
-export default createStore({ default: store });
-```
-
 ### Redux Devtools
 
 icejs 中默认集成了 [Redux Devtools](https://github.com/zalmoxisus/redux-devtools-extension)，不需要额外的配置就可以通过 Redux Devtools 调试：
@@ -509,11 +524,11 @@ icejs 中默认集成了 [Redux Devtools](https://github.com/zalmoxisus/redux-de
 
 满足以下几种情况，框架都会自动帮助开发者包裹 `store.Provider`：
 
-- SPA 全局 store：`src/` 下有 `store.js` 和 `app.js`
-- SPA 页面级 store：`src/pages/Home` 下有 `store.js` 和 `index.jsx`
-- SPA 嵌套页面级 store：`src/pages/Home` 下有 `store.js` 和 `Layout/index.jsx`（优先级低于上面）
-- MPA 组件类型的 entry：`src/pages/Home` 下有 `store.js` 和 `index.jsx`
-- MPA 单页类型的 entry：`src/pages/Home` 下有 `store.js`, `app.js`, `Layout/index.jsx`
+- SPA 全局 store：`src/` 下有 `store.ts` 和 `app.ts`
+- SPA 页面级 store：`src/pages/Home` 下有 `store.ts` 和 `index.tsx`
+- SPA 嵌套页面级 store：`src/pages/Home` 下有 `store.ts` 和 `Layout/index.tsx`（优先级低于上面）
+- MPA 组件类型的 entry：`src/pages/Home` 下有 `store.ts` 和 `index.tsx`
+- MPA 单页类型的 entry：`src/pages/Home` 下有 `store.ts`, `app.ts`, `Layout/index.tsx`
 
 如果不满足上述情况，则需要开发者自行包裹 `store.Provider`。比如希望在 `src/pages/Home/Foo/` 下创建一个 store：
 
@@ -540,11 +555,40 @@ function Child() {
 }
 ```
 
+### 使用其他状态管理方案
+
+icejs 默认使用 [@ice/store](https://github.com/ice-lab/icestore) 作为状态管理方案，如需使用其他方案，需要在 build.json 中通过选项关闭默认方案：
+
+```json
+{
+  "store": false
+}
+```
+
+此时项目不会再引入 `@ice/store` 相关的各种能力，包含上述的自动包裹 `Provider` 等，此时就可以灵活的引入其他状态管理方案了。
+
 ## 版本变更说明
 
-icejs v1.9.7 版本开始框架推荐开发者自行初始化 store，这样可以更灵活的定制一些参数，相对之前方案带来的改变：
+### 内置的 immer 从 6.x 升级到最新版本 9.x
 
-- 开发者需要自行在 store.ts 中初始化 store 实例，框架默认不初始化
+icejs 2.0.0 版本升级
+
+### 不再自动初始化 store
+
+> 1.9.7 版本标记废弃，2.0.0 版本完全移除
+
+推荐开发者自行创建 `store.ts` 并在其中初始化 store，这样可以更灵活的定制一些参数，相对之前方案带来的改变：
+
+- 开发者需要在 `models/` 同层目录自行创建 `store.ts` 并初始化 store 实例：
+
+```diff
+src
+└── models
+|   ├── foo.ts
+|   └── bar.ts
++|── store.ts
+└── app.ts
+```
 
 ```ts
 // src/store.ts
@@ -572,4 +616,52 @@ export default store;
 + import store from '@/pages/Home/store';
 ```
 
-对于之前的版本我们做了向前兼容，只有当项目里存在 `src/store.ts` 或者 `src/pages/*/store.ts` 时才会触发新的方案，如果之前项目里刚好存在同名文件则有可能触发 break change。
+### Model 中不再支持 `actions: {}` 写法
+
+> 1.7.0 版本标记废弃，2.0.0 版本完全移除
+
+将原先的 `actions: {}` 拆分为 `effects: () => {}` 和 `reducers: {}` 两个字段：
+
+```diff
+const counter = {
+  state: { value: 0 },
+-  actions: {
+-    increment:(state) => ({ value: state.value + 1 }),
+-    async asyncIncrement(state, payload, actions, globalActions) {},
+-  }
++  reducers: {
++    increment:(prevState) => ({ value: prevState.value + 1 }),
++  },
++  effects: (dispatch) => ({
++    async asyncIncrement(payload, rootState) {},
++  }),
+}
+```
+
+### 不再支持 `store.getInitialStates()`
+
+> 1.7.0 版本标记废弃，2.0.0 版本完全移除
+
+推荐使用 `store.initialStates`。
+
+### 路由切换后重新初始化页面状态
+
+icejs 1.0 中有一个「错误」的设计，切换页面再次进入原页面后页面状态不会重新初始化，如需重新初始化需要主动配置：
+
+```json
+{
+  "store": {
+    "resetPageState": true
+  }
+}
+```
+
+icejs 2.0 版本将此默认行为进行了修正，切换页面再次进入原页面后会重新初始化页面状态，如果希望跟 1.0 表现一致，则需要主动配置：
+
+```json
+{
+  "store": {
+    "disableResetPageState": true
+  }
+}
+```

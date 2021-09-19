@@ -3,6 +3,10 @@ title: dev-inspector
 order: 12
 ---
 
+import Support from '../../../src/components/Support'
+
+<Support list={['webpack']} />
+
 在本地调试时，快速定位页面上的组件所在的源码的位置。
 
 ## Install

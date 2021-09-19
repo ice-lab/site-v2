@@ -3,6 +3,10 @@ title: jsx plus
 order: 8
 ---
 
+import Support from '../../../src/components/Support'
+
+<Support list={['webpack']} />
+
 该插件支持了一种 JSX 扩展语法 JSX+，它能帮助业务开发者更爽更快地书写 JSX。JSX+ 不是一种新的概念，它是 JSX 基础上的扩展指令概念。
 
 - JSX 虽然语法灵活，但是大量的花括号 + JS 语法导致了上下文切换和代码可读性的下降，JSX+ 的指令很好的解决了这个问题
@@ -24,4 +28,23 @@ $ npm i --save-dev build-plugin-jsx-plus
 }
 ```
 
-详细使用请参考 [jsx-plus](https://github.com/jsx-plus/jsx-plus/blob/master/README.zh_CN.md)
+接下来就可以使用更强大的 jsx 语法了：
+
+```jsx
+function ExampleComponent(props) {
+  const { isAdmin, dataSource } = props;
+
+  return (
+    <>
+      <div x-if={isAdmin}>admin</div>
+      <div x-else>guest</div>
+
+      <div x-for={item in dataSource}>
+        <span>{item.name}</span>
+      </div>
+    </>
+  );
+}
+```
+
+更多语法请参考 [jsx-plus](https://github.com/jsx-plus/jsx-plus/blob/master/README.zh_CN.md)

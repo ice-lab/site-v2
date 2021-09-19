@@ -1,7 +1,17 @@
 ---
-title: dynamic-load-assets
+title: load-assets（不推荐）
 order: 12
 ---
+
+import Support from '../../../src/components/Support'
+
+<Support list={['webpack']} />
+
+:::caution
+
+因侵入源码不推荐使用，建议直接修改 public/index.html
+
+:::
 
 插件提供自动加载 assets 资源能力：
 

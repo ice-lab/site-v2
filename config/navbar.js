@@ -15,6 +15,11 @@ module.exports = {
       label: '指南',
     },
     {
+      to: '/docs/guide/basic/vite',
+      position: 'right',
+      label: 'Vite 模式 🔥',
+    },
+    {
       to: '/docs/config/about',
       position: 'right',
       label: '配置',
@@ -31,7 +36,7 @@ module.exports = {
     },
     {
       position: 'right',
-      to: '/docs/fusion/about',
+      to: 'https://fusion.design/pc/doc/component/102',
       label: '组件',
       // items: [{
       //   label: 'Fusion 物料',
@@ -55,6 +60,14 @@ module.exports = {
         {
           label: '前端环境',
           to: '/docs/resource/front-env',
+        },
+        {
+          label: 'AppWorks',
+          to: 'https://appworks.site/',
+        },
+        {
+          label: '物料开发',
+          to: 'https://appworks.site/materials/about.html',
         },
       ],
     },

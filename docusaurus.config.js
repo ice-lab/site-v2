@@ -4,15 +4,21 @@ const footer = require('./config/footer');
 
 module.exports = {
   title: '飞冰',
-  tagline: '基于 React 的渐进式研发框架',
-  url: 'https://beta.ice.work',
+  tagline: '基于 React 的研发解决方案',
+  url: 'https://ice.work',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'throw',
   favicon: 'img/favicon.ico',
-  organizationName: 'alibaba', 
+  organizationName: 'alibaba',
   projectName: 'ice',
   themeConfig: {
+    announcementBar: {
+      id: 'announcementBar-2',
+      // TODO: 补充了解更多的链接
+      content: 'icejs 2.0 版本已发布，支持 Webpack 5 和 Vite 两种构建模式，点击 <a href="/docs/guide/upgrade">快速升级</a>',
+      isCloseable: true,
+    },
     navbar,
     footer,
     algolia: {

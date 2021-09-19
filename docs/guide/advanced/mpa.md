@@ -121,10 +121,10 @@ export default [
 
 ### 组件类型的 entry
 
-如果只是渲染一个简单的组件/页面，直接在 `index.jsx` 中导出组件即可：
+如果只是渲染一个简单的组件/页面，直接在 `index.tsx` 中导出组件即可：
 
 ```js
-// src/pages/About/index.jsx
+// src/pages/About/index.tsx
 import React from 'react';
 
 export default function About() {
@@ -254,4 +254,4 @@ html 中使用 EJS 语法：
   └── tsconfig.json
 ```
 
-`LoginEntry.jsx` 只需要导出一个 React 组件即可。
+`LoginEntry.jsx` 需要自行调用 `ReactDOM.render()` 渲染。

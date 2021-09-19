@@ -30,7 +30,7 @@ $ npm init ice <your-plugin-name> # 选择插件类型
 
 这里以 ts 为例，实际上也可以通过 js 编写插件。 ts 最终应编译为 js 以发布 npm 包。插件核心有两个文件：
 
-1. `index.ts`：通常用于做一些工程相关的事情，比如更改 webpack 配置、构建结束后执行一些其他任务等，需保证该文件作为 npm 包入口。
+1. `index.ts`：通常用于做一些工程相关的事情，比如更改 Webpack 配置、构建结束后执行一些其他任务等，需保证该文件作为 npm 包入口。
 2. `runtime.ts`：实现一些运行时能力，比如 config/request 插件。注意: 旧版本的 `module.ts` 暂时兼容，但在未来不受支持。需保证该文件与 `index.ts` 位于同一目录下。
 
 下面也会按照这两个维度来分别介绍。
@@ -88,7 +88,7 @@ $ npm init ice <your-plugin-name> # 选择插件类型
   // src/index.ts
   import * as path from 'path';
   import * as fse from 'fs-extra';
-  import { IPlugin } from '@alib/build-scripts';
+  import { IPlugin } from 'build-scripts';
 
   const plugin: IPlugin = async ({ getValue, applyMethod }): Promise<void> => {
     const exportName = 'logger';
@@ -127,7 +127,7 @@ $ npm init ice <your-plugin-name> # 选择插件类型
   // src/index.ts
   import * as path from 'path';
   import * as fse from 'fs-extra';
-  import { IPlugin } from '@alib/build-scripts';
+  import { IPlugin } from 'build-scripts';
 
   const plugin: IPlugin = async ({ getValue, applyMethod, onGetWebpackConfig }): Promise<void> => {
     const exportName = 'logger';
@@ -138,7 +138,7 @@ $ npm init ice <your-plugin-name> # 选择插件类型
     applyMethod('addIceExport', { source: `./${exportName}`, exportName });
 
     onGetWebpackConfig((config) => {
-      // 为 logger 添加 webpack alias，供运行时能力调用
+      // 为 logger 添加 Webpack alias，供运行时能力调用
       config.resolve.alias.set('$ice/logger', distPath);
     });
   };

@@ -1,6 +1,6 @@
 ---
 title: 前后端一体化 Serverless
-order: 4
+order: 5
 ---
 
 基于 Serverless 的能力，在前端项目中可以完成 api 的编写以及页面的渲染，不需要再创建一个后端应用。

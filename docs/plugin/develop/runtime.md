@@ -17,6 +17,19 @@ export default ({ appConfig, addDOMRender, setRenderRouter, modifyRoutes, ...res
 
 对应 `src/app.ts` 用户自定义的 appConfig。详细字段见 [应用入口](/guide/basic/app.md)。
 
+### buildConfig
+
+指定透传的构建配置：
+
+```js
+{
+  router?: object | boolean;  // 是否启用路由
+  store?: boolean;  // 是否启用状态管理
+  icestarkUMD?: boolean;  // 是否为 icestark UMD 标准微应用
+  web?: object;  // rax 构建下的 web 配置
+}
+```
+
 ### context
 
 应用运行上下文。包含`initialData` 和`pageInitialProps`，分别对应[应用级数据](/guide/advanced/ssr.md#应用级数据)和[页面级数据](/guide/advanced/ssr.md#页面级数据) 。
@@ -65,7 +78,7 @@ export default ({ addDOMRender }) => {
 };
 ```
 
-### wrapperRouteComponent
+### wrapperPageComponent
 
 为所有页面级组件做一层包裹：
 
@@ -73,8 +86,8 @@ export default ({ addDOMRender }) => {
 // 默认能力：在页面组件上挂载 pageConfig.title 的属性，即可自动设置页面 title
 import { useEffect } from 'react';
 
-export default ({ wrapperRouteComponent }) => {
-  wrapperRouteComponent((PageComponent) => {
+export default ({ wrapperPageComponent }) => {
+  wrapperPageComponent((PageComponent) => {
     const { title } = PageComponent.pageConfig || {};
 
     if (!title) {
@@ -107,4 +120,15 @@ export default ({ modifyRoutes }) => {
     return modifiedRoutes;
   });
 };
+```
+
+### applyRuntimeAPI
+
+动态注册的运行时 API，目前根据路由启用的情况下可以使用以下方法：
+
+```js
+// 创建 history
+const history = applyRuntimeAPI('createHistory', { type: 'browser', basename: '/' });
+// 解析路由 search 参数
+const params = applyRuntimeAPI('getSearchParams');
 ```
