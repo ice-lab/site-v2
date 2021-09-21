@@ -2,7 +2,7 @@
 const navbar = require('./config/navbar');
 const footer = require('./config/footer');
 
-module.exports = {
+const config = {
   title: '飞冰',
   tagline: '基于 React 的研发解决方案',
   url: 'https://ice.work',
@@ -15,7 +15,6 @@ module.exports = {
   themeConfig: {
     announcementBar: {
       id: 'announcementBar-2',
-      // TODO: 补充了解更多的链接
       content: 'icejs 2.0 版本已发布，支持 Webpack 5 和 Vite 两种构建模式，点击 <a href="/docs/guide/upgrade">快速升级</a>',
       isCloseable: true,
     },
@@ -24,16 +23,6 @@ module.exports = {
     algolia: {
       apiKey: '01f284e7e1c13eac3dc14beb6d8b153d',
       indexName: 'ice',
-      // // Optional: see doc section below
-      // contextualSearch: true,
-
-      // // Optional: see doc section below
-      // appId: 'YOUR_APP_ID',
-
-      // // Optional: Algolia search parameters
-      // searchParameters: {},
-
-      // //... other Algolia params
     },
     gtag: {
       trackingID: 'G-QZ0FEKY38G',
@@ -55,13 +44,20 @@ module.exports = {
     ],
   ],
   plugins: [
-    // [
-    //   require.resolve("@easyops-cn/docusaurus-search-local"),
-    //   {
-    //     hashed: true,
-    //     language: ["en", "zh"],
-    //   },
-    // ],
     require.resolve("./plugins/redirect.js"),
   ]
 };
+
+if (process.env.USE_LOCAL_SEARCH) {
+  // 内部站点无法使用 algolia
+  delete config.themeConfig.algolia;
+  config.plugins.push([
+    require.resolve("@easyops-cn/docusaurus-search-local"),
+    {
+      hashed: true,
+      language: ["en", "zh"],
+    },
+  ]);
+}
+
+module.exports = config;
