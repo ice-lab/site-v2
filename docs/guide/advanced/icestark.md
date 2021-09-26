@@ -90,14 +90,7 @@ const appConfig = {
 runApp(appConfig);
 ```
 
-`appConfig.icestark` 完整的配置项说明：
-
-- type: string, framework|child
-- Layout: Component, 系统对应的布局组件
-- getApps: function，获取所有微应用数据，单个微应用的完整配置字段请参考 [AppConfig](https://micro-frontends.ice.work/docs/api/ice-stark/#appconfig)
-- appRouter:
-  - NotFoundComponent: 404 组件
-  - LoadingComponent: 应用切换时的 Loading 组件
+完整配置说明见[运行时参数](#运行时参数)
 
 ## 微应用
 
@@ -177,7 +170,7 @@ runApp(appConfig)
 
 ### 在框架应用中加载 Vite 模式子应用
 
-在框架应用中，需要配置微应用[加载方式为 `import`](https://micro-frontends.ice.work/docs/api/ice-stark/#loadscriptmode)。
+在框架应用中，修改微应用的 [加载方式为 `import`](https://micro-frontends.ice.work/docs/api/ice-stark/#loadscriptmode)。
 
 ```diff
 import { runApp } from 'ice'
@@ -218,7 +211,7 @@ const appConfig = {
 runApp(appConfig);
 ```
 
-### UMD 规范微应用升级为 ES modules 规范
+### UMD 规范微应用改造为 Vite 模式微应用
 
 在 `build.json` 开启 Vite 模式。
 
@@ -236,6 +229,126 @@ runApp(appConfig);
 
 > 注意：若同时启用 umd 和 vite，则 Vite 模式生效。
 
+## 插件参数
+
+### 运行时参数
+
+运行时参数配置在入口文件 `appConfig.icestark` 字段中，使用方式如下：
+
+```js
+import { runApp } from 'ice'
++import NotFound from '@/components/NotFound';
++import BasicLayout from '@/layouts/BasicLayout';
+const appConfig = {
+  app: {
+  icestark: {
+    type: 'framework',
+    Layout: BasicLayout,
+    getApps: async () => {
+      const apps = [{
+        path: '/seller',
+        title: '商家平台',
+        url: [
+          '//ice.alicdn.com/icestark/child-seller-react/index.js',
+          '//ice.alicdn.com/icestark/child-seller-react/index.css',
+        ],
+      }];
+      return apps;
+    },
+    appRouter: {
+      NotFoundComponent: NotFound,
+    },
+  },
+};
+
+runApp(appConfig);
+```
+
+所有参数配置如下：
+
+#### type
+
+废弃字段。请使用构建时 [`type`](#type) 参数。
+
+
+#### Layout
+
++ 类型：`Component`
+
+框架应用独有字段，框架应用对应的布局组件。
+
+#### getApps
+
++ 类型：`Function`
++ 默认值：`() => []`
+
+框架应用独有字段。用于获取微应用数据。单个微应用的完整配置字段请参考 [AppConfig](https://micro-frontends.ice.work/docs/api/ice-stark/#appconfig)
+
+#### appRouter
+
+框架应用独有字段。可传入 icestark 运行时的钩子函数和可选配置。主要有：
+
++ `NotFoundComponent`
+
+传入一个 React Component，在无匹配路由时渲染。
+
++ `LoadingComponent`
+
+传入一个 React Component，在微应用加载过程中时渲染。
+
++ `ErrorComponent`
+
+传入一个 React Component，在微应用加载过程中出现错误时渲染。
+
+更多配置[详见文档](https://micro-frontends.ice.work/docs/api/ice-stark/#approuter)。
+
+#### AppRoute
+
+框架应用独有字段。微应用渲染组件，可替换 icestark 内部实现的渲染组件，或将其封装 HoC 组件提供更多能力。非特殊场景不建议使用。
+
+### 构建时参数
+
+构建时参数配置在 `build.json` 中，如下使用方式：
+
+```json
+{
+  "plugins": [
+    ["build-plugin-icestark", {
+      "type": "child",
+    }]
+}
+```
+
+所有参数配置如下：
+
+#### type
+
++ 类型：’child‘ | 'framework'
++ 默认值：’framework‘
+
+标识构建应用类型，框架应用或微应用。
+
+#### umd
+
++ 类型：`boolean`
++ 默认值：`false`
+
+是否将微应用构建为 UMD 规范微应用。若配置 `umd` 参数，则 `type` 默认为 `child`。
+
+#### library
+
++ 类型：`string`
+
+构建为 UMD 规范微应用相关字段，标识 UMD 微应用全局导出的变量名。
+
+#### uniqueName
+
++ 类型：`string`
++ 默认：-
+
+开启 [splitChunk](https://webpack.js.org/configuration/optimization/#optimizationsplitchunks) 功能时，防止 webpack runtimes 冲突时使用。建议框架应用开启。
+
+> 若使用 webpack5 构建应用，则无需[启用该字段](https://webpack.js.org/blog/2020-10-10-webpack-5-release/#automatic-unique-naming)。
 
 ## 常见问题
 
