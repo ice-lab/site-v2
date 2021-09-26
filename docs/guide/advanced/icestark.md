@@ -346,7 +346,7 @@ runApp(appConfig);
 + 类型：`string`
 + 默认：-
 
-开启 [splitChunk](https://webpack.js.org/configuration/optimization/#optimizationsplitchunks) 功能时，防止 webpack runtimes 冲突时使用。建议框架应用开启。
+开启 [splitChunk](https://webpack.js.org/configuration/optimization/#optimizationsplitchunks) 或懒加载功能时，防止 webpack runtimes 冲突时使用。建议框架应用开启。
 
 > 若使用 webpack5 构建应用，则无需[启用该字段](https://webpack.js.org/blog/2020-10-10-webpack-5-release/#automatic-unique-naming)。
 
@@ -570,7 +570,9 @@ const onAppLeave = (appConfig) => {
 };
 ```
 
-主应用和微应用均开启 lazy 的情况下，需要通过配置 `webpack.output.jsonpFunction` 来隔离两个应用的全局变量名称，详见 [webpack 配置](https://webpack.js.org/configuration/output/#outputjsonpfunction)。
+或建议通过[构建时参数 `uniqueName`](#构建时参数) 隔离多个微应用的 webpack runtimes。
+
+> 注意，若使用 webpack5 构建应用，则 webpack5 会默认使用 `package.json` 的 `name` 作为 uniqueName，因此也无需在 `onAppLeave` 阶段移除 `window.webpackJsonP`。
 
 ### `Error: Invariant failed: You should not use <withRouter(Navigation) /> outside a <Router>`
 
