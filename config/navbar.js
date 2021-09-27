@@ -52,7 +52,7 @@ module.exports = {
         },
         {
           label: '环境管理 AppToolkit',
-          to: 'https://appworks.site/',
+          to: 'https://github.com/appworks-lab/toolkit#readme',
         },
       ],
     },
