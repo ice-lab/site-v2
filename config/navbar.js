@@ -35,24 +35,39 @@ module.exports = {
       to: '/docs/plugin/list/moment-locales'
     },
     {
+      label: '官方生态',
       position: 'right',
-      to: 'https://fusion.design/pc/doc/component/102',
-      label: '组件',
-      // items: [{
-      //   label: 'Fusion 物料',
-      //   to: '/docs/fusion/about'
-      // }, {
-      //   label: 'Antd 物料',
-      //   to: '/docs/antd/about',
-      // }, {
-      //   label: '自定义物料',
-      //   to: '/docs/material/about',
-      // }]
+      items: [
+        {
+          label: '微前端 icestark',
+          to: 'http://micro-frontends.ice.work/',
+        },
+        {
+          label: '可视化工具 AppWorks',
+          to: 'https://appworks.site/',
+        },
+        {
+          label: '自定义物料开发',
+          to: 'https://appworks.site/materials/about.html',
+        },
+        {
+          label: '环境管理 AppToolkit',
+          to: 'https://github.com/appworks-lab/toolkit#readme',
+        },
+      ],
     },
     {
       label: '更多资源',
       position: 'right',
       items: [
+        {
+          to: 'https://fusion.design/pc/doc/component/102',
+          label: 'Fusion 组件',
+        },
+        {
+          to: 'https://ant.design',
+          label: 'antd 组件',
+        },
         {
           label: '前端基础',
           to: '/docs/resource/front-basic',
@@ -60,14 +75,6 @@ module.exports = {
         {
           label: '前端环境',
           to: '/docs/resource/front-env',
-        },
-        {
-          label: 'AppWorks',
-          to: 'https://appworks.site/',
-        },
-        {
-          label: '物料开发',
-          to: 'https://appworks.site/materials/about.html',
         },
       ],
     },
