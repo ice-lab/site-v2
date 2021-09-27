@@ -3,41 +3,39 @@ title: 编写单元测试
 order: 16
 ---
 
-icejs 支持 `icejs test` 命令，内置 Jest 配置提供前端的单元测试解决方案。
+icejs 提供了 `icejs test` 命令，内置了 Jest 相关配置。
 
-## 测试文件名约定
+## 快速开始
+
+在项目中手动安装 jest 依赖：
+
+```bash
+$ npm i --save-dev jest
+```
+
+在 package.json 中添加对应 scripts：
+
+```diff
+{
+  "scripts": {
+    "start": "icejs start",
++    "test": "icejs test"
+  }
+}
+```
+
+接下来执行 `npm test` 即可运行测试用例。
+
+## 编写测试用例
+
+### 测试文件名约定
 
 默认的 `testMatch` 为 `**/?*.(spec|test).(j|t)s?(x)`，即 icejs 将查找项目目录下所有符合条件的文件来执行测试
 
 * 文件后缀为 `.spec.js`、`.spec.jsx`、`.spec.ts`、`.spec.tsx`
 * 文件后缀为 `.test.js`、`.test.jsx`、`.test.ts`、`.test.tsx`
 
-## 使用 jest.config.js
-
-`icejs` 已经内置了 Jest 测试所需的配置，提供了开箱即用的测试能力，如果需要定制自己的 Jest 配置，可以在项目目录下添加 `jest.config.js` 文件。
-
-```js
-// jest.config.js
-module.exports = {
-  testMatch: ['**/?*.e2e.js'],
-};
-```
-
-jest.config.js 中自定义配置最终将和默认配置进行合并，更多 Jest 相关配置，请参见[官网](https://jestjs.io/docs/en/configuration)。
-
-## 使用 Jest 相关参数
-
-`icejs` 通过约定的方式支持所有 Jest CLI 参数，相关参数增加 jest 前缀即可。
-
-```bash
-# Jest CLI 参数 --config=<path>
-$ icejs test --jest-config=<path>
-
-# Jest CLI 参数 --watchAll
-$ icejs test --jest-watchAll
-```
-
-## 编写测试用例
+### 编写用例
 
 使用 Jest 提供的内置函数可以快速创建相应的测试用例
 
@@ -164,3 +162,29 @@ it('renders', () => {
 ```
 
 更多测试用例编写，可以参考 [Enzyme 官网](https://airbnb.io/enzyme/)
+
+## 高阶用法
+
+## 自定义 jest 配置
+
+`icejs` 已经内置了 Jest 测试所需的配置，提供了开箱即用的测试能力，如果需要定制自己的 Jest 配置，可以在项目目录下添加 `jest.config.js` 文件。
+
+```js
+// jest.config.js
+module.exports = {
+  testMatch: ['**/?*.e2e.js'],
+};
+```
+
+jest.config.js 中自定义配置最终将和默认配置进行合并，更多 Jest 相关配置，请参见[官网](https://jestjs.io/docs/en/configuration)。
+
+## 使用 Jest CLI 参数
+
+`icejs` 通过约定的方式支持所有 Jest CLI 参数，相关参数增加 jest 前缀即可。
+
+```bash
+# Jest CLI 参数 --watchAll
+$ icejs test --jest-watchAll
+# 或者
+$ npm test -- --jest-watchAll
+```
