@@ -572,7 +572,7 @@ const onAppLeave = (appConfig) => {
 
 或建议通过[构建时参数 `uniqueName`](#构建时参数) 隔离多个微应用的 webpack runtimes。
 
-> 注意，若使用 webpack5 构建应用，则 webpack5 会默认使用 `package.json` 的 `name` 作为 uniqueName，因此也无需在 `onAppLeave` 阶段移除 `window.webpackJsonP`。
+> 注意，若使用 webpack5 构建应用，则 webpack5 会默认使用 `package.json` 的 `name` 作为 uniqueName，因此也无需在 `onAppLeave` 阶段移除 `window.webpackJsonp`。
 
 ### `Error: Invariant failed: You should not use <withRouter(Navigation) /> outside a <Router>`
 
