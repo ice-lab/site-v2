@@ -3,13 +3,11 @@ title: 微前端 icestark
 order: 4
 ---
 
-[icestark](https://github.com/ice-lab/icestark) 是飞冰团队针对大型系统提供的微前端解决方案。ice.js 提供独立插件 build-plugin-icestark 快速接入 icestark。
-
-> 更多有关 icestark 的内容请访问 👉 [官网](https://micro-frontends.ice.work/)
+[icestark](https://github.com/ice-lab/icestark) 是飞冰团队针对大型系统提供的微前端解决方案，我们提供了独立插件 build-plugin-icestark 帮助 icejs 应用快速接入微前端解决方案。
 
 ## 框架应用
 
-通过模板快速创建一个微前端的框架应用：
+通过模板快速创建一个微前端的框架应用（主应用）：
 
 ```bash
 $ npm init ice icestark-framework @icedesign/stark-layout-scaffold
@@ -34,8 +32,9 @@ $ npm i --save-dev build-plugin-icestark
 {
   "plugins": {
     ["build-plugin-icestark", {
+      "type": "framework",
       // 防止与微应用的 webpackJSONP 冲突
-      "uniqueName": "frameworkJsonp"
+      "uniqueName": "frameworkJsonp",
     }],
     ["build-plugin-fusion", {
       "themeConfig": {
@@ -49,7 +48,7 @@ $ npm i --save-dev build-plugin-icestark
 
 ### 应用入口改造
 
-应用入口 `src/app.ts` 中配置框架应用的一些运行时信息：
+应用入口 `src/app.tsx` 中配置框架应用的一些运行时信息：
 
 ```diff
 import { runApp } from 'ice'
@@ -68,7 +67,6 @@ const appConfig = {
 +    type: 'browser',
   },
   icestark: {
-+    type: 'framework',
 +    Layout: BasicLayout,
 +    getApps: async () => {
 +      const apps = [{
@@ -92,7 +90,7 @@ runApp(appConfig);
 
 完整配置说明见[运行时参数](#运行时参数)
 
-## 微应用
+## 微应用/子应用
 
 通过模板快速创建一个微应用：
 
@@ -120,6 +118,7 @@ $ npm i --save-dev build-plugin-icestark
 {
   "plugins": {
     ["build-plugin-icestark", {
+      "type": "child",
       "umd": true
     }]
   }
@@ -140,9 +139,6 @@ const appConfig = {
   router: {
 +    type: 'browser',
   },
-  icestark: {
-+    type: 'child',
-  },
 };
 
 runApp(appConfig)
@@ -150,84 +146,49 @@ runApp(appConfig)
 
 只需要这么简单，你的 SPA 应用就可以变成微应用了。
 
+### 使用 Vite 模式
 
-## 开启 Vite 模式
+> icejs@2.0.0 + build-plugin-icestark@2.4.0 开始支持微应用使用 Vite 模式，构建出 ES Module 的产物格式
 
-> 支持 2.4.0 及以上版本
+> @ice/stark@2.6.0 开始支持加载 ES Module 格式的微应用
 
-插件支持将开启 [Vite 模式](/docs/guide/basic/vite) 的 icejs 应用改造成 icestark 微应用。在 `build.json` 中配置：
+在微应用的 `build.json` 中添加配置：
 
 ```diff
 {
-+  "vite": true, // 开启 vite 模式
++  "vite": true,
   "plugins": [
     ["build-plugin-icestark", {
 +      "type": "child",
+-      "umd": true,
     }]
   ]
 }
 ```
 
-### 在框架应用中加载 Vite 模式子应用
-
-在框架应用中，修改微应用的 [加载方式为 `import`](https://micro-frontends.ice.work/docs/api/ice-stark/#loadscriptmode)。
+同时框架应用中需要针对对应微应用配置 [import](https://micro-frontends.ice.work/docs/api/ice-stark/#loadscriptmode) 选项以支持 ES Module 格式的加载：
 
 ```diff
-import { runApp } from 'ice'
-+import { ConfigProvider } from '@alifd/next';
-+import NotFound from '@/components/NotFound';
-+import BasicLayout from '@/layouts/BasicLayout';
-const appConfig = {
+import { runApp } from 'ice';
+
+runApp({
   app: {
     rootId: 'ice-container',
-+    addProvider: ({ children }) => (
-+      <ConfigProvider prefix="next-icestark-">{children}</ConfigProvider>
-+    ),
-  },
-  router: {
-+    type: 'browser',
   },
   icestark: {
-+    type: 'framework',
-+    Layout: BasicLayout,
-+    getApps: async () => {
-+      const apps = [{
-+        path: '/seller',
-+        title: '商家平台',
-+        loadScriptMode: 'import',  // 以 import 模式加载 微应用
-+        url: [
-+          '//ice.alicdn.com/icestark/child-seller-react/index.js',
-+          '//ice.alicdn.com/icestark/child-seller-react/index.css',
-+        ],
-+      }];
-+      return apps;
-+    },
-+    appRouter: {
-+      NotFoundComponent: NotFound,
-+    },
+    Layout: BasicLayout,
+    getApps: async () => {
+      const apps = [{
+        path: '/seller',
+        title: '商家平台',
++        loadScriptMode: 'import',
+        url: [],
+      }];
+      return apps;
+    },
   },
-};
-
-runApp(appConfig);
+});
 ```
-
-### UMD 规范微应用改造为 Vite 模式微应用
-
-在 `build.json` 开启 Vite 模式。
-
-```diff
-{
-+  "vite": true, // 开启 vite 模式
-  "plugins": [
-    ["build-plugin-icestark", {
-+      "type": "child",
--      "umd": true
-    }]
-  ]
-}
-```
-
-> 注意：若同时启用 umd 和 vite，则 Vite 模式生效。
 
 ## 插件参数
 
@@ -236,27 +197,14 @@ runApp(appConfig);
 运行时参数配置在入口文件 `appConfig.icestark` 字段中，使用方式如下：
 
 ```js
-import { runApp } from 'ice'
-+import NotFound from '@/components/NotFound';
-+import BasicLayout from '@/layouts/BasicLayout';
+import { runApp } from 'ice';
+
 const appConfig = {
   app: {
-  icestark: {
-    type: 'framework',
-    Layout: BasicLayout,
     getApps: async () => {
-      const apps = [{
-        path: '/seller',
-        title: '商家平台',
-        url: [
-          '//ice.alicdn.com/icestark/child-seller-react/index.js',
-          '//ice.alicdn.com/icestark/child-seller-react/index.css',
-        ],
-      }];
-      return apps;
+      return [];
     },
     appRouter: {
-      NotFoundComponent: NotFound,
     },
   },
 };
@@ -265,11 +213,6 @@ runApp(appConfig);
 ```
 
 所有参数配置如下：
-
-#### type
-
-废弃字段。请使用构建时 [`type`](#type) 参数。
-
 
 #### Layout
 
@@ -282,29 +225,27 @@ runApp(appConfig);
 + 类型：`Function`
 + 默认值：`() => []`
 
-框架应用独有字段。用于获取微应用数据。单个微应用的完整配置字段请参考 [AppConfig](https://micro-frontends.ice.work/docs/api/ice-stark/#appconfig)
+框架应用独有字段，用于获取微应用列表，单个微应用的完整配置字段请参考 [AppConfig](https://micro-frontends.ice.work/docs/api/ice-stark/#appconfig) 。
 
 #### appRouter
 
-框架应用独有字段。可传入 icestark 运行时的钩子函数和可选配置。主要有：
+框架应用独有字段，可传入 icestark 运行时的钩子函数和可选配置。主要有：
 
-+ `NotFoundComponent`
-
-传入一个 React Component，在无匹配路由时渲染。
-
-+ `LoadingComponent`
-
-传入一个 React Component，在微应用加载过程中时渲染。
-
-+ `ErrorComponent`
-
-传入一个 React Component，在微应用加载过程中出现错误时渲染。
++ `NotFoundComponent`，匹配不到任何微应用路由时的状态。
++ `LoadingComponent`，加载过程中的 Loading 状态。
++ `ErrorComponent`，加载出现错误时的状态。
 
 更多配置[详见文档](https://micro-frontends.ice.work/docs/api/ice-stark/#approuter)。
 
 #### AppRoute
 
-框架应用独有字段。微应用渲染组件，可替换 icestark 内部实现的渲染组件，或将其封装 HoC 组件提供更多能力。非特殊场景不建议使用。
+框架应用独有字段，微应用渲染组件，可替换 icestark 内部实现的渲染组件，或将其封装 HoC 组件提供更多能力。非特殊场景不建议使用。
+
+#### type
+
+废弃字段，推荐通过构建时参数配置。
+
+- 类型：`child` | `framework`
 
 ### 构建时参数
 
@@ -316,6 +257,7 @@ runApp(appConfig);
     ["build-plugin-icestark", {
       "type": "child",
     }]
+  ]
 }
 ```
 
@@ -323,17 +265,17 @@ runApp(appConfig);
 
 #### type
 
-+ 类型：’child‘ | 'framework'
-+ 默认值：’framework‘
++ 类型：`child` | `framework`
++ 默认值：`framework`
 
-标识构建应用类型，框架应用或微应用。
+标识应用类型，框架应用或微应用。
 
 #### umd
 
 + 类型：`boolean`
 + 默认值：`false`
 
-是否将微应用构建为 UMD 规范微应用。若配置 `umd` 参数，则 `type` 默认为 `child`。
+仅对微应用生效，是否构建为 UMD 格式的微应用。若配置 `umd` 参数，则 `type` 默认为 `child`。
 
 #### library
 
@@ -706,5 +648,4 @@ appHistory.push('/seller', true);
 
 “ Script error. ” 是一个常见错误，但由于该错误不提供完整的报错信息（错误堆栈），问题排查往往无从下手。icestark 的 [scriptAttributes](https://micro-frontends.ice.work/docs/api/ice-stark#scriptattributes) 参数支持为加载的 `<script />` 资源添加 `crossorigin="anonymous"` 来解决这个问题。
 
-
-> 更多常见问题可访问 [icestark 官网](https://micro-frontends.ice.work/docs/faq/)
+> 更多有关 icestark 的内容请访问 👉 [官网](https://micro-frontends.ice.work/)
