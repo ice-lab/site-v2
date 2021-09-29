@@ -30,10 +30,11 @@ const routerConfig = [
         component: UserLogin,
         // 配置路由的高阶组件
         wrappers: [wrapperPage],
-        // 扩展的配置项：具体请参考「页面路由组件」章节
+        // 扩展配置：icejs 1.x 仅支持将 pageConfig 配置在对应的页面组件上，具体请参考「页面组件」章节
         pageConfig: {
           title: '登录页面',
           scrollToTop: true,
+          // ...
         },
       },
       {

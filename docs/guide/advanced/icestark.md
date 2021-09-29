@@ -3,13 +3,11 @@ title: 微前端 icestark
 order: 4
 ---
 
-[icestark](https://github.com/ice-lab/icestark) 是飞冰团队针对大型系统提供的微前端解决方案。ice.js 提供独立插件 build-plugin-icestark 快速接入 icestark。
-
-> 更多有关 icestark 的内容请访问 👉 [官网](https://micro-frontends.ice.work/)
+[icestark](https://github.com/ice-lab/icestark) 是飞冰团队针对大型系统提供的微前端解决方案，我们提供了独立插件 build-plugin-icestark 帮助 icejs 应用快速接入微前端解决方案。
 
 ## 框架应用
 
-通过模板快速创建一个微前端的框架应用：
+通过模板快速创建一个微前端的框架应用（主应用）：
 
 ```bash
 $ npm init ice icestark-framework @icedesign/stark-layout-scaffold
@@ -34,8 +32,9 @@ $ npm i --save-dev build-plugin-icestark
 {
   "plugins": {
     ["build-plugin-icestark", {
+      "type": "framework",
       // 防止与微应用的 webpackJSONP 冲突
-      "uniqueName": "frameworkJsonp"
+      "uniqueName": "frameworkJsonp",
     }],
     ["build-plugin-fusion", {
       "themeConfig": {
@@ -49,7 +48,7 @@ $ npm i --save-dev build-plugin-icestark
 
 ### 应用入口改造
 
-应用入口 `src/app.ts` 中配置框架应用的一些运行时信息：
+应用入口 `src/app.tsx` 中配置框架应用的一些运行时信息：
 
 ```diff
 import { runApp } from 'ice'
@@ -68,7 +67,6 @@ const appConfig = {
 +    type: 'browser',
   },
   icestark: {
-+    type: 'framework',
 +    Layout: BasicLayout,
 +    getApps: async () => {
 +      const apps = [{
@@ -90,16 +88,9 @@ const appConfig = {
 runApp(appConfig);
 ```
 
-`appConfig.icestark` 完整的配置项说明：
+完整配置说明见[运行时参数](#运行时参数)
 
-- type: string, framework|child
-- Layout: Component, 系统对应的布局组件
-- getApps: function，获取所有微应用数据，单个微应用的完整配置字段请参考 icestark 文档
-- appRouter:
-  - NotFoundComponent: 404 组件
-  - LoadingComponent: 应用切换时的 Loading 组件
-
-## 微应用
+## 微应用/子应用
 
 通过模板快速创建一个微应用：
 
@@ -127,6 +118,7 @@ $ npm i --save-dev build-plugin-icestark
 {
   "plugins": {
     ["build-plugin-icestark", {
+      "type": "child",
       "umd": true
     }]
   }
@@ -147,15 +139,158 @@ const appConfig = {
   router: {
 +    type: 'browser',
   },
-  icestark: {
-+    type: 'child',
-  },
 };
 
 runApp(appConfig)
 ```
 
 只需要这么简单，你的 SPA 应用就可以变成微应用了。
+
+### 使用 Vite 模式
+
+> icejs@2.0.0 + build-plugin-icestark@2.4.0 开始支持微应用使用 Vite 模式，构建出 ES Module 的产物格式
+
+> @ice/stark@2.6.0 开始支持加载 ES Module 格式的微应用
+
+在微应用的 `build.json` 中添加配置：
+
+```diff
+{
++  "vite": true,
+  "plugins": [
+    ["build-plugin-icestark", {
++      "type": "child",
+-      "umd": true,
+    }]
+  ]
+}
+```
+
+同时框架应用中需要针对对应微应用配置 [import](https://micro-frontends.ice.work/docs/api/ice-stark/#loadscriptmode) 选项以支持 ES Module 格式的加载：
+
+```diff
+import { runApp } from 'ice';
+
+runApp({
+  app: {
+    rootId: 'ice-container',
+  },
+  icestark: {
+    Layout: BasicLayout,
+    getApps: async () => {
+      const apps = [{
+        path: '/seller',
+        title: '商家平台',
++        loadScriptMode: 'import',
+        url: [],
+      }];
+      return apps;
+    },
+  },
+});
+```
+
+## 插件参数
+
+### 运行时参数
+
+运行时参数配置在入口文件 `appConfig.icestark` 字段中，使用方式如下：
+
+```js
+import { runApp } from 'ice';
+
+const appConfig = {
+  app: {
+    getApps: async () => {
+      return [];
+    },
+    appRouter: {
+    },
+  },
+};
+
+runApp(appConfig);
+```
+
+所有参数配置如下：
+
+#### Layout
+
++ 类型：`Component`
+
+框架应用独有字段，框架应用对应的布局组件。
+
+#### getApps
+
++ 类型：`Function`
++ 默认值：`() => []`
+
+框架应用独有字段，用于获取微应用列表，单个微应用的完整配置字段请参考 [AppConfig](https://micro-frontends.ice.work/docs/api/ice-stark/#appconfig) 。
+
+#### appRouter
+
+框架应用独有字段，可传入 icestark 运行时的钩子函数和可选配置。主要有：
+
++ `NotFoundComponent`，匹配不到任何微应用路由时的状态。
++ `LoadingComponent`，加载过程中的 Loading 状态。
++ `ErrorComponent`，加载出现错误时的状态。
+
+更多配置[详见文档](https://micro-frontends.ice.work/docs/api/ice-stark/#approuter)。
+
+#### AppRoute
+
+框架应用独有字段，微应用渲染组件，可替换 icestark 内部实现的渲染组件，或将其封装 HoC 组件提供更多能力。非特殊场景不建议使用。
+
+#### type
+
+废弃字段，推荐通过构建时参数配置。
+
+- 类型：`child` | `framework`
+
+### 构建时参数
+
+构建时参数配置在 `build.json` 中，如下使用方式：
+
+```json
+{
+  "plugins": [
+    ["build-plugin-icestark", {
+      "type": "child",
+    }]
+  ]
+}
+```
+
+所有参数配置如下：
+
+#### type
+
++ 类型：`child` | `framework`
++ 默认值：`framework`
+
+标识应用类型，框架应用或微应用。
+
+#### umd
+
++ 类型：`boolean`
++ 默认值：`false`
+
+仅对微应用生效，是否构建为 UMD 格式的微应用。若配置 `umd` 参数，则 `type` 默认为 `child`。
+
+#### library
+
++ 类型：`string`
+
+构建为 UMD 规范微应用相关字段，标识 UMD 微应用全局导出的变量名。
+
+#### uniqueName
+
++ 类型：`string`
++ 默认：-
+
+开启 [splitChunk](https://webpack.js.org/configuration/optimization/#optimizationsplitchunks) 或懒加载功能时，防止 webpack runtimes 冲突时使用。建议框架应用开启。
+
+> 若使用 webpack5 构建应用，则无需[启用该字段](https://webpack.js.org/blog/2020-10-10-webpack-5-release/#automatic-unique-naming)。
 
 ## 常见问题
 
@@ -377,7 +512,9 @@ const onAppLeave = (appConfig) => {
 };
 ```
 
-主应用和微应用均开启 lazy 的情况下，需要通过配置 `webpack.output.jsonpFunction` 来隔离两个应用的全局变量名称，详见 [webpack 配置](https://webpack.js.org/configuration/output/#outputjsonpfunction)。
+或建议通过[构建时参数 `uniqueName`](#构建时参数) 隔离多个微应用的 webpack runtimes。
+
+> 注意，若使用 webpack5 构建应用，则 webpack5 会默认使用 `package.json` 的 `name` 作为 uniqueName，因此也无需在 `onAppLeave` 阶段移除 `window.webpackJsonp`。
 
 ### `Error: Invariant failed: You should not use <withRouter(Navigation) /> outside a <Router>`
 
@@ -511,5 +648,4 @@ appHistory.push('/seller', true);
 
 “ Script error. ” 是一个常见错误，但由于该错误不提供完整的报错信息（错误堆栈），问题排查往往无从下手。icestark 的 [scriptAttributes](https://micro-frontends.ice.work/docs/api/ice-stark#scriptattributes) 参数支持为加载的 `<script />` 资源添加 `crossorigin="anonymous"` 来解决这个问题。
 
-
-> 更多常见问题可访问 [icestark 官网](https://micro-frontends.ice.work/docs/faq/)
+> 更多有关 icestark 的内容请访问 👉 [官网](https://micro-frontends.ice.work/)

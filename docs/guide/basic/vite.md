@@ -37,7 +37,7 @@ icejs 提供了非常完备的功能，目前部分能力尚未支持 Vite 模�
 |  功能点         |   支持度   |
 |----------------|---------------------|
 | Severless 一体化| <Support list={['webpack', 'vite']} />
-| 微前端          | <Support list={['webpack']} />
+| 微前端          | <Support list={['webpack', 'vite']} />
 | SSR&SSG        | <Support list={['webpack']} />
 | SPA        | <Support list={['webpack', 'vite']} />
 | MPA        | <Support list={['webpack', 'vite']} />
@@ -56,4 +56,4 @@ Vite 构建模式在开发阶段基于浏览器加载 ESM 模块，不支持 req
 import Styles from '!style-loader!css-loader?modules!./styles.css';
 ```
 
-移除 inline loader 写法，大部分需求可以被内置的工程能力处理，定制 loader 能力推荐结合 Vite 插件的 [transform](https://vitejs.dev/guide/api-plugin.html#transforming-custom-file-types) 进行处。
+移除 inline loader 写法，大部分需求可以被内置的工程能力处理，定制 loader 能力推荐结合 Vite 插件的 [transform](https://vitejs.dev/guide/api-plugin.html#transforming-custom-file-types) 进行处理。
