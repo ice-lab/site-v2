@@ -43,7 +43,7 @@ module.exports = {
           href: 'http://micro-frontends.ice.work',
         },
         {
-          label: 'React Hooks',
+          label: 'ahooks',
           href: 'https://ahooks.js.org/',
         },
         {
