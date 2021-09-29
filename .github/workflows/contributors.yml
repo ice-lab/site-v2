@@ -1,10 +1,5 @@
 name: Add contributors
-on:
-  # schedule:
-  #   - cron: '5 * * * *'
-  push:
-    branches:
-      - master
+on: [push]
 
 jobs:
   add-contributors:
@@ -14,7 +9,7 @@ jobs:
       - uses: BobAnkh/add-contributors@master
         with:
           REPO_NAME: 'ice-lab/site'
-          BRANCH: 'master'
+          BRANCH: 'contributors-update'
           PULL_REQUEST: 'master'
           CONTRIBUTOR: '## Contributors'
           COLUMN_PER_ROW: '6'
