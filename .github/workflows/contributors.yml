@@ -6,6 +6,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Create contributors-update branch
+        uses: peterjgrainger/action-create-branch@v2.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.action }}
+        with:
+          branch: 'contributors-update'
       - uses: BobAnkh/add-contributors@master
         with:
           REPO_NAME: 'ice-lab/site'
