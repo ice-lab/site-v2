@@ -1,9 +1,22 @@
 name: Add contributors
-on: [push]
+on:
+  push:
+    branches:
+      - master
 
 jobs:
+  delete-old-branch:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Delete old contributors-update branch
+        uses: dawidd6/action-delete-branch@v3
+        with:
+          github_token: ${{secrets.GITHUB_TOKEN}}
+          branches: contributors-update
   add-contributors:
     runs-on: ubuntu-latest
+    needs: delete-old-branch
     steps:
       - uses: actions/checkout@v2
       - name: Create contributors-update branch
