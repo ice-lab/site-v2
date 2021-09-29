@@ -14,6 +14,8 @@ jobs:
       - uses: BobAnkh/add-contributors@master
         with:
           REPO_NAME: 'ice-lab/site'
+          BRANCH: 'master'
+          PULL_REQUEST: 'master'
           CONTRIBUTOR: '## Contributors'
           COLUMN_PER_ROW: '6'
           ACCESS_TOKEN: ${{secrets.GITHUB_TOKEN}}
