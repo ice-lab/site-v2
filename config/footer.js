@@ -11,7 +11,11 @@ module.exports = {
         {
           label: '前端环境准备',
           to: '/docs/resource/front-env'
-        }
+        },
+        {
+          to: 'https://iceteam.gitee.io',
+          label: '国内镜像站点',
+        },
       ],
     },
     {
