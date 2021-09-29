@@ -1,20 +1,34 @@
 name: Add contributors
 on:
-  # schedule:
-  #   - cron: '5 * * * *'
   push:
     branches:
       - master
 
 jobs:
+  delete-old-branch:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Delete old contributors-update branch
+        uses: dawidd6/action-delete-branch@v3
+        with:
+          github_token: ${{secrets.GITHUB_TOKEN}}
+          branches: contributors-update
   add-contributors:
     runs-on: ubuntu-latest
+    needs: delete-old-branch
     steps:
       - uses: actions/checkout@v2
+      - name: Create contributors-update branch
+        uses: peterjgrainger/action-create-branch@v2.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          branch: 'contributors-update'
       - uses: BobAnkh/add-contributors@master
         with:
           REPO_NAME: 'ice-lab/site'
-          BRANCH: 'master'
+          BRANCH: 'contributors-update'
           PULL_REQUEST: 'master'
           CONTRIBUTOR: '## Contributors'
           COLUMN_PER_ROW: '6'
