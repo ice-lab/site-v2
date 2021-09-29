@@ -69,6 +69,10 @@ module.exports = {
           label: 'antd 组件',
         },
         {
+          to: 'https://iceteam.gitee.io',
+          label: '国内镜像站点',
+        },
+        {
           label: '前端基础',
           to: '/docs/resource/front-basic',
         },
