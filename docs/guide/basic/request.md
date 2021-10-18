@@ -149,20 +149,27 @@ export default function HomePage() {
 
 ### request
 
-request 基于 axios 进行封装，在使用上与 axios 保持一致，使用方式如下：
+request 基于 axios 进行封装，在使用上整体与 axios 保持一致，差异点：
+
+1. 默认只返回服务端响应的数据 `Response.data`，而不是整个 Response，如需返回整个 Response 请通过 `withFullResponse` 参数开启
+2. 在 axios 基础上默认支持了多请求示例的能力
+
+使用方式如下：
 
 ```ts
 import { request } from 'ice';
 
 async function getList() {
-  try {
-    const data = await request({
-      url: '/api/user',
-    });
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
+  const resData = await request({
+    url: '/api/user',
+  });
+  console.log(resData.list);
+
+  const { status, statusText, data } = await request({
+    url: '/api/user',
+    withFullResponse: true
+  });
+  console.log(data.list);
 }
 ```
 
@@ -211,11 +218,9 @@ RequestConfig:
 }
 ```
 
-更完整的配置请 [参考](https://github.com/axios/axios#request-config)
+更完整的配置请 [参考](https://github.com/axios/axios#request-config)。
 
-request 默认只返回服务端响应的数据，并未返回整个 response，如需返回可以设置 `withFullResponse` 属性，完整的 response 返回格式如下：
-
-Response Schema：
+返回完整 Response Schema 如下：
 
 ```ts
 {
@@ -245,7 +250,11 @@ Response Schema：
 
 ### useRequest
 
-用在函数式组件中，使用 useRequest 可以极大的简化对请求状态的管理。
+使用 useRequest 可以极大的简化对请求状态的管理，useRequest 基于 [ahooks/useRequest](https://ahooks.js.org/hooks/async) 封装，差异点：
+
+- 将 `requestMethod` 参数默认设置为上述的 `request`（即 axios），保证框架使用的一致性
+- manual 参数默认值从 `false` 改为 `true`，因为实际业务更多都是要手动触发的
+- 返回值 `run` 改为 `request`，因为更符合语义
 
 #### API
 
