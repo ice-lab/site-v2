@@ -515,14 +515,42 @@ export default {
 - 类型：`boolean`
 - 默认值：`true`
 
-禁用 store 能力，不再注入 store 相关依赖。
+开关 store 能力，不再注入 store 相关依赖。
 
-## disableRuntime <Support list="{['webpack', 'vite']}" />
+## auth <Support list="{['webpack', 'vite']}" />
+
+- 类型：`boolean`
+- 默认值：`true`
+
+开关权限能力。
+
+## pwa <Support list="{['webpack', 'vite']}" />
 
 - 类型：`boolean`
 - 默认值：`false`
 
-禁用运行时的能力，如需关闭设置为 `true` 即可。
+开关 PWA 能力。
+
+## ssr <Support list="{['webpack']}" />
+
+- 类型：`boolean` | `string`
+- 默认值：`false`
+- 枚举值：`true` | `false` | `"static"`
+
+开关 SSR&SSG 能力。值为 `"static"` 则表示开启 SSG。
+
+## disableRuntime <Support list="{['webpack', 'vite']}" />
+
+:::caution
+
+不推荐使用该选项
+
+:::
+
+- 类型：`boolean`
+- 默认值：`false`
+
+禁用所有运行时能力，包含 runApp/路由/状态管理/请求库/权限等。
 
 ```json
 {
