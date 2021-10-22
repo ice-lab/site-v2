@@ -5,7 +5,7 @@ order: 1
 
 import Support from '../../../src/components/Support'
 
-<Support list={['webpack']} />
+<Support list={['webpack', 'vite']} />
 
 `build-plugin-moment-locales` 将对 moment 依赖的使用进行优化：
 

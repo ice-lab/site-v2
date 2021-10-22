@@ -437,7 +437,7 @@ ice.js 目前默认内置 less 4.x 版本，计算函数对于使用 '/' 的方�
 
 开启后，在 `build` 构建时，将移除所有内置 html-webpack-plugin 设置，不再生成 html 文件。
 
-## eslint <Support list="{['webpack']}" />
+## eslint <Support list="{['webpack', 'vite']}" />
 
 - 类型：`boolean` | `object`
 - 默认值：`undefined`
@@ -447,7 +447,9 @@ ice.js 目前默认内置 less 4.x 版本，计算函数对于使用 '/' 的方�
 - `undefined`：即没有设置 eslint 选项，将 eslint 错误输出到终端里
 - `false`：不检测 eslint 错误
 - `true`：将 eslint 错误展示在预览页面上
-- `object`：表现等同于 `true`，同时支持配置 [eslint-loader](https://github.com/webpack-contrib/eslint-loader) 的更多参数
+- `object`：表现等同于 `true`，同时支持配置 [eslint-webpack-plugin](https://github.com/webpack-contrib/eslint-webpack-plugin) 的更多参数
+
+> `vite` 模式下暂不支持配置同 `eslint-webpack-plugin` 相同的参数。如有相关需求，请通过 [issue](https://github.com/alibaba/ice/issues) 进行反馈。
 
 ## fastRefresh <Support list="{['webpack', 'vite']}" /><Badge text="2.0.0" />
 
@@ -530,7 +532,7 @@ export default {
 }
 ```
 
-## tsChecker <Support list="{['webpack']}" />
+## tsChecker <Support list="{['webpack', 'vite']}" />
 
 - 类型：`boolean`
 - 默认值：`false`
