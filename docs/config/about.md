@@ -447,9 +447,7 @@ ice.js 目前默认内置 less 4.x 版本，计算函数对于使用 '/' 的方�
 - `undefined`：即没有设置 eslint 选项，将 eslint 错误输出到终端里
 - `false`：不检测 eslint 错误
 - `true`：将 eslint 错误展示在预览页面上
-- `object`：表现等同于 `true`，同时支持配置 [eslint-webpack-plugin](https://github.com/webpack-contrib/eslint-webpack-plugin) 的更多参数
-
-> `vite` 模式下暂不支持配置同 `eslint-webpack-plugin` 相同的参数。如有相关需求，请通过 [issue](https://github.com/alibaba/ice/issues) 进行反馈。
+- `object`: 仅 Webpack 模式支持，表现等同于 true，支持配置 [eslint-webpack-plugin](https://github.com/webpack-contrib/eslint-webpack-plugin) 的更多参数
 
 ## fastRefresh <Support list="{['webpack', 'vite']}" /><Badge text="2.0.0" />
 
