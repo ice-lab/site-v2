@@ -27,7 +27,7 @@ import Badge from '../../src/components/Badge'
 
 ### Head
 
-设置页面 `<head>` 标签的信息，如 meta、title 等：
+设置页面 `<head>` 标签的信息，如 meta、title 等，基于 [react-helmet](https://github.com/nfl/react-helmet) 同时保持一致的使用方式：
 
 ```jsx
 import React from 'react';
@@ -398,8 +398,7 @@ runApp();
 +import { IRouterConfig } from 'ice';
 
 +const routerConfig: IRouterConfig = [
-
-];
++];
 
 export default routerConfig;
 ```

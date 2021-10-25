@@ -25,7 +25,7 @@ const appConfig: IAppConfig = {
     // 自定义错误边界的 fallback UI
     ErrorBoundaryFallback: () => <div>渲染错误</div>,
     // 自定义错误的处理事件
-    onErrorBoundaryHanler: (error: Error, componentStack: string) => {
+    onErrorBoundaryHandler: (error: Error, componentStack: string) {
       // Do something with the error
     },
   }
