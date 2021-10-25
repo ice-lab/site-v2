@@ -526,7 +526,7 @@ export default {
 
 开关权限能力。
 
-## pwa <Support list="{['webpack', 'vite']}" />
+## pwa <Support list="{['webpack']}" />
 
 - 类型：`boolean`
 - 默认值：`false`
