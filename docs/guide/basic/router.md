@@ -3,7 +3,7 @@ title: 路由配置
 order: 5
 ---
 
-icejs 推荐使用 **配置式路由** 进行应用的路由管理，如果希望使用约定式路由可参考 [文档](/guide/advanced/convention-routing.md)。
+icejs 推荐使用 **配置式路由** 进行应用的路由管理，如果希望使用文件约定路由可参考 [文档](/guide/advanced/convention-routing.md)。
 
 ## 配置路由信息
 

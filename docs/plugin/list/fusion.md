@@ -7,9 +7,97 @@ import Support from '../../../src/components/Support'
 
 <Support list={['webpack', 'vite']} />
 
-提供 `@alifd/next` 在不同业务场景下的能力。
+本文主要介绍在 icejs 项目中如何正确的引入 fusion 组件即 `@alifd/next`。
 
-## Install
+## 使用 fusion 组件
+
+关于 fusion 组件按需引入的说明：
+
+- 脚本代码按需引入：不推荐使用 babel-plugin-import，社区主流工具 Webpack/Vite 等都已支持 tree-shaking，构建时默认都会做按需的引入。
+- 样式代码按需引入：结合社区讨论 [issue](https://github.com/ant-design/ant-design/issues/16600#issuecomment-492572520)，大多数场景下样式按需引入并无太大意义，反而会引入其他工程问题，因此推荐组件样式在项目级全量引入。
+
+综合上述观点，我们不再推荐项目中使用 babel-plugin-import 做脚本按需引入以及样式自动&按需引入，而推荐全量引入组件样式 + 通过内置的 tree-shaking 进行脚本按需打包。
+
+### 不需要定制组件主题
+
+在 `src/global.css` 中引入对应主题包的全量 CSS：
+
+```css
+@import '@alifd/next/dist/next.var.css';
+
+body {
+  -webkit-font-smoothing: antialiased;
+}
+```
+
+> 如果有用到 `@icedesign/container` 之类的 NPM 包，内部可能有一些不合理的语法导致样式重复引入影响构建速度，请结合 [build-plugin-ignore-style](/plugin/list/ignore-style.md) 解决该问题。
+
+### 使用 CSS Vars 定制主题
+
+fusion 组件通过 [fusion.design](https://fusion.design/) 在线配置主题包，配置完成后会产生一个 npm 包，这里以 `@alifd/theme-design-pro` 这个主题包为例，首先通过 npm 安装主题包依赖：
+
+```bash
+$ npm i --save @alifd/theme-design-pro
+```
+
+接下来在 `src/global.css` 中引入对应主题包的全量 CSS：
+
+```css
+@import '@alifd/theme-design-pro/variables.css';
+@import '@alifd/theme-design-pro/dist/next.var.css';
+
+body {
+  -webkit-font-smoothing: antialiased;
+}
+```
+
+### 使用 Sass 变量定制主题（不推荐）
+
+比如需要自定义 css-prefix 的场景，通过 CSS Vars 目前无法实现，此时推荐使用 Sass 方式定制。
+
+在 build.json 中引入插件：
+
+```json
+{
+  "plugins": [
+    [
+      "build-plugin-fusion", {
+        "disableModularImport": true,
+        "themePackage": "@alifd/theme-design-pro",
+        "themeConfig": {
+          "css-prefix": "next-icestark-"
+        }
+      },
+    ]
+  ]
+}
+```
+
+在 `src/global.css` 中引入组件全量的 sass:
+
+```css
+@import '@alifd/next/index.scss';
+
+body {}
+```
+
+### 按需引入组件样式（不推荐）
+
+在 `build.json` 中添加插件：
+
+```json
+{
+  "plugins": [
+    ["build-plugin-fusion", {
+      "themePackage": "@alifd/theme-design-pro"
+    }]
+  ]
+}
+```
+
+## 插件介绍
+
+### Install
 
 ```bash
 $ npm install build-plugin-fusion --save-dev
@@ -30,7 +118,7 @@ $ npm install build-plugin-fusion --save-dev
 }
 ```
 
-## Options
+### Options
 
 - `themePackage` Fusion 组件主题包配置，如果设置为数组则启动多主题能力
 - `themeConfig` 主题配置，通过设置 sass 变量对现有主题进行覆盖
@@ -41,12 +129,13 @@ $ npm install build-plugin-fusion --save-dev
 - `px2vwOptions` 传递参数给 postcss 插件，默认为`{ viewportWidth: 750 }` 根据用户设置项将进行合并
 - `componentOptions` 值为对象，修改业务组件的引入路径，推荐用在 PC 跨 H5 的项目中，给业务组件指定 H5 的渲染组件
 - `enableColorNames` 默认为 `false`，如果开启默认将提取 `transparent`、`red`、`blue` 等色值名称
-- `nextPrefix` 仅修改 `@alifd/next` 里的 css-prefix，一般用于 0.x&1.x 共存的场景
+- `themeConfig.nextPrefix` 仅修改 `@alifd/next` 里的 css-prefix，一般用于 0.x&1.x 共存的场景
 - `cssVariable` 默认为 `false`，如果开启后将默认使用 css variables 的样式方案替换 sass 方案
+- `disableModularImport` 禁用 `babel-plugin-import` 按需加载能力，推荐引入全量样式，JS 将在压缩阶段通过 `tree-shaking` 移除未使用组件
 
-## 常见场景
+### 常见场景
 
-### 通过主题包定制组件样式
+#### 通过主题包定制组件样式
 
 ICE 脚手架中默认使用了 `@alifd/theme-design-pro` 这个主题包，如果不能满足需求则可以让设计师配置业务需要的主题包：[配置组件主题样式](https://fusion.design/help.html#/design-config-component) ，每个主题包对应一个 npm 包。
 
@@ -70,7 +159,7 @@ import { Icon } from '@alifd/next';
 <Icon type="xxxx" />;
 ```
 
-### 业务代码支持主题切换
+#### 业务代码支持主题切换
 
 在项目中也可以使用主题包的变量，这样未来如果需要更换主题，业务代码就不需要做任何改动了，可以使用的变量列表请参考 [Fusion Design Tokens](https://fusion.design/component/tokens)，使用方式如下：
 
@@ -84,7 +173,7 @@ import { Icon } from '@alifd/next';
 }
 ```
 
-### 配置 externals
+#### 配置 externals
 
 项目开发中希望将 `@alifd/next` 作为外部扩展不打包到 bundle 中，除了需要配置 `externals` 外，还需要将通过插件能力分析业务组件依赖中按需加载的 Next 组件：
 
@@ -104,7 +193,7 @@ import { Icon } from '@alifd/next';
 }
 ```
 
-### 修改 prefix
+#### 修改 prefix
 
 fusion 组件的默认 class 前缀是 `next-`，在微前端等场景下可能需要修改 prefix：
 
@@ -142,7 +231,7 @@ const appConfig = {
 runApp(appConfig);
 ```
 
-### 动态切换主题
+#### 动态切换主题
 
 > Vite 模式下不支持
 
@@ -188,7 +277,7 @@ build.json 中完成多主题包配置后，业务代码中可以直接调用 `_
 window.__changeTheme__('@alifd/theme-ice-purple');
 ```
 
-### 使用 css variables 样式
+#### 使用 css variables 样式
 
 在 `build.json` 中开启 `cssVariable` 配置：
 
@@ -216,9 +305,9 @@ window.__changeTheme__('@alifd/theme-ice-purple');
 
 > 该属性在 build-plugin-fusion 0.1.14 版本以上开始支持
 
-### 跨端用法
+#### 跨端用法
 
-#### API
+##### API
 
 - 增加 `componentOptions` API，该接口值为对象，可接受 `bizComponent` `customPath` `componentMap` 等参数
 - 增加 `usePx2Vw` API，跨端模式下请开启
@@ -258,11 +347,11 @@ module.exports = {
 };
 ```
 
-#### componentOptions 详解
+##### componentOptions 详解
 
 用来自定义业务组件的引用路径及入口
 
-#### bizComponent 需要自定义路径的组件
+##### bizComponent 需要自定义路径的组件
 
 类型为数组，与 `customPath` 共同作用生效
 bizComponent: ['@alifd/anchor', '@alifd/pro-components']
@@ -276,11 +365,11 @@ var _anchor = require('@alifd/anchor/es/mobile');   // 差别在这里 多了一
 ReactDOM.render(<_anchor>xxxx</_anchor>);
 ```
 
-#### customPath 自定义的路径
+##### customPath 自定义的路径
 
 结合 `bizComponent` 一起生效，用法参考 `bizComponent` 文档。
 
-#### componentMap 组件路径映射
+##### componentMap 组件路径映射
 
 类型为对象，表示路径映射的 mapping ，若与 `bizComponent` 冲突，则以 `componentMap` 为优先
 

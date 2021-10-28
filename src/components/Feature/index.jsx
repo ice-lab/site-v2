@@ -9,8 +9,13 @@ const data = [
     url: '/docs/guide/basic/structure',
   },
   {
+    title: 'Vite',
+    decs: '同时支持 Vite/Webpack 模式，提供极速的调试构建体验',
+    url: '/docs/guide/about',
+  },
+  {
     title: '开箱即用',
-    decs: '开箱即用的工程能力，无需关心 webpack 配置',
+    decs: '支持 TypeScript/CSS Modules/PostCSS/... 等工程能力，框架 API 具备良好的类型提示能力',
     url: '/docs/guide/basic/build',
   },
   {
@@ -22,11 +27,6 @@ const data = [
     title: '应用模式',
     decs: '支持 SPA、MPA、微前端、Serverless 一体化等不同研发模式',
     url: '/docs/guide/advanced/mpa',
-  },
-  {
-    title: 'TypeScript',
-    decs: '内置 TypeScript 支持，框架内置 API 具备良好的类型提示能力',
-    url: '/docs/guide/about',
   },
   {
     title: '插件化',
