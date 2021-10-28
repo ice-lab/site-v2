@@ -539,6 +539,13 @@ export default {
 
 开关 SSR&SSG 能力。值为 `"static"` 则表示开启 SSG。
 
+## router <Support list="{['webpack', 'vite']}" />
+
+- 类型：`boolean`
+- 默认值：`true`
+
+仅在 SPA 模式下生效，不再引入 react-router 相关依赖，需要配合 `app.renderComponent` 指定要渲染的内容。
+
 ## disableRuntime <Support list="{['webpack', 'vite']}" />
 
 :::caution

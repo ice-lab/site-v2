@@ -16,11 +16,12 @@ order: 1
 
 ## 特性 🎉
 
-- 🐒 开箱即用的工程能力：TypeScript/Webpack5/样式方案/Mock/...
+- 🦧 同时支持 Vite & Webpack 模式，业务可以按需选择
+- 🐒 开箱即用的工程能力：TypeScript/Webpack5/Vite/样式方案/Mock/...
 - 🦊 贴合业务的最佳实践：目录规范、代码规范、路由方案、状态管理、数据请求等
-- 🐯 多种应用模式：支持 SPA、MPA，同时完备支持服务端渲染（SSR）
+- 🐯 多种应用模式：支持 SPA、MPA，同时支持服务端渲染 SSR 以及静态构建 SSG
 - 🐦 强大的插件能力：官方所有能力都通过插件实现，业务可以通过插件扩展各种能力
-- 🐘 丰富的领域方案：微前端解决方案 icestark、Serverless 一体化方案、React Hooks 解决方案 ahooks、表单方案 Formily 等
+- 🐘 丰富的领域方案：微前端解决方案 icestark、一体化方案、React Hooks 解决方案 ahooks、表单方案 Formily 等
 
 在框架基础上，也可以搭配 VS Code 插件 [AppWorks](https://vsmarketplacebadge.apphb.com/version-short/iceworks-team.iceworks.svg?logo=visual-studio-code) 享受到更多功能：
 

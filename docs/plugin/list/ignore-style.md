@@ -7,26 +7,26 @@ import Support from '../../../src/components/Support'
 
 <Support list={['webpack', 'vite']} />
 
-对于基础组件依赖，如 `@alifd/next`、`antd` 等，在对样式引入的时候，推荐直接以全量样式的方式引入。特别是一些大型的项目，其冗余的样式大小可以忽略不计。
+对于基础组件依赖如 `@alifd/next`、`antd` 等，在对组件样式引入的时候，推荐直接以全量样式的方式引入，不推荐使用 babel-plugin-import 之类的方案做按需引入。因为使用按需引入后会带来新的副作用，同时在中大型项目中按需带来的样式体积优化非常微弱，[详细讨论](https://github.com/alibaba/ice/issues/4703)。
 
-对于依赖 `babel-plugin-import` 构建后自动引入了样式的组件，官方提供 `build-plugin-ignore-style` 的插件进行忽略，比如如下的样式引入将在启用插件后被忽略：
+无论是飞冰旧的业务组件脚手架还是社区的一些业务组件（如 @ant-design/pro-layout），都会出现将具体组件的 `style.js` 单独引入：
 
 ```js
-import '@alifd/next/lib/button/style';
-import '@alifd/next/es/button/style';
+// @ant-design/pro-layout/es/components/PageLoading/index.js
+import "antd/es/spin/style";
+
+// @icedesign/container/es/style.js
+import '@alifd/next/es/loading/style.js';
+import './main.scss';
 ```
+
+在使用了上述 NPM 包之后，如果项目里是全量引入的基础组件样式，则会出现样式的重复引入重复大包等问题，影响构建速度，因此我们开发了 `build-plugin-ignore-style` 插件用来忽略类似的引入。使用该插件之后代码中类似 `import "antd/es/spin/style";` 的语句将会被构建工具忽略。
 
 ## Install
 
 ```bash
 $ npm install build-plugin-ignore-style --save-dev
 ```
-
-## Options
-
-- `libraryName`：指定需要忽略样式引入的依赖包名
-- `style`：指定引入的样式规则，默认值为 `style`, 即会匹配规则为 `${packageName}/(es|lib)/${componentName}/style` 的样式引入
-
 
 ## Usage
 

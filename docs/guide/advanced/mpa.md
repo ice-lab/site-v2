@@ -100,6 +100,10 @@ const appConfig = {
 runApp(appConfig);
 ```
 
+> MPA 场景下不支持某个页面使用文件路由（约定路由），仅支持配置式路由
+
+> 仅支持通过 `src/routes` 配置路由，不支持直接配置 `router.routes: [{}]`
+
 接下来配置路由信息：
 
 ```diff
