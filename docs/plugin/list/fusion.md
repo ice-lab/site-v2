@@ -88,7 +88,7 @@ body {}
 ```json
 {
   "plugins": [
-    ["build-plugin-antd", {
+    ["build-plugin-fusion", {
       "themePackage": "@alifd/theme-design-pro"
     }]
   ]
