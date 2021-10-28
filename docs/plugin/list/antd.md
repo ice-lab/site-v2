@@ -21,6 +21,8 @@ $ npm install build-plugin-antd --save-dev
 
 - `themeConfig` 设置替换主题颜色
 - `importOptions` 同 `babel-plugin-import` 按需加载配置，默认参数 `{ libraryDirectory: 'es', style: true}`，根据用户设置进行合并
+- `disableModularImport` 禁用 `babel-plugin-import` 按需加载能力，推荐引入全量样式，JS 将在压缩阶段通过 `tree-shaking` 移除未使用组件
+
 
 ## Usage
 

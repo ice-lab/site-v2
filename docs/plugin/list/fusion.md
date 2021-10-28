@@ -41,8 +41,9 @@ $ npm install build-plugin-fusion --save-dev
 - `px2vwOptions` 传递参数给 postcss 插件，默认为`{ viewportWidth: 750 }` 根据用户设置项将进行合并
 - `componentOptions` 值为对象，修改业务组件的引入路径，推荐用在 PC 跨 H5 的项目中，给业务组件指定 H5 的渲染组件
 - `enableColorNames` 默认为 `false`，如果开启默认将提取 `transparent`、`red`、`blue` 等色值名称
-- `nextPrefix` 仅修改 `@alifd/next` 里的 css-prefix，一般用于 0.x&1.x 共存的场景
+- `themeConfig.nextPrefix` 仅修改 `@alifd/next` 里的 css-prefix，一般用于 0.x&1.x 共存的场景
 - `cssVariable` 默认为 `false`，如果开启后将默认使用 css variables 的样式方案替换 sass 方案
+- `disableModularImport` 禁用 `babel-plugin-import` 按需加载能力，推荐引入全量样式，JS 将在压缩阶段通过 `tree-shaking` 移除未使用组件
 
 ## 常见场景
 
