@@ -393,7 +393,7 @@ ice.js 目前默认内置 less 4.x 版本，计算函数对于使用 '/' 的方�
 
 > ice.js 内置使用 sass 进行编译，如果期望使用 node-sass，请在项目中进行依赖
 
-## postcssOptions <Support list="{['webpack']}" />
+## postcssOptions <Support list="{['webpack', 'vite']}" />
 
 - 类型：`object`
 - 默认值：无
