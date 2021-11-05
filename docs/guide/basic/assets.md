@@ -13,7 +13,30 @@ icejs 内置了大量规则处理静态资源，一般情况下开发者无需�
 - sgv 文件 `.svg`
 - 图片资源 `.png`、`.jpg`、`.webp`、`.jpeg`、`.gif`
 
-上述资源默认通过资源地址加载，如果资源大小小于 *8kb*，则进行 base64 转码并内联到脚本或样式文件中。
+上述资源默认通过资源地址加载，推荐将这些资源放在 `src/assets` 目录下：
+
+```
+src
+├── assets/
+│ ├── logo.png
+│ └── bg.png     // Favicon
+```
+
+此时即可在代码中使用这些资源：
+
+```jsx
+import logoUrl from '@/assets/logo.png';
+
+function Home() {
+  return (
+    <>
+      <img src={logoUrl} />
+    </>
+  );
+}
+```
+
+如果资源尺寸小于 *8kb*，则进行 base64 转码并内联到脚本或样式文件中。
 
 ## 指定处理规则
 
@@ -64,7 +87,7 @@ import Worker from './worker.js?worker&inline'
 
 ## public 目录
 
-`src/public` 目录作为框架默认的静态资源目录，除了存放页面模版 `index.html` 文件之外，不被工程构建工具进行编译的资源都可以放在该目录下。
+`public/` 目录作为框架默认的静态资源目录，除了存放页面模版 `index.html` 文件之外，不被工程构建工具进行编译的资源都可以放在该目录下。
 
 比如 `favicon.svg` 文件，我们并不希望该文件名编译（默认静态资源文件名在编译后会生成独立 hash，`favicon.svg` 希望保持原有文件名），在使用时直接在 html 模版中进行引用：
 

@@ -3,16 +3,31 @@ title: 样式方案
 order: 7
 ---
 
-icejs 在工程能力上基本支持了所有社区主流样式方案，包括 Sass、Less、CSS Modules、Stylus 等方案，而作为框架配套的模板我们推荐使用 [CSS Modules](https://github.com/css-modules/css-modules) 方案。
+本文介绍在项目中如何编写样式。
+
+## 样式方案
+
+推荐使用原生 CSS + PostCSS 的方案编写样式，不建议引入 less/sass 之类的预编译方案，CSS 写法目前扩展支持了 `@import` 以及[嵌套](https://github.com/postcss/postcss-nested)写法：
+
+```less
+@import './theme.css';
+
+body {
+  color: red;
+
+  img {
+    display: block;
+  }
+}
+```
+
+在工程能力上 icejs 同时支持 less/sass 这样的预编译方案，只要保证文件后缀匹配即可。
 
 ## 全局样式
 
 对于整个项目的全局样式，统一定义在 `src/global.[scss|less|scss]` 文件中，框架会默认引入该文件：
 
-```scss
-// 引入默认全局样式
-@import '@alifd/next/reset.scss';
-
+```css
 body {
   -webkit-font-smoothing: antialiased;
 }
@@ -27,30 +42,20 @@ body {
 
 具体规范规则如下：
 
-- 文件名：约定文件名格式如 `xxx.module.scss`
+- 文件名：约定文件名格式如 `xxx.module.css`
 - 模块化：一个页面或者一个组件对应一个样式文件
 
 ```markdown
 Home
-├── index.module.scss
+├── index.module.css
 └── index.tsx
 ```
 
-在页面目录下新建 `index.jsx` 和 `index.module.scss` 两个文件：
+`src/pages/Home/index.module.css`:
 
-```scss
-// ./pages/Home/index.module.scss
+```css
 .container {
   background: #fff;
-}
-
-/* 也可通过 :global 定义全局样式 */
-:global {
-  .container {
-    a {
-      color: blue;
-    }
-  }
 }
 ```
 
@@ -58,7 +63,7 @@ Home
 
 ```javascript
 // ./pages/Home/index.jsx
-import styles from './index.module.scss';
+import styles from './index.module.css';
 
 function Home() {
   return (
@@ -84,11 +89,9 @@ function Home() {
 
 ### 如何全局覆盖基础组件（next/antd）样式？
 
-next/antd 都支持了一些定制样式的能力，如果这些能力不能满足诉求则可以通过样式覆盖的方式定制：
+推荐通过 `src/global.css` 覆盖全局样式：
 
-```scss
-// src/global.[scss|less]
-
+```less
 body {
   -webkit-font-smoothing: antialiased;
 
@@ -105,8 +108,8 @@ body {
 
 如果只是想覆盖某个页面/模块里的组件样式，则推荐采用局部覆盖的方式：
 
-```scss
-// ./pages/Home/index.module.scss
+```less
+// ./pages/Home/index.module.css
 .home {
   padding: 10px;
 }
