@@ -12,7 +12,7 @@ icejs 支持的工程配置项列表，所有配置项都在 [build.json 文件]
 
 - 类型： `array`
 
-配置 icejs 插件，参考[插件列表](/plugin/list/moment-locales)以及[插件能力](/plugin/develop/start)
+配置 icejs 插件，参考[插件列表](/plugin/list/moment-locales.md)以及[插件能力](/plugin/develop/start.md)
 
 ```json
 {
