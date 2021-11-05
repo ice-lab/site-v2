@@ -1,6 +1,6 @@
 ---
 title: 菜单配置
-order: 11
+order: 9
 ---
 
 在 [Pro](https://unpkg.com/@alifd/fusion-design-pro-js@0.1.23/build/index.html#/dashboard/analysis) 模板中，菜单按照一定的约定进行配置，用来描述菜单栏的结构关系。以 `BasicLayout` 布局为例，菜单配置文件约定在 `src/layouts/BasicLayout/menuConfig.ts`中。

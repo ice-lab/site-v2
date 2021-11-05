@@ -8,6 +8,26 @@ import Badge from '../../src/components/Badge'
 
 icejs 支持的工程配置项列表，所有配置项都在 [build.json 文件](/guide/basic/build.md) 中编写。
 
+## plugins <Support list="{['webpack', 'vite']}" />
+
+- 类型： `array`
+
+配置 icejs 插件，参考[插件列表](/plugin/list/moment-locales.md)以及[插件能力](/plugin/develop/start.md)
+
+```json
+{
+  "plugins": [
+    "build-plugin-jsx-plus",
+    [
+      "build-plugin-moment-locales",
+      {
+        "locales": ["zh-cn", "en-au"]
+      }
+    ]
+  ]
+}
+```
+
 ## entry <Support list="{['webpack', 'vite']}" />
 
 - 类型： `string`  | `object`  | `array`
@@ -55,44 +75,36 @@ icejs 中一般不建议修改该配置。
 
 ## sourceMap <Support list="{['webpack', 'vite']}" />
 
-- 类型： `boolean`
-- 默认值： `false`
+- 类型： `boolean` | `string`
+
+- start 模式：默认 `'cheap-module-source-map'`，支持通过 `false` 关闭，不支持设置为其他枚举值。
+- build 模式：默认 `false`，vite 模式下支持 `true` | `false` | `'inline'` | `'hidden'` 写法
 
 ## externals <Support list="{['webpack', 'vite']}" />
 
 - 类型：`object`
 - 默认值：`{}`
 
-将某些  `import`  的包排除在 bundle 之外，在运行时再去外部获取这些依赖。 比如，从 CDN 引入 React 资源，而不是将它打包<br />详细配置同 Webpack 的  [externals](https://webpack.js.org/configuration/externals/#externals)<br />例如通过配置  `externals`  减少图表资源大小：<br />在使用到图表（Bizcharts）的时候，会发现打包后的文件特别大。是由于图表库本身比较大，这样会影响页面的加载效率。可以通过 CDN 的方式加载图表库，在打包时排除掉对应的图标库。
+将某些 `import` 的包排除在 bundle 之外，比如从 CDN 引入 React 资源而不是将它打包到 bundle 中：
 
 ```json
 {
   "externals": {
-    "bizcharts": "BizCharts"
+    "react": "React"
   }
 }
 ```
 
-说明：key 表示依赖包名，如： `bizcharts`。 value 表示引用 CDN 后的全局变量名，如: `BizCharts`
-
-> 参考：[https://github.com/alibaba/BizCharts](https://github.com/alibaba/BizCharts)
+说明：key 表示依赖包名，如：`react`，value 表示 js 暴露的全局变量名，如: `React`
 
 将 CDN 文件添加到 `public/index.html` 中：
 
-```html
+```diff
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge,chrome=1" />
-    <meta name="viewport" content="width=device-width" />
-    <title>ICE Design Lite</title>
-  </head>
-
   <body>
     <div id="root"></div>
-    +
-    <script src="https://cdn.jsdelivr.net/npm/bizcharts/umd/BizCharts.min.js"></script>
++    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/17.0.1/cjs/react.production.min.js"></script>
   </body>
 </html>
 ```
@@ -393,7 +405,7 @@ ice.js 目前默认内置 less 4.x 版本，计算函数对于使用 '/' 的方�
 
 > ice.js 内置使用 sass 进行编译，如果期望使用 node-sass，请在项目中进行依赖
 
-## postcssOptions <Support list="{['webpack']}" />
+## postcssOptions <Support list="{['webpack', 'vite']}" />
 
 - 类型：`object`
 - 默认值：无
@@ -468,17 +480,15 @@ React Fast Refresh 能力，源码修改后无需手动刷新浏览器。
 - 类型：`array`
 - 默认值：`[]`
 
-定义 Vite 插件，需要保证 js 格式的配置文件。
+定义 Vite 插件，需要将 `build.json` 切换为 `build.config.[j|t]s`。
 
 ```js
 // build.config.ts
-import vitePlugin from 'vite-plugin';
+import vitePlugin from 'vite-plugin-foo';
 
 export default {
-  // icejs plugin
-  plugins: ['build-plugin-fusion'],
+   vite: true,
   vitePlugins: [vitePlugin()],
-  vite: true
 }
 ```
 
@@ -506,7 +516,7 @@ export default {
 
 :::info
 
-开启 swc 后，框架工程会处理内置的 babel 配置，但基于 babel 的自定义配置将会失效，比如设置的 babelPlugins、babelPresets 以及通过自定义插件添加的 babel 配置
+开启 swc 后，框架工程会处理内置的 babel 配置，但基于 babel 的自定义配置将会失效，比如设置的 babelPlugins、babelPresets 以及通过自定义插件添加的 babel 配置。
 
 :::
 
