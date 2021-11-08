@@ -37,7 +37,7 @@ package.json:
 
 ```diff
 {
-  "devDependecies": {
+  "devDependencies": {
 -   "ice.js": "^1.0.0",
 +   "ice.js": "^2.0.0",
   }
