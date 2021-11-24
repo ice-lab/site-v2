@@ -83,5 +83,19 @@ $ npm run build && surge build --domain icesite.surge.sh
             <sub style="font-size:14px"><b>sunshine-lin</b></sub>
         </a>
     </td>
+    <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
+        <a href=https://github.com/wangkangzhen>
+            <img src=https://avatars.githubusercontent.com/u/22878303?v=4 width="100;"  style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden;padding-top:10px" alt=拾光，/>
+            <br />
+            <sub style="font-size:14px"><b>拾光，</b></sub>
+        </a>
+    </td>
+    <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
+        <a href=https://github.com/gaoxuerong>
+            <img src=https://avatars.githubusercontent.com/u/16043143?v=4 width="100;"  style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden;padding-top:10px" alt=甘七/>
+            <br />
+            <sub style="font-size:14px"><b>甘七</b></sub>
+        </a>
+    </td>
 </tr>
 </table>
