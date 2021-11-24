@@ -48,8 +48,8 @@ export default {
   // 格式化返回值
   async getDetail(params) {
     const data = await request({
-      url: `/api/detail`;
-      params,
+      url: `/api/detail`,
+      params
     });
 
     return data.map(item => {
