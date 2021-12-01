@@ -20,14 +20,6 @@ This command starts a local development server and opens up a browser window. Mo
 
 Just push.
 
-## 站点部署预览
-
-```bash
-# 确保本地 surge 账号有 icesite.surge.sh 的权限
-$ npm run build && surge build --domain icesite.surge.sh
-```
-
-然后访问 https://icesite.surge.sh/
 ## Contributors
 
 <table>
