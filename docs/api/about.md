@@ -430,7 +430,7 @@ const model = {
   state: [],
   reducers: {},
   effects: (dispatch) => ({
-+   like(playload, rootState: IRootState) {
++   like(payload, rootState: IRootState) {
 +    }
   })
 };
