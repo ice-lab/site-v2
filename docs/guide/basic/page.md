@@ -78,6 +78,7 @@ const Home = (props) => {
     location,
     match,
     searchParams,
+    pageConfig,
   } = props;
 
   return (

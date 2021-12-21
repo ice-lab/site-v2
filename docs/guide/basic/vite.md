@@ -44,11 +44,9 @@ icejs 提供了非常完备的功能，目前部分能力尚未支持 Vite 模�
 
 ## FAQ
 
-### Uncaught SyntaxError: Identifier 'React' has already been declared
-
-当在 `tsconfig.json` 里设置选项 `"jsx": "react-jsx"` 时，我们会默认通过 `esbuild.jsxInject` 选项为每个组件文件注入代码 `import React from 'react'`，因此业务代码里不能再重复引入。
-
 ### 如何解决 require is not defined
+
+TODO
 
 Vite 构建模式在开发阶段基于浏览器加载 ESM 模块，不支持 require 语法的导入。启用 Vite 模式需要确保源码或三方依赖符合 ESM 的规范。
 

@@ -30,11 +30,12 @@ const routerConfig = [
         component: UserLogin,
         // 配置路由的高阶组件
         wrappers: [wrapperPage],
-        // 扩展配置：icejs 1.x 仅支持将 pageConfig 配置在对应的页面组件上，具体请参考「页面组件」章节
+        // 注意：仅 2.x 支持，icejs 1.x 只支持将 pageConfig 配置在对应的页面组件上，请参考「页面组件」章节
         pageConfig: {
           title: '登录页面',
           scrollToTop: true,
-          // ...
+          // 自定义配置
+          foo: 'bar',
         },
       },
       {
@@ -97,6 +98,18 @@ runApp(appConfig);
 - `history`：详见 [history api](/api/about.md#history)
 - `searchParams`：当前 URL 的查询参数对象（需要开启 [parseSearchParams](/guide/basic/app.md#启动项配置)）
 - `match`：当前路由和 URL match 后的对象，包含 `path`、`url`、`params`、`isExact` 属性
+- `pageConfig`：在 `routes.ts` 中配置的页面 pageConfig 属性
+
+```jsx
+// src/pages/Home/index.tsx
+export default function Home(props) {
+  const { location, history, searchParams, match, pageConfig } = props;
+  const { foo } = pageConfig;
+
+  console.log(foo); // => bar
+  return <>Home</>;
+}
+```
 
 对于非路由组件，组件内如想获取上述属性需要借助 [useHistory](/api/about.md#useHistory), [useLocation](/api/about.md#useLocation), [useParams](/api/about.md#useParams), [withRouter](/api/about.md#withRouter) 等 API。
 

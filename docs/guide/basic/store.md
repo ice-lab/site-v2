@@ -223,22 +223,41 @@ export default [
 
 ### 设置初始状态
 
-```ts
-import { runApp } from 'ice';
+假设我们有 `models/user.ts` 和 `models/counter.ts` 两个模型，可以通过 `runApp()` 中的 `store.initialStates` 设置初始状态：
 
-const appConfig = {
+```ts
+runApp({
+  app: {},
   store: {
     // 可选，初始化状态
-    initialStates: {},
+    initialStates: {
+      user: { name: 'foo' },
+      counter: { count: 0 }
+    },
   },
-};
-
-runApp(appConfig);
+});
 ```
 
-> 如果定义了 `app.getInitialData()`，该方法返回的 `initialStates` 字段会默认赋值给 `store.initialStates`
+如果初始的状态数据需要异步获取，则需要结合 `app.getInitialData()` 实现：
 
-> 页面级状态目前不支持设置 initialStates
+```ts
+runApp({
+  app: {
+    getInitialData: async (ctx) => {
+      const { username, count } = await request.get('/api/data');
+      return {
+        // initialStates 是约定好的字段，会透传给 store 的初始状态
+        initialStates: {
+          user: { name: username },
+          counter: { count }
+        }
+      }
+    }
+  },
+});
+```
+
+> 注意：页面级状态目前不支持设置 initialStates
 
 ### TypeScript 类型提示
 

@@ -31,73 +31,17 @@ icejs 支持服务端渲染（即 SSR）能力，开发者可以按需一键开�
 
 ### 获取应用初始化数据
 
-在 `src/app.ts` 中可通过 `app.getInitialData()` 获取全局数据：
-
-```diff
-import { runApp, request } from 'ice';
-
-const appConfig = {
-+  app: {
-+    getInitialData: async (ctx) => {
-+      // const data = await request.get('/api/data');
-+      return {
-+       foo: 'bar',
-+       initialStates: {
-+         user: { name: 'Jack', id: '01' }
-+       }
-+      };
-+    }
-+  },
-};
-
-runApp(appConfig);
-```
+在 `src/app.ts` 中通过声明 `app.getInitialData` 获取全局数据，同时支持通过 API 在 View 中消费该数据，具体请参考 [app.getInitialData](docs/guide/basic/app#appgetinitialdata) 。
 
 开启了 SSR 的行为说明：
 
-- 服务端渲染时直接调用 `app.getInitialData()` 获取数据并渲染应用，同时将数据注入到全局变量中
-- 浏览器端渲染时不再调用 `app.getInitialData()`，会直接通过全局变量获取初始数据
-- 可以获取到当前请求的上下文 `ctx` 参数，包含以下字段
-  - `ctx.req`：HTTP request 对象 （仅在 server 端输出）
-  - `ctx.res`：HTTP response 对象 （仅在 server 端输出）
-  - `ctx.pathname`：当前路由路径
-  - `ctx.query`：请求参数对象
-  - `ctx.path`：URL 路径（包括请求参数）
-  - `ctx.ssrError`：服务端渲染时错误信息（仅在 client 端输出）
+- 服务端渲染时直接调用 `app.getInitialData()` 获取数据并渲染应用，同时将数据注入到 HTML 的全局变量中
+- 浏览器端渲染（hydrate）时直接通过全局变量获取初始数据，不再调用 `app.getInitialData()`
 
 未开启 SSR 的行为说明：
 
-- 浏览器端会同步调用 `getInitialData`
+- 浏览器端会同步调用 `app.getInitialData()`
 - 调用完成后执行页面 render 逻辑
-
-### 消费应用初始化数据
-
-框架提供了两种方式获取 `app.getInitialData()` 返回的数据：
-
-#### 通过 `getInitialData()` 消费
-
-```ts
-import React from 'react';
-import { getInitialData } from 'ice';
-
-export default = () => {
-  const { foo } = getInitialData();
-  console.log(initialData);  // => bar
-};
-```
-
-#### 作为 store 的初始化状态
-
-`app.getInitialData()` 返回的 `initialStates` 字段会作为 store 的初始状态，比如 `models/user.js` 的默认 states 即上述的 `{ name: 'Jack', id: '01' }`，可以直接在 View 中使用：
-
-```jsx
-import store from '@/store';
-const HomePage = () => {
-  const [userState, userDispatchers] = store.useModel('user');
-  console.log(userState.name); // => Jack
-  return <>{userState.name}</>;
-}
-```
 
 ## 页面级数据
 
@@ -105,14 +49,7 @@ SEO 场景下，需要访问每个页面时都能够返回实际的 DOM 节点�
 
 > 注意：如果只是追求首屏加载速度，不推荐使用页面级的 getInitialProps，因为这在一定程度上会延长服务端渲染直出 HTML 的时间。
 
-在页面级组件中通过 `Component.getInitialProps` 来获取页面初始数据，同时可以获取到当前请求的上下文 `ctx` 参数，包含以下字段：
-
-- `ctx.req`：HTTP request 对象 （仅在 server 端输出）
-- `ctx.res`：HTTP response 对象 （仅在 server 端输出）
-- `ctx.pathname`：当前路由路径
-- `ctx.query`：请求参数对象
-- `ctx.path`：URL 路径（包括请求参数）
-- `ctx.ssrError`：服务端渲染时错误信息（仅在 client 端输出）
+在页面级组件中通过 `Component.getInitialProps` 来获取页面初始数据：
 
 ```diff
 import { request } from 'ice';
@@ -131,15 +68,19 @@ export default Home;
 
 开启了 SSR 的行为说明：
 
-- 服务端渲染时调用对应页面的 `getInitialProps`，然后在渲染页面组件时将数据作为 props 传递给页面组件，同时将数据注入到全局变量上
-- 浏览器端渲染时不再调用 `getInitialProps`，会直接通过全局变量获取初始数据并作为组件的 props
+- 服务端渲染时调用对应页面的 `getInitialProps`，然后在渲染页面组件时将数据作为 props 传递给页面组件，同时将数据注入到 HTML 全局变量上
+- 浏览器端渲染（hydrate）时不再调用 `getInitialProps`，会直接通过全局变量获取初始数据并作为组件的 props
 
 未开启 SSR 的行为说明：
 
-- 浏览器端渲染时会在组件渲染（render）后调用该方法
-- 调用完成后触发组件的 rerender
+- 浏览器端渲染时，先进行组件渲染（render），然后在 `useEffect(() => {}, [])` 中调用 `Component.getInitialProps`
+- getInitialProps 执行完成后，触发组件 rerender 此时拿到的新的 props 数据
 
-注意：页面组件渲染使用 props 时需要兼容 `getInitialProps` 未调用的情况
+:::caution
+
+页面组件中需要兼容好 `getInitialProps()` 未执行时 props 取不到对应数据（比如上述的 props.stars）的情况
+
+:::
 
 ## 构建产物
 
@@ -151,13 +92,81 @@ export default Home;
   │   ├── index.html
   │   ├── css/index.css
   │   ├── js/index.js
-+ │   ├── server/loadable-stats.json
-+ │   └── server/index.js // 服务端代码文件
+  │   ├── loadable-stats.json
++ |   ├── server
++ |   │   ├── chunk1.js
++ |   │   ├── chunk2.js
++ |   │   └── index.js
 ```
 
-> icejs 1.15.0 开始支持在开启 SSR 的应用中使用[代码分割](/guide/advanced/code-splitting.md)，部署时需要把 `server/` 目录下所有的 bundle 资源下载到 server 端。
+## 服务端集成
 
-## 页面 Meta 标签
+本地开发时 icejs 通过内置的 dev-server 做服务端渲染，应用发布后则需要对应的服务端自行渲染。首先建议将整个 build 产物复制到服务端指定目录：
+
+```
+.
+├── build/
+│   ├── loadable-stats.json
+|   └── server/
+└── app.js   // 服务端应用入口
+```
+
+app.js 核心逻辑如下：
+
+```ts
+const path = require('path');
+const Koa = require('koa');
+const Router = require('@koa/router');
+
+const app = new Koa();
+const router = new Router();
+
+router.get('/', (ctx, next) => {
+  const buildDir = path.join(__dirname, './build');
+  const serverBundlePath = path.resolve(buildDir, 'server/index.js');
+  const webStatsPath = path.resolve(buildDir, 'loadable-stats.json');
+
+  const serverRender = require(serverBundlePath);
+  const { html, error, redirectUrl } = await serverRender.default(
+    ctx,
+    {
+      loadableStatsPath: webStatsPath,
+    },
+  );
+
+  if (redirectUrl) {
+    console.log('[SSR Redirect]', `Redirect to the new path ${redirectUrl}`);
+    // 重定向
+    ctx.res.redirect(302, redirectUrl);
+  } else {
+    if (error) {
+      console.log('[SSR ERROR]', 'serverRender error', error);
+    }
+    ctx.res.body = html;
+  }
+});
+
+app.use(router.routes())
+app.listen(3000);
+```
+
+icejs 构建出来的 `server/index.js` 会暴露出 `render` 方法供服务端调用，该方法提供以下参数：
+
+- ctx: 必填，当前请求上下文，ctx 的格式如下：
+  - `ctx.req`：HTTP request 对象（仅在 server 端输出）
+  - `ctx.res`：HTTP response 对象（仅在 server 端输出）
+  - `ctx.pathname`：当前路由路径
+  - `ctx.query`：请求参数对象
+  - `ctx.path`：URL 路径（包括请求参数）
+  - `ctx.ssrError`：服务端渲染时错误信息（仅在 client 端输出）
+- options:
+  - loadableStatsPath: 必填，loadable-stats.json 本地路径
+  - htmlTemplate: 选填，html 模板内容
+  - initialData: 选填，如果不填写，服务端则会调用前端声明的 `app.getInitialData()` 方法，但如果**对性能追求比较极致**，服务端则可以自行获取对应数据并通过 `initialData` 传入。（调用前端的 getInitialData 一般会发起 HTTP 请求，但是服务端有可能通过缓存/数据库来查询，速度会快一点）
+
+## 高阶用法
+
+### 动态设置页面 Meta 标签
 
 在 SEO 场景下，往往需要动态设置每个页面的标题和 Meta 标签，以更好地让搜索引擎抓取页面内容。使用步骤如下：
 
@@ -189,57 +198,6 @@ Home.getInitialProps = async () => {
   };
 };
 ```
-
-## 服务端集成
-
-本地开发时 icejs 通过 webpack-dev-server 做服务端渲染，应用发布后则需要对应的服务端自行渲染，核心逻辑如下：
-
-```ts
-const path = require('path');
-
-router.get('/*', async (ctx) => {
-  // server/index.js 路径
-  const serverBundlePath = path.resolve('../build', 'server/index.js');
-  const webStatsPath = path.resolve('../build', 'server/loadable-stats.json');
-  const serverRender = require(serverBundlePath);
-  const { html, error, redirectUrl } = await serverRender.default(
-    // 当前请求上下文（必选）
-    ctx,
-    {
-      // loadable-stats.json 本地路径（必选）
-      loadableStatsPath: webStatsPath,
-      // 可选
-      initialData: {
-        initialStates: {
-          user: {},
-        },
-      },
-    },
-  );
-
-  if (redirectUrl) {
-    console.log('[SSR Redirect]', `Redirect to the new path ${redirectUrl}`);
-    // 重定向
-    ctx.res.redirect(302, redirectUrl);
-  } else {
-    if (error) {
-      console.log('[SSR ERROR]', 'serverRender error', error);
-    }
-    console.log('[SSR SUCCESS]', `output html content\n`);
-    ctx.res.body = html;
-  }
-});
-```
-
-icejs 构建出来的 `server/index.js` 会暴露出 `render` 方法供服务端调用，该方法提供以下参数：
-
-- ctx: 必填，当前请求上下文
-- options:
-  - loadableStatsPath: 必填，loadable-stats.json 本地路径
-  - htmlTemplate: 选填，html 模板内容
-  - initialData: 选填，如果不填写，服务端则会调用前端声明的 `app.getInitialData()` 方法，但如果**对性能追求比较极致**，服务端则可以自行获取对应数据并通过 `initialData` 传入。（调用前端的 getInitialData 一般会发起 HTTP 请求，但是服务端有可能通过缓存/数据库来查询，速度会快一点）
-
-## 其他问题
 
 ### 服务端请求必须使用绝对的 URL 路径
 

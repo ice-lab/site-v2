@@ -73,8 +73,58 @@ const appConfig = {
 runApp(appConfig);
 ```
 
-## 其他配置项
+## 配置项说明
 
-- [路由配置](/guide/basic/router.md#路由配置)
-- [请求配置](/guide/basic/request.md#请求配置)
-- [状态管理配置](/guide/basic/store.md#配置参数)
+### `app.getInitialData`
+
+> 注意：该能力并不耦合 SSR，在 CSR 场景下依然可以使用
+
+通过该配置项可以在应用渲染前做一些异步的事情，比如获取一些全局数据、读取/设置 Cookie/LocalStorage 等。
+
+#### 全局异步获取数据并消费
+
+在 `src/app` 中定义 `getInitialData()`：
+
+```diff
+import { runApp, request } from 'ice';
+
+const appConfig = {
+  app: {
++    getInitialData: async (ctx) => {
++      const { username, age } = await request.get('/api/user');
++      const theme = localStorage.getItem('theme');
++      return { theme, username, age };
++    }
+  },
+};
+```
+
+接着在 View 等地方即可通过 `getInitialData` API 消费这些数据：
+
+```diff
+// src/pages/Home/index.jsx
+import { getInitialData } from 'ice';
+
+export default function Home(props) {
++  const initialData = getInitialData();
+
+  return (
+    <>
++      用户名称：{initialData.username}
++      当前主题：{initialData.theme}
+    </>
+  );
+}
+```
+
+#### 异步设置 Store 的初始状态
+
+参考 [设置初始状态](/docs/guide/basic/store#设置初始状态)
+
+#### 异步设置初始权限数据
+
+参考 [初始化权限数据](/docs/guide/advanced/auth#初始化权限数据)
+
+### `app.renderComponent`
+
+TODO
