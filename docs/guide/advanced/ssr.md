@@ -43,6 +43,38 @@ icejs 支持服务端渲染（即 SSR）能力，开发者可以按需一键开�
 - 浏览器端会同步调用 `app.getInitialData()`
 - 调用完成后执行页面 render 逻辑
 
+<<<<<<< HEAD
+=======
+### 消费应用初始化数据
+
+框架提供了两种方式获取 `app.getInitialData()` 返回的数据：
+
+#### 通过 `getInitialData()` 消费
+
+```ts
+import React from 'react';
+import { getInitialData } from 'ice';
+
+export default = () => {
+  const { foo } = getInitialData();
+  console.log(foo);  // => bar
+};
+```
+
+#### 作为 store 的初始化状态
+
+`app.getInitialData()` 返回的 `initialStates` 字段会作为 store 的初始状态，比如 `models/user.js` 的默认 states 即上述的 `{ name: 'Jack', id: '01' }`，可以直接在 View 中使用：
+
+```jsx
+import store from '@/store';
+const HomePage = () => {
+  const [userState, userDispatchers] = store.useModel('user');
+  console.log(userState.name); // => Jack
+  return <>{userState.name}</>;
+}
+```
+
+>>>>>>> 347053de1071b3d005fcac0108761c4656a6b068
 ## 页面级数据
 
 SEO 场景下，需要访问每个页面时都能够返回实际的 DOM 节点，此时如果把数据放到全局的 `initialData` 里管理成本会非常高，因此 icejs 支持页面级通过 `getInitialProps` 来获取自身需要的数据。
