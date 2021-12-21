@@ -82,7 +82,7 @@ import { getInitialData } from 'ice';
 
 export default = () => {
   const { foo } = getInitialData();
-  console.log(initialData);  // => bar
+  console.log(foo);  // => bar
 };
 ```
 

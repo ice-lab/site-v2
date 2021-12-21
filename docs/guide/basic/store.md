@@ -278,7 +278,7 @@ const user = {
   state: [],
   reducers: {},
 +  effects: ((dispatch: IRootDispatch) => ({
-+    like(playload, rootState: IRootState) {
++    like(payload, rootState: IRootState) {
 +      dispatch.project.foo(payload); // 调用其他 model 的 effects/reducers
 +      rootState.project.title;       // 获取其他 model 的 state
 +    }
