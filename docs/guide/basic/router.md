@@ -5,7 +5,36 @@ order: 5
 
 icejs 推荐使用 **配置式路由** 进行应用的路由管理，如果希望使用文件约定路由可参考 [文档](/guide/advanced/convention-routing.md)。
 
-## 配置路由信息
+## 路由全局配置
+
+在 `src/app.ts` 中，我们可以配置路由的类型和基础路径等信息，具体配置如下：
+
+```jsx
+import { runApp } from 'ice';
+
+const appConfig = {
+  router: {
+    type: 'browser',
+    basename: '/seller',
+    fallback: <div>loading...</div>
+    modifyRoutes: (routes) => {
+      return routes;
+    }
+  }
+};
+
+runApp(appConfig);
+```
+
+配置项说明：
+
+- type: 路由类型，默认值 `hash`，可选值 `browser|hash|static`
+- basename: 路由基准地址
+- fallback: 开启按需加载时配置 fallback UI
+- modifyRoutes: 动态修改路由
+- history: 自定义创建 history 对象，[详见](https://github.com/ReactTraining/history/blob/master/docs/getting-started.md)
+
+## 配置路由列表
 
 应用的路由信息统一在 `src/routes.ts` 中配置，配置协议支持多级嵌套，具体如下：
 
@@ -28,9 +57,7 @@ const routerConfig = [
         exact: true,
         // 路由组件
         component: UserLogin,
-        // 配置路由的高阶组件
-        wrappers: [wrapperPage],
-        // 注意：仅 2.x 支持，icejs 1.x 只支持将 pageConfig 配置在对应的页面组件上，请参考「页面组件」章节
+        // 注意：仅 2.x 支持在 routes 中配置，icejs 1.x 只支持将 pageConfig 配置在对应的页面组件上，请参考「页面组件」章节
         pageConfig: {
           title: '登录页面',
           scrollToTop: true,
@@ -59,59 +86,7 @@ const routerConfig = [
 export default routerConfig;
 ```
 
-> 注意：路由有一个按顺序匹配的规则，从上到下一旦命中路由匹配规则就会停止遍历，因此如果你在最前面配置了 / 这样一个路由，则所有的路由都会命中该规则，导致其他路由没有效果，所以在开发时要注意路由的顺序以及 `exact` 属性的使用。
-
-## 运行时配置
-
-在 `src/app.ts` 中，我们可以配置路由的类型和基础路径等信息，具体配置如下：
-
-```jsx
-import { runApp } from 'ice';
-
-const appConfig = {
-  router: {
-    type: 'browser',
-    basename: '/seller',
-    fallback: <div>loading...</div>
-    modifyRoutes: (routes) => {
-      return routes;
-    }
-  }
-};
-
-runApp(appConfig);
-```
-
-**options**:
-
-- type: 路由类型，默认值 `hash`，可选值 `browser|hash|static`
-- basename: 路由基准地址
-- fallback: 开启按需加载时配置 fallback UI
-- modifyRoutes: 动态修改路由
-- history: 自定义创建 history 对象，[详见](https://github.com/ReactTraining/history/blob/master/docs/getting-started.md)
-
-## 路由组件参数
-
-对于路由组件（即页面级组件），可通过组件 `props` 获取到如下属性：
-
-- `location`：当前路由的 location 对象，包含 `pathname`、`search`、`hash`、`state` 属性
-- `history`：详见 [history api](/api/about.md#history)
-- `searchParams`：当前 URL 的查询参数对象（需要开启 [parseSearchParams](/guide/basic/app.md#启动项配置)）
-- `match`：当前路由和 URL match 后的对象，包含 `path`、`url`、`params`、`isExact` 属性
-- `pageConfig`：在 `routes.ts` 中配置的页面 pageConfig 属性
-
-```jsx
-// src/pages/Home/index.tsx
-export default function Home(props) {
-  const { location, history, searchParams, match, pageConfig } = props;
-  const { foo } = pageConfig;
-
-  console.log(foo); // => bar
-  return <>Home</>;
-}
-```
-
-对于非路由组件，组件内如想获取上述属性需要借助 [useHistory](/api/about.md#useHistory), [useLocation](/api/about.md#useLocation), [useParams](/api/about.md#useParams), [withRouter](/api/about.md#withRouter) 等 API。
+> 注意：路由有一个按顺序匹配的规则，从上到下一旦命中路由匹配规则就会停止遍历，因此如果你在最前面配置了 `/` 这样一个路由，则所有的路由都会命中该规则，导致其他路由没有效果，所以在开发时要注意路由的顺序以及 `exact: true` 属性的使用。
 
 ## 路由跳转
 
@@ -156,16 +131,6 @@ function Home() {
       >
         去 about 页面
       </Link>
-      <span
-        onClick={() => {
-          history.push({
-            pathname: '/about',
-            state: { from: 'click span' },
-          });
-        }}
-      >
-        去 about 页面
-      </span>
     </>
   );
 }
@@ -187,50 +152,7 @@ function About() {
 
 参考 [代码分割](/guide/advanced/code-splitting.md) 。
 
-## 路由高阶组件
-
-通过 `src/routes.ts` 中的 `wrappers` 字段可配置路由的高阶组件，常用于路由级别的权限检验。
-
-#### 配置 wrappers
-
-```diff
-+import WrapperPage from '@/components/WrapperPage';
-
-const routerConfig = [
-  {
-    path: '/user',
-    component: User,
-    // 配置路由的高阶组件
-+    wrappers: [WrapperPage]
-  },
-]
-```
-
-> 注意：Wrapper 组件不支持通过 lazy 导入
-
-#### 实现高阶组件
-
-```tsx
-// src/components/LoginWrapper
-import { useAuth, Redirect } from 'ice';
-
-const LoginWrapper = (WrappedComponent) => {
-  const Wrapped = (props) => {
-    const [auth] = useAuth();
-    return <>{auth.isLogin ? <WrappedComponent {...props} /> : <Redirect to="/login" />}</>;
-  };
-
-  return Wrapped;
-};
-
-export default LoginWrapper;
-```
-
-通过 `wrappers` 配置我们可以对路由组件进行自定义包装，如上示例通过 WrapperPage 高阶组件对路由组件进行权限判断，如果是登录状态，则渲染 User 组件，否则跳转到 `/login` 路由。
-
-> `useAuth` API 需要结合 plugin-ice-auth 插件实现，可参考 [权限管理](/guide/advanced/auth.md) 。
-
-## 常见问题
+## 高阶指南
 
 ### HashHistory 与 BrowserHistory
 
@@ -268,7 +190,45 @@ runApp(appConfig);
 - [关于 react-router 的 browserHistory 模式](https://github.com/LoeiFy/Recordum/issues/15)
 - [react-router 之 HashRouter & BrowserRouter](https://zzugbb.github.io/passages/react-router%E9%97%AE%E9%A2%98/)
 
-### 如何使用动态路由
+### 使用路由高阶组件
+
+通过路由高阶组件可以对路由组件实现统一的业务逻辑（比如鉴权、埋点等）。
+
+首先，实现一个高阶组件：
+
+```tsx
+// src/components/LoginWrapper
+import { useAuth, Redirect } from 'ice';
+
+const LoginWrapper = (WrappedComponent) => {
+  const LoginWrappedPage = (props) => {
+    const isLogin = true; // 替换成业务逻辑
+    return <>{isLogin ? <WrappedComponent {...props} /> : <Redirect to="/login" />}</>;
+  };
+
+  return LoginWrappedPage;
+};
+
+export default LoginWrapper;
+```
+
+然后在 `src/routes` 中配置 wrappers 字段即可：
+
+```diff
++import WrapperPage from '@/components/WrapperPage';
+
+const routerConfig = [
+  {
+    path: '/user',
+    component: User,
++    wrappers: [WrapperPage]
+  },
+]
+```
+
+> 注意：Wrapper 组件不支持通过 lazy 导入
+
+### 动态路由参数
 
 在某些场景下可能需要动态指定路由即 `/user/:id`，使用方式如下：
 

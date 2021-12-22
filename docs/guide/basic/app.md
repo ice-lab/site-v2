@@ -93,6 +93,7 @@ const appConfig = {
 +    getInitialData: async (ctx) => {
 +      const { username, age } = await request.get('/api/user');
 +      const theme = localStorage.getItem('theme');
++      // 任意的操作：比如读写 cookie 等
 +      return { theme, username, age };
 +    }
   },
@@ -127,4 +128,69 @@ export default function Home(props) {
 
 ### `app.renderComponent`
 
-TODO
+该选项用于自定义应用的渲染入口，大部分情况下不推荐使用该项能力。但是当有以下诉求时可以考虑使用该配置项：
+
+1. 整个应用不依赖路由，只渲染一个简单的 React 组件
+2. 想脱离框架的路由规范，使用 react-router 原始的 API 编写路由
+
+注意：使用该能力之后，路由页面（如果有）的 SSR 相关能力也会失效。以下是两个场景的使用方式：
+
+#### 1. 渲染一个简单的 React 组件
+
+如果是 SPA 场景则首先需要在 `build.json` 中禁用路由插件：
+
+```diff
+{
++  "router": false
+}
+```
+
+接着配置 `app.renderComponent` 即可：
+
+```js
+runApp({
+  app: {
+    renderComponent() {
+      return <div>整个应用就一个简单组件</div>
+    }
+  }
+})
+```
+
+#### 使用 react-router 原始的 API 编写路由
+
+icejs 默认将路由能力做了封装，开发者只需要编写对应的路由配置即可，如果希望非常灵活的编写路由，则需要通过该选项。
+
+同上，如果是 SPA 场景则首先需要在 `build.json` 中禁用路由插件：
+
+```diff
+{
++  "router": false
+}
+```
+
+接着配置 `app.renderComponent` 即可：
+
+```jsx
+import { runApp } from 'ice';
+import { Router, Switch, Route } from 'react-router-dom';
+import Home from '@/pages/Home';
+
+function App() {
+  return (
+    <Router>
+      <Switch>
+        <Route path="/home" component={Home} />
+      </Switch>
+    <Router/>
+  )
+}
+
+runApp({
+  app: {
+    renderComponent() {
+      return <App />;
+    }
+  }
+});
+```
