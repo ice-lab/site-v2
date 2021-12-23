@@ -34,7 +34,7 @@ runApp(appConfig);
 - modifyRoutes: 动态修改路由
 - history: 自定义创建 history 对象，[详见](https://github.com/ReactTraining/history/blob/master/docs/getting-started.md)
 
-## 配置路由列表
+## 路由列表配置
 
 应用的路由信息统一在 `src/routes.ts` 中配置，配置协议支持多级嵌套，具体如下：
 
@@ -148,11 +148,12 @@ function About() {
 }
 ```
 
-## 按需加载
-
-参考 [代码分割](/guide/advanced/code-splitting.md) 。
 
 ## 高阶指南
+
+### 按需加载
+
+参考 [代码分割](/guide/advanced/code-splitting.md) 。
 
 ### HashHistory 与 BrowserHistory
 
@@ -256,4 +257,35 @@ export default = () => {
   const { id } = useParams();
   // console.log(id) // 123
 }
+```
+
+### 如何配置带 `.` 的路由比如 `/a.html`
+
+首先在 `build.json` 中开启配置项：
+
+```diff
+{
+  "devServer": {
++    "historyApiFallback": {
++      "disableDotRule": true
++    }
+  }
+}
+```
+
+接着按照路由规则配置即可：
+
+```diff
+// src/routes.ts
+import Home from '@/pages/Home';
+import About from '@/pages/About';
+
+export default [{
+  path: '/home',
+  component: Home,
+}, {
++  path: '/about.html',
++  exact: true,
++  component: About,
+}];
 ```
