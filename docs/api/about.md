@@ -368,7 +368,7 @@ export default withAuth(Foo)
 
 ### getInitialData
 
-获取通过 `app.getInitialData()` 返回的 initialData 数据。[详见](#通过-getinitialdata-消费)
+获取通过 `app.getInitialData()` 返回的 initialData 数据。[详见](/docs/guide/basic/app#全局异步获取数据并消费)
 
 ### lazy
 

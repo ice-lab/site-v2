@@ -52,7 +52,7 @@ MPA 应用以页面为维度进行划分，符合 `src/pages/*/[index|app].[ts|j
 
 如上结构，开启 mpa 之后将会包含 dashboard、about 两个 entry。
 
-## 不同的 entry 应用类型
+## 不同的页面 entry 类型
 
 pages 下的每个 entry 可以是一个单独的 SPA，也可以是简单的一个页面组件，具体可以结合业务情况使用。
 
@@ -136,24 +136,36 @@ export default function About() {
 }
 ```
 
-如果有 `export default` 那么框架会自动调用 `ReactDOM.render` 渲染组件，如果希望自行渲染组件的话则不需要通过 `export default` 导出组件。
 
-## 指定不同 entry 的 HTML 模板
+如果有 `export default` 的语法，那么框架会自动包裹 `runApp()` 进行页面渲染，包裹后的伪代码如下：
 
-默认情况下，entryName 为 dashboard 的入口会优先使用 `public/dashboard.html` 作为 HTML 模板，如果该文件不存在则会使用 `public/index.html` 兜底。
+```js
+// .ice/entries/about/index.tsx
+import { runApp } from 'ice';
+import About from '@/pages/About';
 
-同时 icejs 也支持通过 `template` 字段更加灵活的指定 HTML 模板：
-
-```json
-// build.json
-{
-  "mpa": {
-    "template": {
-      "web.html": ["Dashboard", "Home"],
-      "about.html": ["About"]
+runApp({
+  app: {
+    renderComponnet() {
+      return <About />;
     }
   }
+})
+```
+
+### 自定义渲染入口
+
+如果不希望框架自动包裹 `runApp()`，那么不要通过 `export default` 导出组件，直接使用 `ReactDOM.render()` 渲染即可。
+
+```js
+// src/pages/About/index.tsx
+import React from 'react';
+
+function About() {
+  return <>About 页面</>;
 }
+
+ReactDOM.render(<About />, document.getElementById('ice-container'));
 ```
 
 > 注意：通过 `entry` 字段配置的多页应用不支持配置 `mpa.template` 字段。
@@ -170,18 +182,17 @@ export default function About() {
 }
 ```
 
-### EJS 模版
+### 通过 ejs 语法定制不同页面的 html 内容
 
-默认情况下 MPA 使用 `public/index.html` 作为 HTML 模版，如果存在一些简单的差异化渲染逻辑，可以通过 EJS 语法进行渲染。
+默认情况下 MPA 使用 `public/index.html` 作为 HTML 模版，如果各个页面存在一些简单的差异化渲染逻辑，可以通过 EJS 语法进行渲染。
 
-可使用变量：
+ejs 可使用的模板变量：
 
 - NODE_ENV：可选值为 `development | production` 用来区分 start / build 命令
 - pageName：当前渲染页面的页面名称，默认为 src/pages 目录下的一级目录名（默认小写）
 
-html 中使用 EJS 语法：
-
 ```html
+<!-- public/index.html -->
 <!DOCTYPE html>
 <html>
   <head>
@@ -198,6 +209,24 @@ html 中使用 EJS 语法：
     <div id="ice-container"></div>
   </body>
 </html>
+```
+
+### 指定不同 entry 的 HTML 模板
+
+默认情况下，entryName 为 dashboard 的入口会优先使用 `public/dashboard.html` 作为 HTML 模板，如果该文件不存在则会使用 `public/index.html` 兜底。
+
+同时 icejs 也支持通过 `template` 字段更加灵活的指定 HTML 模板：
+
+```json
+// build.json
+{
+  "mpa": {
+    "template": {
+      "web.html": ["Dashboard", "Home"],
+      "about.html": ["About"]
+    }
+  }
+}
 ```
 
 ### 指定调试时浏览器默认打开的页面

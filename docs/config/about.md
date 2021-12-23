@@ -28,13 +28,6 @@ icejs 支持的工程配置项列表，所有配置项都在 [build.json 文件]
 }
 ```
 
-## entry <Support list="{['webpack', 'vite']}" />
-
-- 类型： `string`  | `object`  | `array`
-- 默认值：`src/app.[t|j]sx`
-
-icejs 中一般不建议修改该配置。
-
 ## alias <Support list="{['webpack', 'vite']}" />
 
 - 类型： `object`
@@ -122,7 +115,7 @@ icejs 中一般不建议修改该配置。
 }
 ```
 
-可以设置为 contenthash 的方式：
+也可以设置为 contenthash 的方式（Vite 模式不支持）：
 
 ```json
 {
@@ -468,6 +461,13 @@ ice.js 目前默认内置 less 4.x 版本，计算函数对于使用 '/' 的方�
 
 React Fast Refresh 能力，源码修改后无需手动刷新浏览器。
 
+## entry <Support list="{['webpack', 'vite']}" />
+
+- 类型： `string`  | `object`  | `array`
+- 默认值：`src/app.[t|j]sx`
+
+一般不建议配置该选项。
+
 ## vite <Support list="{['vite']}" /><Badge text="2.0.0" />
 
 - 类型：`boolean`
@@ -534,6 +534,13 @@ export default {
 
 开关权限能力。
 
+## request <Support list="{['webpack', 'vite']}" />
+
+- 类型：`boolean`
+- 默认值：`true`
+
+开关 request 相关能力，关闭后则无法从 `ice` 中导入 request/useRequest API。
+
 ## pwa <Support list="{['webpack']}" />
 
 - 类型：`boolean`
@@ -567,13 +574,7 @@ export default {
 - 类型：`boolean`
 - 默认值：`false`
 
-禁用所有运行时能力，包含 runApp/路由/状态管理/请求库/权限等。
-
-```json
-{
-  "disableRuntime": true
-}
-```
+禁用所有运行时能力，包含 runApp/路由/状态管理/请求库/权限等，关闭后则需要自行在 entry 中调用 `ReactDOM.render()`。
 
 ## tsChecker <Support list="{['webpack', 'vite']}" />
 

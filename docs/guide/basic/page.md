@@ -66,29 +66,26 @@ export default Home;
 
 ## 页面组件默认 props
 
-框架默认会传入路由相关的信息给页面组件，组件可以直接通过 props 访问：
+对于路由组件（即页面级组件），可通过组件 `props` 获取到如下属性：
+
+- `location`：当前路由的 location 对象，包含 `pathname`、`search`、`hash`、`state` 属性
+- `history`：详见 [history api](/api/about.md#history)
+- `searchParams`：当前 URL 的查询参数对象（需要开启 [parseSearchParams](/guide/basic/app.md#启动项配置)）
+- `match`：当前路由和 URL match 后的对象，包含 `path`、`url`、`params`、`isExact` 属性
+- `pageConfig`：在 `routes.ts` 中配置的页面 pageConfig 属性
 
 ```jsx
 // src/pages/Home/index.tsx
-import React from 'react';
+export default function Home(props) {
+  const { location, history, searchParams, match, pageConfig } = props;
+  const { foo } = pageConfig;
 
-const Home = (props) => {
-  const {
-    history,
-    location,
-    match,
-    searchParams,
-  } = props;
-
-  return (
-    <div>Home</div>
-  );
-};
-
-export default Home;
+  console.log(foo); // => bar
+  return <>Home</>;
+}
 ```
 
-参数说明请参考：[路由组件参数](/guide/basic/router.md#路由组件参数)
+对于非路由组件，组件内如想获取上述属性需要借助 [useHistory](/api/about.md#useHistory), [useLocation](/api/about.md#useLocation), [useParams](/api/about.md#useParams), [withRouter](/api/about.md#withRouter) 等 API。
 
 ## 页面组件静态方法
 
