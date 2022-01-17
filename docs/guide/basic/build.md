@@ -34,8 +34,8 @@ $ icejs start --help
 Usage: icejs start [options]
 
 Options:
-  -p, --port <port>      服务端口号
-  -h, --host <host>      服务主机名
+  --port <port>      服务端口号
+  --host <host>      服务主机名
   --config <config>      指定配置文件
   --https                支持开启 https
   --analyzer             支持开启构建分析
@@ -44,6 +44,7 @@ Options:
   --disable-mock         禁用 mock 服务
   --disable-open         禁止浏览器默认打开行为
   --disable-assets       禁止 Webpack assets 的输出
+  --force      移除构建缓存
 ```
 
 ### build
@@ -57,6 +58,7 @@ Options:
   --analyzer             同 start
   --analyzer-port <port> 同 start
   --config <config>      同 start
+  --force                同 start
 ```
 
 ## 工程构建配置
