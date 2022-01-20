@@ -5,7 +5,7 @@ order: 2
 
 import Support from '../../../src/components/Support'
 
-<Support list={['webpack']} />
+<Support list={['webpack', 'vite']} />
 
 icejs 支持服务端渲染（即 SSR）能力，开发者可以按需一键开启 SSR 的模式，相比于传统的客户端渲染，SSR 常用于两个场景：1. 有 SEO 诉求；2. 对首屏渲染速度要求比较高。相比于传统的 SSR 方案，icejs 提供的 SSR 能力具有以下特性：
 
@@ -106,7 +106,7 @@ export default Home;
 ```
 .
 ├── build/
-│   ├── loadable-stats.json
+│   ├── loadable-stats.json   // 可选，仅在 webpack 模式下存在
 |   └── server/
 └── app.js   // 服务端应用入口
 ```
@@ -124,6 +124,7 @@ const router = new Router();
 router.get('/', (ctx, next) => {
   const buildDir = path.join(__dirname, './build');
   const serverBundlePath = path.resolve(buildDir, 'server/index.js');
+  // vite 模式下不存在 loadable-stats.json，loadableStatsPath 传入 false 即可
   const webStatsPath = path.resolve(buildDir, 'loadable-stats.json');
 
   const serverRender = require(serverBundlePath);
