@@ -1,5 +1,5 @@
 ---
-title: 插件开发指南
+title: 开发指南
 order: 1
 ---
 
@@ -41,15 +41,15 @@ $ npm init ice <your-plugin-name> # 选择插件类型
 
 ## 工程能力定制
 
-工程能力以 `index.ts` 为入口，在执行 start/build 时 icejs 会加载并执行每个插件的 `index.js`。
+工程能力以 `src/index.ts` 为入口，在执行 start/build 时 icejs 会加载并执行每个插件包的入口文件。
 
-关于 `index.ts` 应该如何书写请参考下一个章节的文档 [通过插件定制工程能力](/plugin/develop/build.md)。
+关于工程能力如何定制请参考下一个章节的文档 [插件开发-定制工程能力](/plugin/develop/build.md)。
 
 ## 运行时能力定制
 
 运行时能力以 `runtime.ts` 为入口，通过浏览器打开页面时会执行 `src/app.ts` 中的 `runApp()` 方法，这个方法会加载并执行所有插件的 `runtime.ts`。
 
-关于 `runtime.ts` 应该如何书写请参考下一个章节的文档 [通过插件定制运行时能力](/plugin/develop/runtime.md)。
+关于 `runtime.ts` 应该如何书写请参考下一个章节的文档 [插件开发-定制运行时能力](/plugin/develop/runtime.md)。
 
 ## 单元测试
 

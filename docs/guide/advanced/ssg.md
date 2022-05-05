@@ -6,7 +6,7 @@ order: 3
 import Support from '../../../src/components/Support'
 import Badge from '../../../src/components/Badge'
 
-<Support list={['webpack']} /><Badge text="2.0.0" />
+<Support list={['webpack', 'vite']} /><Badge text="2.0.0" />
 
 icejs 提供构建时预渲染方案，即在构建时渲染页面组件并生成静态的 HTML 文件，以更好解决以下的业务场景：
 

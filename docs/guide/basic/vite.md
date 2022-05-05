@@ -48,7 +48,7 @@ icejs 提供了非常完备的功能，目前部分能力尚未支持 Vite 模�
 
 ![](https://img.alicdn.com/imgextra/i1/O1CN01sG8QCA1z4KWtajo8e_!!6000000006660-2-tps-426-48.png)
 
-这种情况一般是因为使用了不规范的 npm 包：一个文件里混用了 ESM(import) 和 CJS(equire)，这种情况需要对应的 npm 包进行规范化修改。通过以下方式可以快速排查出是哪个 npm 包导致的：
+这种情况一般是因为使用了不规范的 npm 包：一个文件里混用了 ESM(import) 和 CJS(require)，这种情况需要对应的 npm 包进行规范化修改。通过以下方式可以快速排查出是哪个 npm 包导致的：
 
 1. 在 `build.json` 中添加 `minify: false` 选项禁止构建时压缩
 2. 执行 `npm run build` 进行构建

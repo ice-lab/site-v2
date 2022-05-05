@@ -43,15 +43,6 @@ icejs 支持区分不同环境，开发者可根据环境区分**工程配置**�
 }
 ```
 
-同时在本地插件 `build.plugin.js` 也可以从 context 上获取到当前 mode：
-
-```js
-module.exports = ({ context }) => {
-  const { command, commandArgs } = context;
-  const mode = commandArgs.mode || command;
-};
-```
-
 ## 区分运行时配置
 
 在定义好环境之后，前端代码中即可通过 `APP_MODE` 拿到当前环境：

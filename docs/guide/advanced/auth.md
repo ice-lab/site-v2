@@ -1,5 +1,5 @@
 ---
-title: 权限管理
+title: 权限管理 Auth
 order: 9
 ---
 
@@ -68,28 +68,28 @@ export default [
 export default routerConfig;
 ```
 
-## 操作权限
+切换路由的时候框架会结合权限数据判断是否有权限，如果没权限则会渲染无权限的 UI，无权限 UI 可以通过 `appConfig.auth` 来指定：
+
+```tsx
+// src/app.ts
+import { runApp } from 'ice';
+
+runApp({
+  auth: {
+    NoAuthFallback: ({ location, history, pageConfig }) => {
+      return <>无权限</>;
+    },
+  },
+});
+```
+
+`NoAuthFallback` 接受到的 props 跟页面路由组件保持一致，具体请参考：[页面组件默认 props](/guide/basic/page.md#页面组件默认-props) 。
+
+## 操作类权限
 
 在某些场景下，如某个组件中要根据角色判断是否有操作权限，我们可以通过 `useAuth` Hooks 在组件中获取权限数据，同时也可以更新初始的权限数据。
 
-### 获取权限数据
-
-```tsx
-import React from 'react';
-import { useAuth } from 'ice';
-
-function Foo() {
-  const [auth] = useAuth();
-  return (
-    <>
-      当前用户权限数据：
-      <code>{JSON.stringify(auth)}</code>
-    </>
-  );
-}
-```
-
-### 设置权限数据
+### 读取/设置权限数据
 
 ```tsx
 import React from 'react';
@@ -105,8 +105,10 @@ function Foo() {
 
   return (
     <>
-      当前用户角色：
-      <code>{JSON.stringify(auth)}</code>
+      <div>
+        <div>starRepo auth: {auth.starRepo}</div>
+        <div>followRepo auth: {auth.followRepo}</div>
+      </div>
       <button type="button" onClick={updateAuth}>
         更新权限
       </button>
@@ -120,25 +122,16 @@ function Foo() {
 对于操作类权限，通常我们可以自定义封装权限组件，以便更细粒度的控制权限和复用。
 
 ```ts
+// src/components/Auth
 import React from 'react';
 import { useAuth } from 'ice';
-import NoAuth from '@/components/NoAuth';
 
-function Auth({ children, authKey, fallback }) {
+export default function Auth({ children, authKey }) {
   const [auth] = useAuth();
-  // 判断是否有权限
   const hasAuth = auth[authKey];
 
-  // 有权限时直接渲染内容
-  if (hasAuth) {
-    return children;
-  } else {
-    // 无权限时显示指定 UI
-    return fallback || NoAuth;
-  }
+  return hasAuth ? children : null;
 }
-
-export default Auth;
 ```
 
 使用如下：
