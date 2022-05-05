@@ -77,4 +77,4 @@ icejs、Next.js、UmiJS 都是同一个层面的解决方案，不同方案都�
 **阿里内部同学请搜索「飞冰（ICE）万能群」，社区同学请扫以下二维码**<br />
 **阿里内部同学请搜索「飞冰（ICE）万能群」，社区同学请扫以下二维码**<br />
 
-  <img src="http://ice.alicdn.com/assets/images/qrcode.png" width="300" />
+  <img src="https://ice.alicdn.com/assets/images/qrcode.png" width="300" />

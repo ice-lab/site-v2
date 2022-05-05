@@ -23,9 +23,7 @@ const config = {
     algolia: {
       apiKey: '01f284e7e1c13eac3dc14beb6d8b153d',
       indexName: 'ice',
-    },
-    gtag: {
-      trackingID: 'G-QZ0FEKY38G',
+      appId: 'X14VR8TBX5',
     },
   },
   presets: [
@@ -39,6 +37,9 @@ const config = {
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
+        },
+        gtag: {
+          trackingID: 'G-QZ0FEKY38G',
         },
       },
     ],
