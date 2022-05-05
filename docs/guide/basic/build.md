@@ -72,6 +72,8 @@ Options:
 }
 ```
 
+当下支持的基础配置项请参考文档：[配置](/config/about.md)。
+
 如果希望使用 JS 类型的配置文件，则需要在 npm scripts 中指定配置文件：
 
 ```json
@@ -91,12 +93,7 @@ module.exports = {
     env: process.env.NODE_ENV,
   },
   plugins: [
-    [
-      'build-plugin-fusion',
-      {
-        themePackage: '@icedesign/theme',
-      },
-    ],
+    'build-plugin-moment-locales',
     (api) => {
       api.onGetWebpackConfig((config) => {
         config.entry('src/index.js');
@@ -106,7 +103,7 @@ module.exports = {
 };
 ```
 
-当下支持的基础配置项请参考文档：[配置](/config/about.md)。
+> 同时也支持 `build.config.ts`
 
 ## 进阶配置
 
@@ -143,7 +140,15 @@ function Example() {
 
 如果基础配置和已有插件都无法支持业务需求，可以通过自定义配置来实现，自定义配置同时也是一个 Webpack 插件。
 
-首先新建 `build.plugin.js`  文件作为一个自定义插件，然后写入以下代码：
+首先新建 `build.plugin.js` 并在 `build.json` 中引入：
+
+```json
+{
+  "plugins": ["build-plugin-ice-app", "./build.plugin.js"]
+}
+```
+
+`build.plugin.js` 内容如下：
 
 ```js
 module.exports = ({ context, onGetWebpackConfig }) => {
@@ -151,15 +156,7 @@ module.exports = ({ context, onGetWebpackConfig }) => {
 };
 ```
 
-插件内部代码写法可以参考文档 [通过插件定制工程能力](/plugin/develop/build.md)。
-
-最后在 `build.json`  里引入自定义插件即可：
-
-```json
-{
-  "plugins": ["build-plugin-ice-app", "./build.plugin.js"]
-}
-```
+插件内部代码写法可以参考文档 [插件开发-定制工程能力](/plugin/develop/build.md)。
 
 ## 调试
 

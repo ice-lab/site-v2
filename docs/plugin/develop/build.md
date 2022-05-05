@@ -1,12 +1,12 @@
 ---
-title: 通过插件定制工程能力
+title: 定制工程能力
 order: 2
 ---
 
-插件工程能力通过 `src/index.ts` 定义，结构如下
-
+工程定制入口代码如下：
 
 ```javascript
+// 本地插件则对应 build.plugin.js 文件，独立的插件 NPM 包则对应 `src/index.ts` 文件
 module.exports = ({ context, onGetWebpackConfig, log, onHook, ...rest }, options) => {
   // 第一项参数为插件 API 提供的能力
   // options：插件自定义参数
@@ -21,10 +21,10 @@ module.exports = ({ context, onGetWebpackConfig, log, onHook, ...rest }, options
 
 ### context
 
-包含运行时的各种环境信息：
+包含各种环境信息：
 
 - `command` 当前运行命令，start/build/test
-- `commandArgs` script 命令执行时接受到的参数
+- `commandArgs` 命令行参数
 - `rootDir` 项目根目录
 - `userConfig` 用户在 build.json 中配置的内容
 - `pkg` 项目 package.json 中的内容

@@ -15,11 +15,6 @@ module.exports = {
       label: '指南',
     },
     {
-      to: '/docs/guide/basic/vite',
-      position: 'right',
-      label: 'Vite 模式 🔥',
-    },
-    {
       to: '/docs/config/about',
       position: 'right',
       label: '配置',
@@ -32,10 +27,15 @@ module.exports = {
     {
       position: 'right',
       label: '插件',
-      to: '/docs/plugin/list/moment-locales'
+      to: '/docs/plugin/develop/start'
     },
     {
-      label: '官方生态',
+      position: 'right',
+      label: '示例',
+      to: '/docs/examples/antd'
+    },
+    {
+      label: '生态',
       position: 'right',
       items: [
         {
@@ -51,18 +51,18 @@ module.exports = {
           to: 'https://appworks.site/materials/about.html',
         },
         {
-          label: '环境管理 AppToolkit',
+          label: '前端环境 AppToolkit',
           to: 'https://github.com/appworks-lab/toolkit#readme',
         },
       ],
     },
     {
-      label: '更多资源',
+      label: '资源',
       position: 'right',
       items: [
         {
           to: 'https://fusion.design/pc/doc/component/102',
-          label: 'Fusion 组件',
+          label: 'fusion 组件',
         },
         {
           to: 'https://ant.design',
@@ -73,12 +73,12 @@ module.exports = {
           label: '国内镜像站点',
         },
         {
-          label: '前端基础',
-          to: '/docs/resource/front-basic',
+          label: '社区钉钉群',
+          to: 'https://iceworks.oss-cn-hangzhou.aliyuncs.com/assets/images/ice-group.png',
         },
         {
-          label: '前端环境',
-          to: '/docs/resource/front-env',
+          label: '阿里内部钉钉群',
+          to: 'https://iceworks.oss-cn-hangzhou.aliyuncs.com/assets/images/ice-group-inside.JPG',
         },
       ],
     },

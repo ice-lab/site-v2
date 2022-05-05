@@ -1,5 +1,5 @@
 ---
-title: 菜单配置
+title: 菜单配置 Menu
 order: 9
 ---
 
