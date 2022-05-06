@@ -21,7 +21,7 @@ const config = {
     navbar,
     footer,
     algolia: {
-      apiKey: '01f284e7e1c13eac3dc14beb6d8b153d',
+      apiKey: '9f94c7d8e513c03a12532232800728e1',
       indexName: 'ice',
       appId: 'X14VR8TBX5',
     },
