@@ -43,7 +43,6 @@
     "axios": "^0.21.1",
     "fs-extra": "^10.0.0",
     "glob": "^7.1.7",
-    "gray-matter": "^4.0.3",
-    "nodejieba": "^2.5.2"
+    "gray-matter": "^4.0.3"
   }
 }
