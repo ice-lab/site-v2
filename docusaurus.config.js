@@ -61,4 +61,12 @@ if (process.env.USE_LOCAL_SEARCH) {
   ]);
 }
 
+try {
+  const getDefCloudInfo = require('@ali/get-def-cloud-info');
+  const { baseUrl } = getDefCloudInfo();
+
+  config.baseUrl = baseUrl;
+  console.log('set def baseurl', baseUrl);
+} catch(err) {}
+
 module.exports = config;
