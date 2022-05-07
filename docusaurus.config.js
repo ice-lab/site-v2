@@ -45,8 +45,7 @@ const config = {
     ],
   ],
   plugins: [
-    require.resolve("./plugins/redirect.js"),
-    require.resolve("./plugins/publicPath.js"),
+    require.resolve("./plugins/redirect.js")
   ]
 };
 
