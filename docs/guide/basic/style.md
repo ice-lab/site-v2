@@ -25,7 +25,7 @@ body {
 
 ## 全局样式
 
-对于整个项目的全局样式，统一定义在 `src/global.[scss|less|scss]` 文件中，框架会默认引入该文件：
+对于整个项目的全局样式，统一定义在 `src/global.[scss|less|css]` 文件中，框架会默认引入该文件：
 
 ```css
 body {
