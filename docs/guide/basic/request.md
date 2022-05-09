@@ -152,7 +152,7 @@ export default function HomePage() {
 request 基于 axios 进行封装，在使用上整体与 axios 保持一致，差异点：
 
 1. 默认只返回服务端响应的数据 `Response.data`，而不是整个 Response，如需返回整个 Response 请通过 `withFullResponse` 参数开启
-2. 在 axios 基础上默认支持了多请求示例的能力
+2. 在 axios 基础上默认支持了多请求实例的能力
 
 使用方式如下：
 
