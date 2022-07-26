@@ -122,7 +122,7 @@ import { Prompt } from 'ice';
 const PromptMessage = () => {
   return (
     <>
-      {/* 用户离开页面时给出曲儿提示 */}
+      {/* 用户离开页面时给出确认提示 */}
       <Prompt message="你确定要离开吗？" />
     </>
   );
