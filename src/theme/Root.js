@@ -7,12 +7,15 @@ import styles from './Root.module.css';
 const NO_REDIRECT_KEY = 'no-redirect-internal';
 const STORAGE_VALID_TIME = 7 * (24 * 60 * 60 * 1000);
 
-isInternal().then(() => {
-  const script = document.createElement('script');
-  script.src = 'https://links.alibaba-inc.com/widgetInit/5f717ef787f98104f34edc18';
-  script.async = true;
-  document.body.appendChild(script);
-});
+// isWeb
+if (typeof window !== 'undefined') {
+  isInternal().then(() => {
+    const script = document.createElement('script');
+    script.src = 'https://links.alibaba-inc.com/widgetInit/5f717ef787f98104f34edc18';
+    script.async = true;
+    document.body.appendChild(script);
+  });
+}
 
 // Default implementation, that you can customize
 function Root({ children }) {
