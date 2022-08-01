@@ -1,10 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import storage from '../utils/storage';
+import { isInternal } from '../utils/internal';
 import styles from './Root.module.css';
 
 const NO_REDIRECT_KEY = 'no-redirect-internal';
 const STORAGE_VALID_TIME = 7 * (24 * 60 * 60 * 1000);
+
+isInternal().then(() => {
+  const script = document.createElement('script');
+  script.src = 'https://links.alibaba-inc.com/widgetInit/5f717ef787f98104f34edc18';
+  script.async = true;
+  document.body.appendChild(script);
+});
 
 // Default implementation, that you can customize
 function Root({ children }) {
@@ -16,19 +24,9 @@ function Root({ children }) {
       return;
     }
 
-    const privateURL =
-      'https://private-alipayobjects.alipay.com/alipay-rmsdeploy-image/rmsportal/VmvVUItLdPNqKlNGuRHi.png?r=' +
-      Date.now();
-    const img = new Image();
-
-    img.onload = () => {
+    isInternal().then(() => {
       setNoticeVisible(true);
-    };
-
-    img.src = privateURL;
-    setTimeout(() => {
-      img.src = null;
-    }, 1000);
+    });
   }, []);
 
   return (
