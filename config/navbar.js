@@ -6,6 +6,11 @@ module.exports = {
   },
   items: [
     {
+      to: 'https://v3.ice.work',
+      position: 'right',
+      label: 'ICE 3 Beta 🔥',
+    },
+    {
       type: 'search',
       position: 'right',
     },
@@ -14,11 +19,11 @@ module.exports = {
       position: 'right',
       label: '指南',
     },
-    {
-      to: '/docs/guide/basic/vite',
-      position: 'right',
-      label: 'Vite 模式 🔥',
-    },
+    // {
+    //   to: '/docs/guide/basic/vite',
+    //   position: 'right',
+    //   label: 'Vite 模式 🔥',
+    // },
     {
       to: '/docs/config/about',
       position: 'right',

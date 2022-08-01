@@ -13,11 +13,11 @@ const config = {
   organizationName: 'alibaba',
   projectName: 'ice',
   themeConfig: {
-    announcementBar: {
-      id: 'announcementBar-2',
-      content: 'icejs 2.0 版本已发布，支持 Webpack 5 和 Vite 两种构建模式，点击 <a href="/docs/guide/upgrade">快速升级</a>',
-      isCloseable: true,
-    },
+    // announcementBar: {
+    //   id: 'announcementBar-2',
+    //   content: 'icejs 2.0 版本已发布，支持 Webpack 5 和 Vite 两种构建模式，点击 <a href="/docs/guide/upgrade">快速升级</a>',
+    //   isCloseable: true,
+    // },
     navbar,
     footer,
     algolia: {
