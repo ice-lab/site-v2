@@ -10,7 +10,7 @@ export function isInternal() {
   if (pending === false) {
     pending = true;
     return new Promise((resolve) => {
-      const img = new Image();
+      const img = document.createElement('img');
       img.onload = () => {
         resolve();
         window.dispatchEvent(new CustomEvent(EVENT_NAME));
