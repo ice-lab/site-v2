@@ -27,7 +27,7 @@ function Root({ children }) {
       return;
     }
 
-    isInternal().then(() => {
+    isIntranet().then(() => {
       setNoticeVisible(true);
     });
   }, []);
