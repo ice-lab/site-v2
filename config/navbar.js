@@ -5,11 +5,11 @@ module.exports = {
     src: 'img/logo.png',
   },
   items: [
-    {
-      to: 'https://v3.ice.work',
-      position: 'right',
-      label: 'ICE 3 Beta 🔥',
-    },
+//     {
+//       to: 'https://v3.ice.work',
+//       position: 'right',
+//       label: 'ICE 3 Beta 🔥',
+//     },
     {
       type: 'search',
       position: 'right',
