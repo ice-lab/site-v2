@@ -66,3 +66,4 @@ request({
 
 1. **推荐**：通过 icejs 插件 [build-plguin-smart-debug](/plugin/list/smart-debug.md)
 2. [chrome 插件 xswitch](https://github.com/yize/xswitch)
+3. [lightProxy](https://github.com/alibaba/lightproxy)
