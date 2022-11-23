@@ -38,7 +38,7 @@ icejs 持续为应用提供优秀的性能体验，借助 ice.js 提供的 PWA �
 ```json
 {
   "pwa": {
-    "sw": "service-workder.js",
+    "sw": "service-worker.js",
     ... // 其他配置项
   }
 }
